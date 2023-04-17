@@ -8,6 +8,9 @@ const ButtonCompo = styled.button`
   border-radius: 3px;
   font-size: 14px;
   padding: 10px;
+  /* white-space: nowrap; */
+  cursor: pointer;
+  display: inline-block;
 `;
 const AskQuestionBtn = () => {
   return (
