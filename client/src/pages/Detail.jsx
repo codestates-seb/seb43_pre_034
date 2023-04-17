@@ -1,5 +1,9 @@
 import styled from "styled-components";
 import { AskQuestionBtn } from "../components/common/Buttons";
+import {
+  VotingContainer,
+  VotingOnlyAuthor,
+} from "../components/QuestionDetail/VotingCompo";
 const DetailPage = styled.div`
   max-width: 1051px;
   @media ${({ theme }) => theme.breakpoints.mobileMax} {
@@ -69,6 +73,8 @@ function Detail() {
           </p>
         </div>
       </DetailHeader>
+      <VotingContainer />
+      <VotingOnlyAuthor />
     </DetailPage>
   );
 }
