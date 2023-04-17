@@ -4,6 +4,7 @@ import Layout from "./layout";
 
 // pages
 import Home from "./pages/Home";
+// import Detail from "./pages/Detail";
 
 const Container = styled.div`
   display: flex;
@@ -21,6 +22,7 @@ function App() {
           <Route path="/" element={<Home />} />
         </Routes>
       </Layout>
+      {/* <Detail /> */}
     </Container>
   );
 }
