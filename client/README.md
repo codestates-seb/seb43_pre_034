@@ -52,7 +52,7 @@
 - `dev` : `fe` / `be` 작업 테스트 병합 브랜치
 - `fe` : Front-End 개발 브랜치
 - `be` : Back-End 개발 브랜치
-- `fe-feat/기능명 ` | `fe-feat/페이지명` : 상세 개발 브랜치 
+- `fe-feat/기능명` | `fe-feat/페이지명` : 상세 개발 브랜치 
 
 ### Git 저장소 이용법 
 로컬에서 작업 후 개인 branch Push
