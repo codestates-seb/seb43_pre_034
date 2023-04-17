@@ -1,5 +1,4 @@
 import styled from "styled-components";
-
 const DetailPage = styled.div`
   border: 2px solid black;
   @media ${({ theme }) => theme.breakpoints.mobileMax} {
