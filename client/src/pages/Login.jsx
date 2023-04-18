@@ -13,6 +13,7 @@ const LoginSection = styled.section`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  box-sizing: border-box;
   .logo {
     width: 48px;
     height: 37px;
@@ -79,11 +80,16 @@ const LoginBox = styled.div`
   }
 `;
 
+//이메일 로그인 폼
 const LoginForm = styled.form`
   display: flex;
   flex-direction: column;
-  width: 90%;
+  width: 84%;
+  margin: 0 8%;
 `;
+
+//로그인 인풋
+const LoginInput = styled.input``;
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -111,7 +117,7 @@ const Login = () => {
       <LoginBox>
         <LoginForm onSubmit={handleSubmit}>
           <span>Email</span>
-          <input
+          <LoginInput
             type="text"
             placeholder=""
             value={email}
@@ -121,7 +127,7 @@ const Login = () => {
             <span>Password</span>
             <span>Forgot password?</span>
           </div>
-          <input
+          <LoginInput
             type="password"
             placeholder=""
             value={password}

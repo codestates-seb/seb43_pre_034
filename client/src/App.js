@@ -6,7 +6,8 @@ import NavBar from "./layout/NavBar";
 // pages
 import Home from "./pages/Home";
 import AskQuestion from "./pages/AskQuesion";
-
+import Login from "./pages/Login";
+import Detail from "./pages/Detail";
 
 const Container = styled.div`
   display: flex;
@@ -19,17 +20,18 @@ const Container = styled.div`
 function App() {
   return (
     <Container>
-      <Login />
-      {/* <Layout>
+      <Layout>
         <Routes>
           {/* NavBar 특정 페이지만 보이기 */}
           <Route element={<NavBar />}>
             <Route path="/" element={<Home />} />
+            <Route path="/questions" element={<Detail />} />
           </Route>
           {/* NavBar 특정 페이지 숨기기 */}
           <Route path="/question/ask" element={<AskQuestion />} />
+          <Route path="/users/login" element={<Login />} />
         </Routes>
-      </Layout> */}
+      </Layout>
     </Container>
   );
 }
