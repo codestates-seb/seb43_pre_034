@@ -29,8 +29,8 @@ const PostAnswerBtn = () => {
 };
 
 const ButtonLogin = styled.button`
-  width: 250px;
-  height: 33px;
+  width: 278px;
+  height: 37px;
   border-radius: 5px;
   border: none;
 `;
