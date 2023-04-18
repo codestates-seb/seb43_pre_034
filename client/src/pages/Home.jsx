@@ -1,15 +1,19 @@
 import styled from "styled-components";
+import ContentHead from "../components/MainPage/ContentHead";
 
 const Container = styled.div`
   flex: 0 1 calc(1264px - 164px);
   display: flex;
-  height: 200px;
-  background: black;
-  border: 2px solid yellow;
+  height: 100vh;
+  background: white;
 `;
 
 const Home = () => {
-  return <Container></Container>;
+  return (
+    <Container>
+      <ContentHead></ContentHead>
+    </Container>
+  );
 };
 
 export default Home;

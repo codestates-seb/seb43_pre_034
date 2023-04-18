@@ -28,4 +28,16 @@ const PostAnswerBtn = () => {
   );
 };
 
-export { AskQuestionBtn, PostAnswerBtn };
+const ButtonLogin = styled.button`
+  width: 278px;
+  height: 37px;
+  border-radius: 5px;
+  border: none;
+  margin-bottom: 10px;
+`;
+
+const LoginBtn = ({ children, ...rest }) => {
+  return <ButtonLogin {...rest}>{children}</ButtonLogin>;
+};
+
+export { AskQuestionBtn, PostAnswerBtn, LoginBtn };

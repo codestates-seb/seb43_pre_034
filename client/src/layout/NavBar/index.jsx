@@ -3,7 +3,7 @@ import { GlobeSVG } from "../../assets/NavSvg";
 import { Outlet } from "react-router";
 
 const Container = styled.div`
-  max-width: width: ${(props) => props.theme.widthSize.contentMax};
+  max-width: ${(props) => props.theme.widthSize.contentMax};
   display: flex;
   justify-content: center;
   width: 100%;
@@ -19,7 +19,6 @@ const NavOl = styled.ol`
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   color: #6a737c;
   font-size: 11px;
 
