@@ -33,6 +33,7 @@ const ButtonLogin = styled.button`
   height: 37px;
   border-radius: 5px;
   border: none;
+  margin-bottom: 10px;
 `;
 
 const LoginBtn = ({ children, ...rest }) => {
