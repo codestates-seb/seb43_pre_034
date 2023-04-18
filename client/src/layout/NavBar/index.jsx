@@ -19,7 +19,6 @@ const NavOl = styled.ol`
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   color: #6a737c;
   font-size: 11px;
 
