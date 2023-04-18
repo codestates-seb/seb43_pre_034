@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { IoMdArrowDropup, IoMdArrowDropdown } from "react-icons/io";
+import { TiArrowSortedUp, TiArrowSortedDown } from "react-icons/ti";
 import { BsBookmark } from "react-icons/bs";
 import { BiHistory } from "react-icons/bi";
 import { ImCheckmark } from "react-icons/im";
@@ -9,18 +9,26 @@ const VotingCompo = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  font-size: 100%;
+  font-size: 22px;
   width: 40px;
   margin-right: 16px;
+  color: #6a737c;
+  > * {
+    margin-bottom: 15px;
+  }
+  .icons {
+    font-size: 18px;
+    font-weight: bold;
+  }
 `;
 const VotingContainer = () => {
   return (
     <VotingCompo>
-      <IoMdArrowDropup size="36px" />
+      <TiArrowSortedUp />
       <p>0</p>
-      <IoMdArrowDropdown size="36px" />
-      <BsBookmark />
-      <BiHistory />
+      <TiArrowSortedDown />
+      <BsBookmark className="icons" />
+      <BiHistory className="icons" />
     </VotingCompo>
   );
 };
@@ -28,12 +36,12 @@ const VotingContainer = () => {
 const VotingOnlyAuthor = () => {
   return (
     <VotingCompo>
-      <IoMdArrowDropup />
+      <TiArrowSortedUp />
       <p>0</p>
-      <IoMdArrowDropdown />
-      <BsBookmark />
+      <TiArrowSortedDown />
+      <BsBookmark className="icons" />
       <ImCheckmark />
-      <BiHistory />
+      <BiHistory className="icons" />
     </VotingCompo>
   );
 };
