@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { Routes, Route } from "react-router-dom";
 import Layout from "./layout";
+// import Login from "./pages/Login";
 
 // pages;
 import Home from "./pages/Home";

@@ -29,16 +29,8 @@ const PostAnswerBtn = () => {
 };
 
 const ButtonLogin = styled.button`
-  height: 38px;
-  background-color: #0a95ff;
-  color: white;
-  border: none;
-  border-radius: 3px;
-  font-size: 14px;
-  padding: 10px;
-  white-space: nowrap;
-  cursor: pointer;
-  display: inline-block;
+  width: 278px;
+  height: 37px;
 `;
 
 const LoginBtn = ({children,...rest}) => {
