@@ -1,10 +1,9 @@
 import styled from "styled-components";
-// import { Routes, Route } from "react-router-dom";
-// import Layout from "./layout";
+import { Routes, Route } from "react-router-dom";
+import Layout from "./layout";
 
-// pages
-// import Home from "./pages/Home";
-import Detail from "./pages/Detail";
+// pages;
+import Home from "./pages/Home";
 
 const Container = styled.div`
   display: flex;
@@ -17,12 +16,11 @@ const Container = styled.div`
 function App() {
   return (
     <Container>
-      {/* <Layout>
+      <Layout>
         <Routes>
           <Route path="/" element={<Home />} />
         </Routes>
-      </Layout> */}
-      <Detail />
+      </Layout>
     </Container>
   );
 }
