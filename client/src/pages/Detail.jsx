@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { AskQuestionBtn } from "../components/common/Buttons";
+import { VotingContainer } from "../components/QuestionDetail/VotingCompo";
 const DetailPage = styled.div`
   max-width: 1051px;
   @media ${({ theme }) => theme.breakpoints.mobileMax} {
@@ -50,6 +51,22 @@ const DetailHeader = styled.div`
   }
 `;
 
+const DetailBodyCon = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-top: 20px;
+  width: 100%;
+`;
+const DetailBody = () => {
+  return (
+    <DetailBodyCon>
+      <VotingContainer />
+      <div>
+        <p>hihihihihihihihihiii</p>
+      </div>
+    </DetailBodyCon>
+  );
+};
 function Detail() {
   return (
     <DetailPage>
@@ -70,6 +87,7 @@ function Detail() {
           </p>
         </div>
       </DetailHeader>
+      <DetailBody />
     </DetailPage>
   );
 }
