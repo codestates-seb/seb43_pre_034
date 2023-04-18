@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { GlobeSVG } from "../../assets/NavSvg";
+import { GlobeSVG } from "../../assets/NavSvg";
 
 const NavBarContainer = styled.nav`
   display: flex;
