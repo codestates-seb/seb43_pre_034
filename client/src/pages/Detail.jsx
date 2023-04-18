@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { AskQuestionBtn } from "../components/common/Buttons";
 import { VotingContainer } from "../components/QuestionDetail/VotingCompo";
+import { SideBar } from "../components/common/Sidebar";
+
 const DetailPage = styled.div`
   max-width: 1051px;
   @media ${({ theme }) => theme.breakpoints.mobileMax} {
@@ -51,19 +53,23 @@ const DetailHeader = styled.div`
   }
 `;
 
-const DetailBodyCon = styled.div`
+const DetailBodyCon = styled.section`
   display: flex;
   flex-direction: row;
   margin-top: 20px;
   width: 100%;
+  section {
+    width: 100%;
+  }
 `;
 const DetailBody = () => {
   return (
     <DetailBodyCon>
       <VotingContainer />
-      <div>
+      <section>
         <p>hihihihihihihihihiii</p>
-      </div>
+      </section>
+      <SideBar />
     </DetailBodyCon>
   );
 };
@@ -75,7 +81,7 @@ function Detail() {
           <h1>Angular disable button if variables are empty</h1>
           <AskQuestionBtn />
         </div>
-        <div className="question-info">
+        <section className="question-info">
           <p>
             Asked <span className="span">3 days ago</span>
           </p>
@@ -85,7 +91,7 @@ function Detail() {
           <p>
             Viewed <span className="span">62 times</span>
           </p>
-        </div>
+        </section>
       </DetailHeader>
       <DetailBody />
     </DetailPage>
