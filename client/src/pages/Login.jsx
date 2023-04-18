@@ -6,31 +6,47 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // 서버에 입력한 이메일과 비밀번호 전송하는 로직
+    
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="email">이메일</label>
-        <input
-          type="email"
-          id="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-      </div>
-      <div>
-        <label htmlFor="password">비밀번호</label>
-        <input
-          type="password"
-          id="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </div>
-      <button type="submit">로그인</button>
-    </form>
+    <>
+      <section>
+        <div>
+            <button>Log in with Google</button>
+            <button>Log in with Github</button>
+            <button>Log in with Facebook</button>
+            <div>
+                <form onSubmit={handleSubmit}>
+                <label>Email</label>
+                <Input
+                    type="text"
+                    placeholder=""
+                    value={email}
+                    onChange={(event) => setEmail(event.target.value)}
+                    hasError={emailError !== ""}
+                />
+                {emailError && <span>{emailError}</span>}
+                <div>
+                    <label>Password</label>  
+                    <span>Forgot password?</span>
+                </div>
+                    <Input
+                        type="password"
+                        placeholder=""
+                        value={password}
+                        onChange={(event) => setPassword(event.target.value)}
+                        hasError={passwordError !== ""}
+                    />
+                    {passwordError && <ErrorMessage>{passwordError}</ErrorMessage>}
+                    <button type="submit">Log in</button>
+                    </form>
+                    <span>Don’t have an account? <span>Sign up</span></span>
+                    <span>Are you an employer? <span>Sign up on Talent</span></span>
+                </div>
+            </div>
+        </section>
+    </>
   );
 };
 
