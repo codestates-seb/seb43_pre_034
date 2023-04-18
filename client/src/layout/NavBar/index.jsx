@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { GlobeSVG } from "../../assets/NavSvg";
+import { GlobeSVG } from "../../assets/NavSvg";
 
 const NavBarContainer = styled.nav`
   display: flex;
@@ -27,6 +27,7 @@ const NavOl = styled.ol`
     font-size: 400;
     padding: 0.6rem 0.5rem 0.6rem 2rem;
   }
+
   .selcted {
     color: #0c0d0e;
     font-weight: bold;
