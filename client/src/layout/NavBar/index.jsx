@@ -1,9 +1,17 @@
 import styled from "styled-components";
 import { GlobeSVG } from "../../assets/NavSvg";
+import { Outlet } from "react-router";
+
+const Container = styled.div`
+  max-width: ${(props) => props.theme.widthSize.contentMax};
+  display: flex;
+  justify-content: center;
+  width: 100%;
+`;
 
 const NavBarContainer = styled.nav`
+  flex: 0 0 ${(props) => props.theme.widthSize.navbar};
   display: flex;
-  width: ${(props) => props.theme.widthSize.navbar};
 `;
 
 const NavOl = styled.ol`
@@ -27,6 +35,7 @@ const NavOl = styled.ol`
     font-size: 400;
     padding: 0.6rem 0.5rem 0.6rem 2rem;
   }
+
   .selcted {
     color: #0c0d0e;
     font-weight: bold;
@@ -40,18 +49,21 @@ const NavOl = styled.ol`
 
 const NavBar = () => {
   return (
-    <NavBarContainer>
-      <NavOl>
-        <li className="title">PUBLIC</li>
-        <li className="common selcted">
-          <GlobeSVG />
-          Questions
-        </li>
-        <li className="common">Tags</li>
-        <li className="common">Users</li>
-        <li className="common">Companies</li>
-      </NavOl>
-    </NavBarContainer>
+    <Container>
+      <NavBarContainer>
+        <NavOl>
+          <li className="title">PUBLIC</li>
+          <li className="common selcted">
+            <GlobeSVG />
+            Questions
+          </li>
+          <li className="common">Tags</li>
+          <li className="common">Users</li>
+          <li className="common">Companies</li>
+        </NavOl>
+      </NavBarContainer>
+      <Outlet />
+    </Container>
   );
 };
 

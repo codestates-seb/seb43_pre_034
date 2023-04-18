@@ -1,10 +1,12 @@
 import styled from "styled-components";
-// import { Routes, Route } from "react-router-dom";
-// import Layout from "./layout";
+import { Routes, Route } from "react-router-dom";
+import Layout from "./layout";
+import NavBar from "./layout/NavBar";
 
-// // pages
-// import Home from "./pages/Home";
-import Login from "./pages/Login";
+// pages
+import Home from "./pages/Home";
+import AskQuestion from "./pages/AskQuesion";
+
 
 const Container = styled.div`
   display: flex;
@@ -20,7 +22,12 @@ function App() {
       <Login />
       {/* <Layout>
         <Routes>
-          <Route path="/" element={<Home />} />
+          {/* NavBar 특정 페이지만 보이기 */}
+          <Route element={<NavBar />}>
+            <Route path="/" element={<Home />} />
+          </Route>
+          {/* NavBar 특정 페이지 숨기기 */}
+          <Route path="/question/ask" element={<AskQuestion />} />
         </Routes>
       </Layout> */}
     </Container>
