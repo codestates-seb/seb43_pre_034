@@ -127,6 +127,13 @@ const LoginInput = styled.input`
   height: 28px;
   border-radius: 3px;
   border: 1px solid rgb(186, 191, 196);
+  &:focus {
+    outline: none;
+    border-color: rgb(10, 149, 255);
+  }
+  &.ErrorInput {
+    border-color: rgb(208, 57, 62);
+  }
 `;
 const LinkBox = styled.div`
   margin-top: 40px;
@@ -151,12 +158,42 @@ const SignLink = styled(Link)`
   }
 `;
 
+const ErrorMsg = styled.span`
+  font-size: 11px;
+  color: rgb(208, 57, 62);
+`;
+
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [emailInputClass, setEmailInputClass] = useState("");
+  const [passwordInputClass, setPasswordInputClass] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    // 이메일 양식 검증
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setEmailError("The email is not a valid email address.");
+      setEmailInputClass("ErrorInput");
+      return;
+    } else {
+      setEmailError("");
+      setEmailInputClass("");
+    }
+
+    // 비밀번호 길이 검증
+    if (password === "") {
+      setPasswordError("Password is required.");
+      setPasswordInputClass("ErrorInput");
+    } else if (password.length < 8) {
+      setPasswordError("Password must be at least 8 characters long");
+      setPasswordInputClass("ErrorInput");
+    } else {
+      setPasswordError("");
+    }
   };
 
   return (
@@ -183,8 +220,10 @@ const Login = () => {
             type="text"
             placeholder=""
             value={email}
+            className={emailInputClass}
             onChange={(event) => setEmail(event.target.value)}
           />
+          {emailError && <ErrorMsg>{emailError}</ErrorMsg>}
           <LoginTxt>
             <label htmlFor="password">Password</label>
             <LinkPwd to="/users/login">Forgot password?</LinkPwd>
@@ -193,8 +232,10 @@ const Login = () => {
             type="password"
             placeholder=""
             value={password}
+            className={passwordInputClass}
             onChange={(event) => setPassword(event.target.value)}
           />
+          {passwordError && <ErrorMsg>{passwordError}</ErrorMsg>}
           <button type="submit">Log in</button>
         </LoginForm>
       </LoginBox>
