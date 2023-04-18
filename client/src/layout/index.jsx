@@ -1,6 +1,6 @@
 // components
 import Header from "./Header";
-import SideBar from "./SideBar";
+import NavBar from "./NavBar";
 import Footer from "./Footer";
 import Main from "./Main";
 
@@ -8,7 +8,7 @@ const Layout = ({ children }) => {
   return (
     <>
       <Header />
-      <SideBar />
+      <NavBar />
       <Main>{children}</Main>
       <Footer />
     </>
