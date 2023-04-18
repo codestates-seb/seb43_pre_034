@@ -19,6 +19,8 @@ const Upper = styled.div`
 
 const ContentTitle = styled.p`
   font-size: 1.5rem !important;
+  margin-top: 0.5rem;
+  margin-left: 1rem;
 `;
 
 export default UpperPart;
