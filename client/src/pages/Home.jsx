@@ -4,12 +4,12 @@ const Container = styled.div`
   flex: 0 1 calc(1264px - 164px);
   display: flex;
   height: 200px;
-  background: black;
+  background: white;
   border: 2px solid yellow;
 `;
 
 const Home = () => {
-  return <Container></Container>;
+  return <Container>asdfasdfasdfasdf</Container>;
 };
 
 export default Home;
