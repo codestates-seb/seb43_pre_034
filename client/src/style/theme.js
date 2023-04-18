@@ -8,7 +8,11 @@ const breakpoints = {
   tabletMax: `screen and (max-width: ${size.tablet})`,
   desktopMin: `screen and (min-width: ${size.desktop})`,
 };
-
+const widthSize = {
+  navbar: "164px",
+  contentMax: "1264px",
+  sidebar: "298px",
+};
 const color = {
   bg: "#FFFFFF",
   headerBg: "#F8F9F9",
@@ -18,6 +22,7 @@ const color = {
 const theme = {
   breakpoints,
   color,
+  widthSize,
 };
 
 export default theme;
