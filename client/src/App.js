@@ -1,14 +1,9 @@
 import styled from "styled-components";
 import { Routes, Route } from "react-router-dom";
 import Layout from "./layout";
-import NavBar from "./layout/NavBar";
 
 // pages
 import Home from "./pages/Home";
-import AskQuestion from "./pages/AskQuesion";
-import Login from "./pages/Login";
-import Detail from "./pages/Detail";
-
 const Container = styled.div`
   display: flex;
   flex-direction: column;
