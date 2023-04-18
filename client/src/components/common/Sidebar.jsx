@@ -1,9 +1,51 @@
 import styled from "styled-components";
 import { HiPencil } from "react-icons/hi";
 import { BsStackOverflow } from "react-icons/bs";
-// sidebar 공통 스타일
-const SideBarCompo = styled.div`
-  width: ${(props) => props.theme.widthSize.sidebar};
+// sidebar 스타일
+const SideBarCompo = styled.section`
+  margin-top: 20px;
+  ul {
+    width: ${(props) => props.theme.widthSize.sidebar};
+  }
+  background-color: hsl(
+    47.272727272727266,
+    89.18918918918922%,
+    92.74509803921569%
+  );
+  font-size: 20px;
+  margin-left: 20px;
+  border: 1px solid #f1e5bc;
+  box-shadow: 0 1px 2px hsla(0, 0%, 0%, 0.05), 0 1px 4px hsla(0, 0%, 0%, 0.05),
+    0 2px 8px hsla(0, 0%, 0%, 0.05);
+  p {
+    background-color: hsl(47, 83%, 91%);
+    font-size: 12px;
+    font-weight: 700;
+    padding: 12px 15px;
+    color: #525960;
+    border-top: 1px solid #f1e5bc;
+    border-bottom: 1px solid #f1e5bc;
+  }
+  li {
+    padding: 0 16px;
+    margin: 12px 0;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+  }
+  .sidebar_icons {
+    font-size: 14px;
+    margin-right: 10px;
+    :first-of-type {
+      font-size: 16px;
+    }
+  }
+  span {
+    font-size: 14px;
+    padding-left: 3px;
+    color: #3b4045;
+    vertical-align: baseline;
+  }
   @media ${({ theme }) => theme.breakpoints.tabletMax} {
     display: none;
   }
@@ -13,31 +55,79 @@ const SideBarCompo = styled.div`
 const SideBar = () => {
   return (
     <SideBarCompo>
-      <p>The Overflow Blog</p>
       <ul>
+        <p>The Overflow Blog</p>
         <li>
-          <HiPencil />
-          Community is the future of AI
+          <HiPencil className="sidebar_icons" />
+          <span>Community is the future of AI</span>
         </li>
         <li>
-          <HiPencil />
-          The philosopher who believes in Web Assembly
+          <HiPencil size={20} className="sidebar_icons" />
+          <span>The philosopher who believes in Web Assembly</span>
         </li>
-      </ul>
-      <p>Featured on Meta</p>
-      <ul>
+        <p>Featured on Meta</p>
         <li>
-          <BsStackOverflow />
-          Content Discovery initiative 4/13 update: Related questions using a
-          Machine...
+          <BsStackOverflow size={30} className="sidebar_icons" />
+          <span>
+            Content Discovery initiative 4/13 update: Related questions using a
+            Machine...
+          </span>
+        </li>
+        <li>
+          <BsStackOverflow className="sidebar_icons" />
+          <span>The [protection] tag is being burninated</span>
+        </li>
+        <li>
+          <BsStackOverflow className="sidebar_icons" />
+          <span>Temporary policy: ChatGPT is banned</span>
         </li>
       </ul>
     </SideBarCompo>
   );
 };
 
+const SideBarEditCompo = styled.ul`
+  list-style: inside;
+  width: 363px;
+
+  background-color: hsl(
+    47.272727272727266,
+    89.18918918918922%,
+    92.74509803921569%
+  );
+  font-size: 20px;
+  margin-left: 20px;
+  border: 1px solid #f1e5bc;
+  box-shadow: 0 1px 2px hsla(0, 0%, 0%, 0.05), 0 1px 4px hsla(0, 0%, 0%, 0.05),
+    0 2px 8px hsla(0, 0%, 0%, 0.05);
+  p {
+    background-color: hsl(47, 83%, 91%);
+    font-size: 12px;
+    font-weight: 700;
+    padding: 12px 15px;
+    color: #525960;
+    border-top: 1px solid #f1e5bc;
+    border-bottom: 1px solid #f1e5bc;
+  }
+  li {
+    padding: 4px 15px;
+    font-size: 14px;
+    margin: 12px 0;
+  }
+`;
 // 수정페이지 사이드바
 const SideBarEdit = () => {
-  return <SideBarCompo></SideBarCompo>;
+  return (
+    <SideBarEditCompo>
+      <ul>
+        <p>How to Edit</p>
+        <li>Correct minor typos or mistakes</li>
+        <li>Clarify meaning without changing it</li>
+        <li>Add related resources or links</li>
+        <li>Always respect the author’s intent</li>
+        <li>Don’t use edits to reply to the author</li>
+      </ul>
+    </SideBarEditCompo>
+  );
 };
 export { SideBar, SideBarEdit };
