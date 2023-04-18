@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Routes, Route } from "react-router-dom";
 import Layout from "./layout";
 
-// pages
+// pages;
 import Home from "./pages/Home";
 
 const Container = styled.div`
