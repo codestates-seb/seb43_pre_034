@@ -2,6 +2,8 @@ package com.codestates.stackoverflow.answer.entity;
 
 import com.codestates.stackoverflow.audit.Auditable;
 import com.codestates.stackoverflow.question.entity.Question;
+
+import com.codestates.stackoverflow.user.entity.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -56,12 +58,12 @@ public class Answer extends Auditable {
         }
     }
 
+
     public void setAnswerVote(AnswerVote answerVote) { //answer 와 answerVoto 매핑
         this.answerVotes.add(answerVote);
         if(answerVote.getAnswer() != this) {
             answerVote.setAnswer(this);
         }
     }
-
 
 }
