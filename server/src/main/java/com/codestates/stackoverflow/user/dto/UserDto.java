@@ -3,7 +3,6 @@ package com.codestates.stackoverflow.user.dto;
 import com.codestates.stackoverflow.user.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
