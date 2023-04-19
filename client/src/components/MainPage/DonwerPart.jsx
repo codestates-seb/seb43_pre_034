@@ -3,7 +3,7 @@ import styled from "styled-components";
 const DownerPart = () => {
   return (
     <ContentNavBtn>
-      <p className="total-questions">23,654,144 questions</p>
+      <p className="total-questions dis_none">23,654,144 questions</p>
       <div className="btn-wrap">
         <div className="nav-btn">
           <button className="nav-btns">
@@ -37,6 +37,9 @@ const ContentNavBtn = styled.div`
   margin-bottom: 1.5rem;
   flex-wrap: nowrap;
   align-items: center;
+  .total-questions {
+    margin-left: 1rem;
+  }
   .btn-wrap {
     display: flex;
     button {
@@ -50,7 +53,7 @@ const ContentNavBtn = styled.div`
       font-weight: 500;
     }
     .nav-btn {
-      flex: 1 1 208px;
+      display: flex;
       margin-right: 1rem;
       > * {
         margin-right: -3px;
@@ -66,14 +69,25 @@ const ContentNavBtn = styled.div`
       color: hsl(205, 47%, 42%);
     }
   }
-  @media ${(props) => props.theme.breakpoints.tabletMax} {
+  @media screen and (min-width: 581px) and (max-width: 782px) {
+    flex-wrap: wrap;
+    .btn-wrap {
+      justify-content: space-between;
+    }
     .disappear {
       display: none !important;
     }
   }
-
-  @media ${(props) => props.theme.breakpoints.mobileMax} {
-    flex-wrap: wrap;
+  @media screen and (max-width: 580px) {
+    .btn-wrap {
+      width: 100%;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    .dis_none,
+    .disappear {
+      display: none !important;
+    }
   }
 `;
 

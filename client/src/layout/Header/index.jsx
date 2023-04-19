@@ -1,21 +1,29 @@
+// eslint-disable-line no-unused-vars
+import { useState } from "react";
 import styled from "styled-components";
 
 // components
+import TitleLogo from "./TitleLogo";
 import ProductsNav from "./ProductsNav";
+import Products from "./Products";
 import SignNav from "./SignNav";
 import Search from "./Search";
-import TitleLogo from "./TitleLogo";
+import UserNav from "./UserNav";
 
 const HeaderContainer = styled.header`
   display: flex;
   width: 100%;
   height: 50px;
   background: ${(props) => props.theme.color.headerBg};
-  margin: 0 auto;
   justify-content: center;
   align-items: center;
+  border-top: 3px solid #f48225;
   box-shadow: 0 1px 2px hsla(0, 0%, 0%, 0.05), 0 1px 4px hsla(0, 0%, 0%, 0.05),
     0 2px 8px hsla(0, 0%, 0%, 0.05);
+  -webkit-box-align: center;
+  z-index: 1;
+  position: fixed;
+  top: 0;
 
   @media ${(props) => props.theme.breakpoints.mobileMax} {
     justify-content: space-between;
@@ -25,19 +33,27 @@ const HeaderContainer = styled.header`
 const StyledHeader = styled.div`
   display: flex;
   align-items: center;
-  margin: 0 auto;
+  /* margin: 0 auto; */
   width: ${(props) => props.theme.widthSize.contentMax};
   height: 100%;
 `;
 
 const Header = () => {
+  const [isLogin, setIsLogin] = useState(false);
+
   return (
     <HeaderContainer>
       <StyledHeader>
-        <TitleLogo />
-        <ProductsNav />
-        <Search />
-        <SignNav />
+        {isLogin ? (
+          <UserNav />
+        ) : (
+          <>
+            <TitleLogo />
+            <Products />
+            <Search />
+            <SignNav />
+          </>
+        )}
       </StyledHeader>
     </HeaderContainer>
   );
