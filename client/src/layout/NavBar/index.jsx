@@ -12,6 +12,13 @@ const Container = styled.div`
 const NavBarContainer = styled.nav`
   flex: 0 0 ${(props) => props.theme.widthSize.navbar};
   display: flex;
+  height: 100%;
+  top: 50px;
+  position: sticky;
+
+  @media ${(props) => props.theme.breakpoints.mobileMax} {
+    display: none;
+  }
 `;
 
 const NavOl = styled.ol`
@@ -33,6 +40,7 @@ const NavOl = styled.ol`
     align-items: center;
     font-size: 400;
     padding: 0.6rem 0.5rem 0.6rem 2rem;
+    cursor: pointer;
   }
 
   .selcted {

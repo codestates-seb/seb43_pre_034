@@ -7,6 +7,7 @@ const LogoContainer = styled.div`
   display: flex;
   align-items: center;
   height: 100%;
+  cursor: pointer;
 
   svg {
     height: 30px;
@@ -35,7 +36,12 @@ const LogoContainer = styled.div`
 
 const TitleLogo = () => {
   return (
-    <LogoContainer>
+    <LogoContainer
+      onClick={() => {
+        window.scrollTo(0, 0);
+        window.location.href = "/";
+      }}
+    >
       <TitleLogoSvg className="is_desktop_display" />
       <TitleLogoMobileSvg className="is_mobile_display" />
     </LogoContainer>

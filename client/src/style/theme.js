@@ -23,6 +23,7 @@ const theme = {
   breakpoints,
   color,
   widthSize,
+  size,
 };
 
 export default theme;

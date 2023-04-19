@@ -19,6 +19,7 @@ time, mark, audio, video {
 	padding: 0;
 	border: 0;
 	font-size: 100%;
+	box-sizing: border-box;
 	font: inherit;
 	vertical-align: baseline;
 }
@@ -35,6 +36,7 @@ html {
 }
 body {
 	line-height: 1;
+	padding-top: 50px;
 }
 ol, ul {
 	list-style: none;
