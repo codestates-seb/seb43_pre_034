@@ -1,6 +1,7 @@
 package com.codestates.stackoverflow.answer.entity;
 
 import com.codestates.stackoverflow.audit.Auditable;
+import com.codestates.stackoverflow.question.entity.Question;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,7 +19,7 @@ public class Answer extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long answer_id;
+    private Long answerId;
 
     @ManyToOne
     @JoinColumn(name = "USER_ID")
@@ -50,8 +51,8 @@ public class Answer extends Auditable {
 
     public void setQuestion(Question question) {
         this.question = question;
-        if (!this.question.getAnswers().contains(this)){
-            this.question.getAnswers().add(this);
+        if (!this.question.getAnswerList().contains(this)){
+            this.question.getAnswerList().add(this);
         }
     }
 
