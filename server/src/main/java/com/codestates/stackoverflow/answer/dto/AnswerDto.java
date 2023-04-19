@@ -13,7 +13,7 @@ public class AnswerDto {
     @Getter
     @Setter
     @NoArgsConstructor
-    public static class Post {
+    public static class PostDto {
         private Long userId;
         private Long questionId;
 
@@ -26,14 +26,14 @@ public class AnswerDto {
     @Setter
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class Patch {
+    public static class PatchDto {
         private Long answerId;
 
         @Pattern(regexp = "^\\S", message = "Fill in the blank")
         private String body;
     }
 
-    public static class Response {
+    public static class ResponseDto {
         private Long answerId;
         private Long questionId;
         private Long userId;

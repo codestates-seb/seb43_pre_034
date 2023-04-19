@@ -12,16 +12,16 @@ public interface AnswerMapper {
 
     @Mapping(source = "userId", target = "user.userId")
     @Mapping(source = "questionId", target = "question.questionId")
-    Answer postToAnswer(AnswerDto.Post postDto);
+    Answer postToAnswer(AnswerDto.PostDto postDto);
 
-    Answer patchToAnswer(AnswerDto.Patch patchDto);
+    Answer patchToAnswer(AnswerDto.PatchDto patchDto);
 
     @Mapping(source = "userId", target = "user.userId")
     @Mapping(source = "questionId", target = "question.questionId")
-    AnswerDto.Response answerToResponse(Answer answer);
+    AnswerDto.ResponseDto answerToResponse(Answer answer);
 
     //Gets 할 때 List<Answer> 필요
     @Mapping(source = "userId", target = "user.userId")
     @Mapping(source = "questionId", target = "question.questionId")
-    List<AnswerDto.Response> answersToResponses(List<Answer> answers);
+    List<AnswerDto.ResponseDto> answersToResponses(List<Answer> answers);
 }
