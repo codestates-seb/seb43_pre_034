@@ -40,7 +40,7 @@ public class UserService {
     }
 
     @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE)
-    public User updateUser(long userId, User user) {
+    public User updateUser(User user) {
         User findUser = findVerifiedUser(user.getUserId());
 
         Optional.ofNullable(user.getName()).ifPresent(name -> findUser.setName(name));
