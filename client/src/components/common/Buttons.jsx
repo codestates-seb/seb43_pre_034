@@ -12,6 +12,8 @@ const ButtonCompo = styled.button`
   cursor: pointer;
   display: inline-block;
 `;
+
+// 질문 추가 버튼
 const AskQuestionBtn = () => {
   return (
     <ButtonCompo>
@@ -19,7 +21,7 @@ const AskQuestionBtn = () => {
     </ButtonCompo>
   );
 };
-
+// 질문 등록 버튼
 const PostAnswerBtn = () => {
   return (
     <ButtonCompo>
@@ -27,7 +29,14 @@ const PostAnswerBtn = () => {
     </ButtonCompo>
   );
 };
-
+// 수정 저장 버튼
+const EditSaveBtn = () => {
+  return (
+    <ButtonCompo>
+      <span>Save Edit</span>
+    </ButtonCompo>
+  );
+};
 const ButtonLogin = styled.button`
   width: 278px;
   height: 37px;
@@ -77,4 +86,4 @@ const BluebgBtn = ({ height, width, padding, buttonText }) => {
   );
 };
 
-export { AskQuestionBtn, PostAnswerBtn, LoginBtn, BluebgBtn };
+export { AskQuestionBtn, PostAnswerBtn, LoginBtn, BluebgBtn, EditSaveBtn };
