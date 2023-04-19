@@ -51,8 +51,8 @@ public class AnswerService {
 
 
     // check 필드 변경만을 위한 update 기능
-    public Answer updateCheck(Long userId, Answer answer) {
-        Answer findAnswer = findVerifiedAnswer(answer.getAnswerId());
+    public Answer updateCheck(Long userId, Long answerId) {
+        Answer findAnswer = findVerifiedAnswer(answerId);
         Long masterUserId = findAnswer.getQuestion().getUser().getUserId();
         if(masterUserId==userId) {
             if (!findAnswer.isCheck()) {

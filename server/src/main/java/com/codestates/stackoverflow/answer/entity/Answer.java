@@ -3,6 +3,7 @@ package com.codestates.stackoverflow.answer.entity;
 import com.codestates.stackoverflow.audit.Auditable;
 import com.codestates.stackoverflow.question.entity.Question;
 
+import com.codestates.stackoverflow.user.entity.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
