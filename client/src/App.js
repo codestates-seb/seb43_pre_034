@@ -25,7 +25,7 @@ function App() {
           {/* NavBar 특정 페이지만 보이기 */}
           <Route element={<NavBar />}>
             <Route path="/" element={<Home />} />
-            <Route path="/questions" element={<Detail />} />
+            <Route path="/question/:id" element={<Detail />} />
           </Route>
           {/* NavBar 특정 페이지 숨기기 */}
           <Route path="/question/ask" element={<AskQuestion />} />
