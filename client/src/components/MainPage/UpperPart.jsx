@@ -15,6 +15,7 @@ const Upper = styled.div`
   justify-content: space-between;
   flex-wrap: wrap;
   margin-bottom: 1.5rem;
+  margin-top: 0.5rem;
 `;
 
 const ContentTitle = styled.p`
