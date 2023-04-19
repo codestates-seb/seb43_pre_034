@@ -65,6 +65,10 @@ const DetailBodyCon = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
+  @media ${({ theme }) => theme.breakpoints.tabletMax} {
+    display: flex;
+    flex-direction: column;
+  }
   .question-answer-page {
     display: flex;
     flex-direction: column;
@@ -93,6 +97,9 @@ const DetailBodyCon = styled.div`
   }
   .sidebar {
     height: 100vh;
+    @media ${({ theme }) => theme.breakpoints.tabletMax} {
+      width: 100%;
+    }
   }
 `;
 // 답변 전체 구성
