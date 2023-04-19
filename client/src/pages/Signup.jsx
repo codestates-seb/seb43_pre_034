@@ -2,13 +2,88 @@ import { useState } from "react";
 import styled from "styled-components";
 import { LoginBtn } from "../components/common/Buttons";
 import { FcGoogle } from "react-icons/fc";
-import { AiFillGithub } from "react-icons/ai";
+import { AiFillGithub, AiFillTags, AiFillTrophy } from "react-icons/ai";
 import { FaFacebookSquare } from "react-icons/fa";
-// import { RiQuestionnaireFill } from "react-icons/ri";
-// import { HiChevronUpDown } from "react-icons/hi2";
-// import { AiFillTags } from "react-icons/ai";
-// import { AiFillTrophy } from "react-icons/ai";
+import { RiQuestionnaireFill } from "react-icons/ri";
+import { HiChevronUpDown } from "react-icons/hi2";
+
+import { HiOutlineExternalLink } from "react-icons/hi";
 import { Link } from "react-router-dom";
+
+const SignWrap = styled.section`
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @media ${({ theme }) => theme.breakpoints.tabletMax} {
+    display: flex;
+    flex-direction: column;
+  }
+`;
+
+const InfoSection = styled.article`
+  display: flex;
+  color: rgb(35, 38, 41);
+  h2 {
+    font-size: 27px;
+    margin-bottom: 35px;
+  }
+  ul > li {
+    font-size: 15px;
+    line-height: 19px;
+    margin-bottom: 27px;
+    display: flex;
+    align-items: center;
+  }
+  ul > li > span {
+    margin-left: 5px;
+  }
+`;
+const InfoMsg = styled.span`
+  font-size: 13px;
+  line-height: 16px;
+  color: rgb(106, 115, 124);
+  display: flex;
+  flex-direction: column;
+  span {
+    color: rgb(0, 116, 204);
+  }
+`;
+
+const InfoDeskTop = styled.article`
+  min-width: 436px;
+  margin-right: 60px;
+  margin-bottom: 70px;
+  @media ${({ theme }) => theme.breakpoints.tabletMax} {
+    display: none;
+  }
+`;
+
+const InfoMobile = styled.article`
+  display: none;
+  width: 422px;
+  h2 {
+    font-size: 22px;
+    text-align: center;
+    line-height: 30px;
+  }
+  @media ${({ theme }) => theme.breakpoints.tabletMax} {
+    display: block;
+  }
+  @media ${({ theme }) => theme.breakpoints.mobileMax} {
+    width: 356px;
+    display: block;
+    h2 {
+      font-size: 19px;
+      line-height: 30px;
+    }
+  }
+`;
+
+const SignUpSection = styled.section`
+  display: flex;
+  flex-direction: column;
+`;
 
 //구글 로그인
 const GoogleButton = styled(LoginBtn)`
@@ -19,6 +94,12 @@ const GoogleButton = styled(LoginBtn)`
   display: flex;
   justify-content: center;
   align-items: center;
+  &:hover {
+    background-color: hsl(210, 8%, 97.5%);
+  }
+  &:active {
+    background-color: hsl(210, 8%, 95%);
+  }
   span {
     margin-left: 4px;
   }
@@ -38,6 +119,12 @@ const GithubButton = styled(LoginBtn)`
     color: white;
     margin-left: 4px;
   }
+  &:hover {
+    background-color: hsl(210, 8%, 5%);
+  }
+  &:active {
+    background-color: hsl(210, 8%, 0%);
+  }
   @media ${({ theme }) => theme.breakpoints.mobileMax} {
     width: 267px;
   }
@@ -54,6 +141,12 @@ const FacebookButton = styled(LoginBtn)`
     color: white;
     margin-left: 4px;
   }
+  &:hover {
+    background-color: rgb(60, 74, 143);
+  }
+  &:active {
+    background-color: rgb(65, 70, 135);
+  }
   @media ${({ theme }) => theme.breakpoints.mobileMax} {
     width: 267px;
   }
@@ -62,10 +155,10 @@ const FacebookButton = styled(LoginBtn)`
 //이메일 로그인 박스
 const SignupBox = styled.div`
   width: 316px;
-  box-shadow: 0px 10px 25px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 8px 25px 0px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
   margin-top: 10px;
-  background-color: aliceblue;
+  background-color: white;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -87,7 +180,7 @@ const SignForm = styled.form`
     background-color: hsl(206, 100%, 52%);
     color: white;
     border: none;
-    box-shadow: 0px 1px 0px 0px rgba(255, 255, 255, 0.4) inset;
+    box-shadow: 0px 1px 0px 0px rgba(255, 255, 255, 0.6) inset;
   }
   button:hover {
     background-color: hsl(206, 100%, 40%);
@@ -96,7 +189,7 @@ const SignForm = styled.form`
     background-color: hsl(206, 100%, 37.5%);
   }
 `;
-const SignTxt = styled.div`
+const LoginTxt = styled.div`
   margin-top: 5px;
   margin-bottom: 5px;
   display: flex;
@@ -105,19 +198,24 @@ const SignTxt = styled.div`
     margin-top: 10px;
   }
 `;
-const FindPwd = styled.span`
+const HelpMsg = styled.span`
   font-size: 11px;
   line-height: 15px;
+  color: rgb(106, 115, 124);
+  &:last-of-type {
+    margin-top: 23px;
+  }
 `;
 
 const SignInput = styled.input`
   height: 25px;
   margin-bottom: 5px;
   border-radius: 4px;
-  font-size: 16px;
+  font-size: 12px;
   border: 1px solid rgb(186, 191, 196);
   &:focus {
     outline: none;
+    border: 1px solid rgb(0, 116, 204);
   }
   &.ErrorInput {
     border-color: hsl(358, 62%, 47%);
@@ -132,25 +230,42 @@ const Label = styled.span`
     margin-top: 4px;
   }
 `;
-const Signbox = styled.div`
+const AgreeBox = styled.div`
+  margin-top: 12px;
+  margin-bottom: 5px;
+`;
+
+const LoginBox = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 25px;
+  margin-top: 30px;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+`;
+
+// 글자 파랗게
+const LoginLink = styled(Link)`
+  text-decoration: none;
+  color: rgb(0, 116, 204);
+  margin-left: 3px;
+  display: flex;
   justify-content: center;
   align-items: center;
 `;
 
-// 글자 파랗게
-const SignLink = styled(Link)`
-  text-decoration: none;
-  color: rgb(0, 116, 204);
-  margin-left: 3px;
-`;
-
 const ErrorMsg = styled.span`
-  font-size: 12px;
+  font-size: 11px;
   color: hsl(358, 62%, 47%);
   margin-bottom: 3px;
+`;
+
+const ColorTxt = styled.span`
+  color: rgb(0, 116, 204);
+`;
+
+const LinkIcon = styled(HiOutlineExternalLink)`
+  margin-left: 2px;
 `;
 
 const Signup = () => {
@@ -161,7 +276,9 @@ const Signup = () => {
   const [passwordError, setPasswordError] = useState("");
   const [emailInputClass, setEmailInputClass] = useState("");
   const [passwordInputClass, setPasswordInputClass] = useState("");
+  // 중복 닉네임 체크한다면 사용
   // const [displayNameInputClass, setDisplayNameInputClass] = useState("");
+  const [isChecked, setIsChecked] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -189,78 +306,131 @@ const Signup = () => {
     }
   };
 
+  const handleCheckboxChange = (event) => {
+    setIsChecked(event.target.checked);
+  };
+
   return (
-    <>
-      <article>
-        <div>
+    <SignWrap>
+      <InfoSection>
+        <InfoDeskTop>
           <h2>Join the Stack Overflow community</h2>
-          <span>Get unstuck — ask a question</span>
-          <span>Unlock new privileges like voting and commenting</span>
-          <span>
-            Save your favorite questions, answers, watch tags, and more
-          </span>
-          <span>Earn reputation and badges</span>
-          <span>
+          <ul>
+            <li>
+              <RiQuestionnaireFill size={26} color="#0a95ff" />
+              <span>Get unstuck — ask a question</span>
+            </li>
+            <li>
+              <HiChevronUpDown size={26} color="#0a95ff" />
+              <span>Unlock new privileges like voting and commenting</span>
+            </li>
+            <li>
+              <AiFillTags size={26} color="#0a95ff" />
+              <span>
+                Save your favorite questions, answers, watch tags, and more
+              </span>
+            </li>
+            <li>
+              <AiFillTrophy size={26} color="#0a95ff" />
+              <span>Earn reputation and badges</span>
+            </li>
+          </ul>
+          <InfoMsg>
             Collaborate and share knowledge with a private group for FREE.
-          </span>
-          <span>Get Stack Overflow for Teams free for up to 50 users.</span>
-        </div>
-      </article>
-      <article>
-        <GoogleButton>
-          <FcGoogle size="20" />
-          <span>Sign up with Google</span>
-        </GoogleButton>
-        <GithubButton>
-          <AiFillGithub size="20" color="#fff" />
-          <span>Sign up with Github</span>
-        </GithubButton>
-        <FacebookButton>
-          <FaFacebookSquare size="20" color="#fff" />
-          <span>Sign up with Facebook</span>
-        </FacebookButton>
-      </article>
-      <SignupBox>
-        <SignForm onSubmit={handleSubmit}>
-          <Label>Display name</Label>
-          <SignInput
-            type="text"
-            placeholder=""
-            value={displayName}
-            // className={displayNameInputClass}
-            onChange={(event) => setDisplayName(event.target.value)}
-          />
-          <Label>Email</Label>
-          <SignInput
-            type="text"
-            placeholder=""
-            value={email}
-            className={emailInputClass}
-            onChange={(event) => setEmail(event.target.value)}
-          />
-          {emailError && <ErrorMsg>{emailError}</ErrorMsg>}
-          <Label>Password</Label>
-          <SignInput
-            type="password"
-            placeholder=""
-            value={password}
-            className={passwordInputClass}
-            onChange={(event) => setPassword(event.target.value)}
-          />
-          <FindPwd>
-            Passwords must contain at least eight characters, including at least
-            1 letter and 1 number.
-          </FindPwd>
-          {passwordError && <ErrorMsg>{passwordError}</ErrorMsg>}
-          <button type="submit">Sign up</button>
-        </SignForm>
-      </SignupBox>
-      <Signbox>
-        <SignTxt>
-          Don’t have an account? <SignLink to="/users/signup">Sign up</SignLink>
-        </SignTxt>
-      </Signbox>
-    </>
+            <span>Get Stack Overflow for Teams free for up to 50 users.</span>
+          </InfoMsg>
+        </InfoDeskTop>
+        <InfoMobile>
+          <h2>
+            Create your Stack Overflow account. It’s free and only takes a
+            minute.
+          </h2>
+        </InfoMobile>
+      </InfoSection>
+      <SignUpSection>
+        <article>
+          <GoogleButton>
+            <FcGoogle size="20" />
+            <span>Sign up with Google</span>
+          </GoogleButton>
+          <GithubButton>
+            <AiFillGithub size="20" color="#fff" />
+            <span>Sign up with Github</span>
+          </GithubButton>
+          <FacebookButton>
+            <FaFacebookSquare size="20" color="#fff" />
+            <span>Sign up with Facebook</span>
+          </FacebookButton>
+        </article>
+        <SignupBox>
+          <SignForm onSubmit={handleSubmit}>
+            <Label>Display name</Label>
+            <SignInput
+              type="text"
+              placeholder=""
+              value={displayName}
+              // className={displayNameInputClass}
+              onChange={(event) => setDisplayName(event.target.value)}
+            />
+            <Label>Email</Label>
+            <SignInput
+              type="text"
+              placeholder=""
+              value={email}
+              className={emailInputClass}
+              onChange={(event) => setEmail(event.target.value)}
+            />
+            {emailError && <ErrorMsg>{emailError}</ErrorMsg>}
+            <Label>Password</Label>
+            <SignInput
+              type="password"
+              placeholder=""
+              value={password}
+              className={passwordInputClass}
+              onChange={(event) => setPassword(event.target.value)}
+            />
+            {passwordError ? (
+              <ErrorMsg>{passwordError}</ErrorMsg>
+            ) : (
+              <HelpMsg>
+                Passwords must contain at least eight characters, including at
+                least 1 letter and 1 number.
+              </HelpMsg>
+            )}
+            <AgreeBox>
+              <HelpMsg>
+                <input
+                  type="checkbox"
+                  checked={isChecked}
+                  onChange={handleCheckboxChange}
+                />
+                Opt-in to receive occasional product updates, user research
+                invitations, company announcements, and digests.
+              </HelpMsg>
+            </AgreeBox>
+            <button type="submit">Sign up</button>
+            <HelpMsg>
+              By clicking “Sign up”, you agree to our{" "}
+              <ColorTxt>terms of service, privacy policy</ColorTxt> and{" "}
+              <ColorTxt>cookie policy</ColorTxt>
+            </HelpMsg>
+          </SignForm>
+        </SignupBox>
+        <LoginBox>
+          <LoginTxt>
+            Already have an account?
+            <LoginLink to="/users/login">Log in</LoginLink>
+          </LoginTxt>
+          <LoginTxt>
+            Are you an employer?
+            <LoginLink to="/users/signup">
+              Sign up on Talent
+              <LinkIcon size={15} />
+            </LoginLink>
+          </LoginTxt>
+        </LoginBox>
+      </SignUpSection>
+    </SignWrap>
   );
 };
 

@@ -35,6 +35,12 @@ const GoogleButton = styled(LoginBtn)`
   span {
     margin-left: 4px;
   }
+  &:hover {
+    background-color: hsl(210, 8%, 97.5%);
+  }
+  &:active {
+    background-color: hsl(210, 8%, 95%);
+  }
   @media ${({ theme }) => theme.breakpoints.mobileMax} {
     width: 267px;
   }
@@ -49,6 +55,12 @@ const GithubButton = styled(LoginBtn)`
   span {
     color: white;
     margin-left: 4px;
+  }
+  &:hover {
+    background-color: hsl(210, 8%, 5%);
+  }
+  &:active {
+    background-color: hsl(210, 8%, 0%);
   }
   @media ${({ theme }) => theme.breakpoints.mobileMax} {
     width: 267px;
@@ -65,6 +77,12 @@ const FacebookButton = styled(LoginBtn)`
     color: white;
     margin-left: 4px;
   }
+  &:hover {
+    background-color: rgb(60, 74, 143);
+  }
+  &:active {
+    background-color: rgb(65, 70, 135);
+  }
   @media ${({ theme }) => theme.breakpoints.mobileMax} {
     width: 267px;
   }
@@ -73,7 +91,7 @@ const FacebookButton = styled(LoginBtn)`
 //이메일 로그인 박스
 const LoginBox = styled.div`
   width: 288px;
-  box-shadow: 0px 10px 25px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 8px 25px 0px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
   margin-top: 10px;
   background-color: white;
@@ -129,6 +147,7 @@ const LoginInput = styled.input`
   border: 1px solid rgb(186, 191, 196);
   &:focus {
     outline: none;
+    border: 1px solid rgb(0, 116, 204);
   }
   &.ErrorInput {
     border-color: hsl(358, 62%, 47%);
@@ -248,7 +267,7 @@ const Login = () => {
         </SignTxt>
         <SignTxt>
           Are you an employer?{" "}
-          <SignLink to="/users/login">
+          <SignLink to="/users/signup">
             Sign up on Talent
             <HiOutlineExternalLink size={15} />
           </SignLink>
