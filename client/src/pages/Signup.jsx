@@ -1,14 +1,18 @@
+//modules
 import { useState } from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
+
+//component
 import { LoginBtn } from "../components/common/Buttons";
+
+//react-icon
 import { FcGoogle } from "react-icons/fc";
 import { AiFillGithub, AiFillTags, AiFillTrophy } from "react-icons/ai";
 import { FaFacebookSquare } from "react-icons/fa";
 import { RiQuestionnaireFill } from "react-icons/ri";
 import { HiChevronUpDown } from "react-icons/hi2";
-
 import { HiOutlineExternalLink } from "react-icons/hi";
-import { Link } from "react-router-dom";
 
 const SignWrap = styled.section`
   height: 100vh;

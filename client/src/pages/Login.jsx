@@ -1,12 +1,19 @@
+//modules
 import { useState } from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
+
+//component
 import { LoginBtn } from "../components/common/Buttons";
+
+//react-icon
 import { FcGoogle } from "react-icons/fc";
 import { AiFillGithub } from "react-icons/ai";
 import { FaFacebookSquare } from "react-icons/fa";
 import { HiOutlineExternalLink } from "react-icons/hi";
+
+//imgs
 import logo from "../assets/images/stack.png";
-import { Link } from "react-router-dom";
 
 //전체 로그인 박스
 const LoginSection = styled.section`
