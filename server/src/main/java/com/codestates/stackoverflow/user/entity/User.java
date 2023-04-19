@@ -1,6 +1,8 @@
 package com.codestates.stackoverflow.user.entity;
 
+import com.codestates.stackoverflow.answer.entity.Answer;
 import com.codestates.stackoverflow.audit.Auditable;
+import com.codestates.stackoverflow.question.entity.Question;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,8 +35,14 @@ public class User extends Auditable {
 
     private int score;
 
+    @OneToMany(mappedBy = "user")
+    List<Question> questions = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    List<Answer> answers = new ArrayList<>();
+
     // User별 Question과 Answer의 Score 합산
-    public void setScore(int score) {
+    public void setScore() {
         this.score = score;
     }
 
