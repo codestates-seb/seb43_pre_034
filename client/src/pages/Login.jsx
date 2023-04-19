@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 
 //전체 로그인 박스
 const LoginSection = styled.section`
-  /* box-sizing: border-box; */
+  box-sizing: border-box;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -72,11 +72,11 @@ const FacebookButton = styled(LoginBtn)`
 
 //이메일 로그인 박스
 const LoginBox = styled.div`
-  width: 278px;
+  width: 288px;
   box-shadow: 0px 10px 25px 0px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
   margin-top: 10px;
-  background-color: aliceblue;
+  background-color: white;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -189,11 +189,13 @@ const Login = () => {
 
     if (password === "") {
       setPasswordError("Password is required.");
+      setPasswordInputClass("ErrorInput");
     } else if (password.length < 8) {
       setPasswordError("Password must be at least 8 characters long");
+      setPasswordInputClass("ErrorInput");
     } else {
       setPasswordError("");
-      setPasswordInputClass("ErrorInput");
+      setPasswordInputClass("");
     }
   };
 
