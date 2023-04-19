@@ -4,6 +4,10 @@ import { LoginBtn } from "../components/common/Buttons";
 import { FcGoogle } from "react-icons/fc";
 import { AiFillGithub } from "react-icons/ai";
 import { FaFacebookSquare } from "react-icons/fa";
+// import { RiQuestionnaireFill } from "react-icons/ri";
+// import { HiChevronUpDown } from "react-icons/hi2";
+// import { AiFillTags } from "react-icons/ai";
+// import { AiFillTrophy } from "react-icons/ai";
 // import { Link } from "react-router-dom";
 
 //구글 로그인
