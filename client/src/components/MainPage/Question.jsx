@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
+import { forwardRef } from "react";
 
-const Questions = () => {
+const Questions = forwardRef(({ data }, ref) => {
   return (
     <Question>
       <Status>
@@ -10,20 +11,23 @@ const Questions = () => {
       </Status>
       <Info>
         <h3 className="title">
-          <a href="#!">Where does QWindow* gets passed to a QML component</a>
+          <a href="#!">{data}</a>
         </h3>
         <div>
           I try to update/inherit from QWinTaskbarButton so that I can control
           the color shown by the component on task app icon progress as that is
           not exposed currently (at least in QT 5.15) I cannot figure ...
         </div>
-        <div className="user-id">
+        <div ref={ref} className="user-id">
           Ghitas user avatar Ghita 4,425 asked 1 min ago
         </div>
       </Info>
     </Question>
   );
-};
+});
+
+//react devtool에서 이름 명시
+Questions.displayName = "Questions";
 
 const Question = styled.div`
   width: 100%;
