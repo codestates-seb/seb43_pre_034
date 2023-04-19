@@ -42,7 +42,6 @@ const ContentNavBtn = styled.div`
   }
   .btn-wrap {
     display: flex;
-    border: 1px solid red;
     button {
       height: 38px;
       border-radius: 3px;
