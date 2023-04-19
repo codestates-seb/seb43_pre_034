@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import ContentHead from "../components/MainPage/ContentHead";
-
+import ContentPart from "../components/MainPage/Content";
 const Container = styled.div`
+  /* max-width:calc(100%-164px) */
   flex: 0 1 calc(1264px - 164px);
   display: flex;
   height: 100vh;
@@ -11,7 +11,7 @@ const Container = styled.div`
 const Home = () => {
   return (
     <Container>
-      <ContentHead></ContentHead>
+      <ContentPart />
     </Container>
   );
 };

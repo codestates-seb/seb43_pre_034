@@ -37,6 +37,9 @@ const ContentNavBtn = styled.div`
   margin-bottom: 1.5rem;
   flex-wrap: nowrap;
   align-items: center;
+  .total-questions {
+    margin-left: 1rem;
+  }
   .btn-wrap {
     display: flex;
     button {
