@@ -27,7 +27,7 @@ const Questions = () => {
 
 const Question = styled.div`
   width: 100%;
-  height: 150px;
+  /* height: 150px; */
   display: flex;
   justify-content: center;
   border-top: 1px solid black;
@@ -37,15 +37,11 @@ const Question = styled.div`
 
   @media ${(props) => props.theme.breakpoints.tabletMax} {
     flex-direction: column;
-    height: 200px;
   }
 `;
 const CommonStyle = css`
   padding: 0.5rem;
   line-height: 1.5rem;
-  @media ${(props) => props.theme.breakpoints.tabletMax} {
-    height: 200px;
-  }
 `;
 
 const Status = styled.div`
@@ -65,10 +61,15 @@ const Status = styled.div`
     }
   }
   @media ${(props) => props.theme.breakpoints.mobileMax} {
-    height: 10px;
     & div {
       margin: auto 4px;
+      flex-direction: column;
     }
+  }
+  //367px;
+  @media screen and (max-width: 367px) {
+    flex-direction: column;
+    align-items: start;
   }
 `;
 const Info = styled.div`
@@ -78,14 +79,8 @@ const Info = styled.div`
   position: relative;
   align-items: center;
   .user-id {
-    position: absolute;
-    right: 1rem;
-  }
-  @media ${(props) => props.theme.breakpoints.tabletMax} {
-    height: 200px;
-  }
-  @media ${(props) => props.theme.breakpoints.mobileMax} {
-    height: 100px;
+    display: flex;
+    justify-content: end;
   }
 `;
 
