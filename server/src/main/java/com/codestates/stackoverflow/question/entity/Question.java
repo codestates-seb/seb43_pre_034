@@ -1,6 +1,8 @@
 package com.codestates.stackoverflow.question.entity;
 
-import com.codestates.stackoverflow.auditing.Auditable;
+
+import com.codestates.stackoverflow.answer.entity.Answer;
+import com.codestates.stackoverflow.audit.Auditable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

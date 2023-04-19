@@ -10,18 +10,18 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface AnswerMapper {
 
-    @Mapping(source = "user_id", target = "user.user_id")
-    @Mapping(source = "question_id", target = "question.question_id")
+    @Mapping(source = "userId", target = "user.userId")
+    @Mapping(source = "questionId", target = "question.questionId")
     Answer postToAnswer(AnswerDto.Post postDto);
 
     Answer patchToAnswer(AnswerDto.Patch patchDto);
 
-    @Mapping(source = "user_id", target = "user.user_id")
-    @Mapping(source = "question_id", target = "question.question_id")
+    @Mapping(source = "userId", target = "user.userId")
+    @Mapping(source = "questionId", target = "question.questionId")
     AnswerDto.Response answerToResponse(Answer answer);
 
     //Gets 할 때 List<Answer> 필요
-    @Mapping(source = "user_id", target = "user.user_id")
-    @Mapping(source = "question_id", target = "question.question_id")
+    @Mapping(source = "userId", target = "user.userId")
+    @Mapping(source = "questionId", target = "question.questionId")
     List<AnswerDto.Response> answersToResponses(List<Answer> answers);
 }

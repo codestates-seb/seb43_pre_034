@@ -1,5 +1,4 @@
 package com.codestates.stackoverflow.user.entity;
-import com.codestates.stackoverflow.audit.Auditable;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +10,7 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor
-public class User extends Auditable {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
@@ -45,15 +44,9 @@ public class User extends Auditable {
         this.name = name;
         this.email = email;
     }
-
     public void setName(String name) {
         this.name = name;
     }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-
     public enum Status {
         MEMBER_ACTIVE("활동중"),
         MEMBER_SLEEP("휴면 상태"),
