@@ -4,12 +4,13 @@ import { LoginBtn } from "../components/common/Buttons";
 import { FcGoogle } from "react-icons/fc";
 import { AiFillGithub } from "react-icons/ai";
 import { FaFacebookSquare } from "react-icons/fa";
-import { BiLinkExternal } from "react-icons/bi";
+import { HiOutlineExternalLink } from "react-icons/hi";
 import logo from "../assets/images/stack.png";
 import { Link } from "react-router-dom";
 
 //전체 로그인 박스
 const LoginSection = styled.section`
+  box-sizing: border-box;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -19,7 +20,7 @@ const LoginSection = styled.section`
   .logo {
     width: 48px;
     height: 37px;
-    margin-bottom: 25px;
+    margin-bottom: 30px;
   }
 `;
 
@@ -33,6 +34,12 @@ const GoogleButton = styled(LoginBtn)`
   align-items: center;
   span {
     margin-left: 4px;
+  }
+  &:hover {
+    background-color: hsl(210, 8%, 97.5%);
+  }
+  &:active {
+    background-color: hsl(210, 8%, 95%);
   }
   @media ${({ theme }) => theme.breakpoints.mobileMax} {
     width: 267px;
@@ -49,6 +56,12 @@ const GithubButton = styled(LoginBtn)`
     color: white;
     margin-left: 4px;
   }
+  &:hover {
+    background-color: hsl(210, 8%, 5%);
+  }
+  &:active {
+    background-color: hsl(210, 8%, 0%);
+  }
   @media ${({ theme }) => theme.breakpoints.mobileMax} {
     width: 267px;
   }
@@ -64,6 +77,12 @@ const FacebookButton = styled(LoginBtn)`
     color: white;
     margin-left: 4px;
   }
+  &:hover {
+    background-color: rgb(60, 74, 143);
+  }
+  &:active {
+    background-color: rgb(65, 70, 135);
+  }
   @media ${({ theme }) => theme.breakpoints.mobileMax} {
     width: 267px;
   }
@@ -71,11 +90,14 @@ const FacebookButton = styled(LoginBtn)`
 
 //이메일 로그인 박스
 const LoginBox = styled.div`
-  width: 278px;
-  box-shadow: 0px 10px 25px 0px rgba(0, 0, 0, 0.2);
+  width: 288px;
+  box-shadow: 0px 8px 25px 0px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
   margin-top: 10px;
   background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   @media ${({ theme }) => theme.breakpoints.mobileMax} {
     width: 267px;
   }
@@ -85,82 +107,83 @@ const LoginBox = styled.div`
 const LoginForm = styled.form`
   display: flex;
   flex-direction: column;
-  width: 82%;
-  margin: 10px 9% 12px;
+  width: 84%;
+  margin: 22px 8%;
   button {
-    height: 36px;
-    margin-top: 8px;
-    margin-bottom: 15px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: rgb(10, 149, 255);
+    height: 37px;
+    border-radius: 4px;
+    margin-top: 10px;
+    background-color: hsl(206, 100%, 52%);
     color: white;
     border: none;
-    border-radius: 3px;
-    box-shadow: 0px 1px 0px 0px inset rgba(255, 255, 255, 0.5);
+    box-shadow: 0px 1px 0px 0px rgba(255, 255, 255, 0.4) inset;
   }
   button:hover {
-    background: hsl(206, 100%, 40%);
+    background-color: hsl(206, 100%, 40%);
   }
-  button:active {
-    background: hsl(209, 100%, 37.5%);
+  button:focus {
+    background-color: hsl(206, 100%, 37.5%);
   }
 `;
 const LoginTxt = styled.div`
-  margin-top: 13px;
+  margin-top: 5px;
+  margin-bottom: 5px;
   display: flex;
-  flex-flow: row nowrap;
   justify-content: space-between;
-  label {
-    font-size: 15px;
+  &:last-of-type {
+    margin-top: 10px;
   }
 `;
-const LinkPwd = styled(Link)`
-  font-size: 12px;
+const FindPwd = styled.span`
   color: rgb(0, 116, 204);
-  text-decoration: none;
+  font-size: 12px;
 `;
 
 const LoginInput = styled.input`
-  margin: 5px 0px;
   height: 28px;
-  border-radius: 3px;
+  margin-bottom: 5px;
+  border-radius: 4px;
+  font-size: 16px;
   border: 1px solid rgb(186, 191, 196);
   &:focus {
     outline: none;
-    border-color: rgb(10, 149, 255);
+    border: 1px solid rgb(0, 116, 204);
   }
   &.ErrorInput {
-    border-color: rgb(208, 57, 62);
+    border-color: hsl(358, 62%, 47%);
   }
 `;
-const LinkBox = styled.div`
-  margin-top: 40px;
+const Label = styled.span`
+  font-size: 15px;
+  font-weight: 600;
+`;
+const Signbox = styled.div`
   display: flex;
   flex-direction: column;
-  font-size: 13px;
-  span {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  span:first-child {
-    margin-bottom: 15px;
-  }
+  margin-top: 25px;
+  justify-content: center;
+  align-items: center;
 `;
+const SignTxt = styled.p`
+  margin-top: 15px;
+  font-size: 13px;
+  color: rgb(35, 38, 41);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+// 글자 파랗게
 const SignLink = styled(Link)`
   text-decoration: none;
   color: rgb(0, 116, 204);
   margin-left: 3px;
-  div {
-    display: flex;
-  }
 `;
 
 const ErrorMsg = styled.span`
-  font-size: 11px;
-  color: rgb(208, 57, 62);
+  font-size: 12px;
+  color: hsl(358, 62%, 47%);
+  margin-bottom: 3px;
 `;
 
 const Login = () => {
@@ -173,18 +196,16 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // 이메일 양식 검증
+
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       setEmailError("The email is not a valid email address.");
       setEmailInputClass("ErrorInput");
       return;
     } else {
-      setEmailError("");
       setEmailInputClass("");
     }
 
-    // 비밀번호 길이 검증
     if (password === "") {
       setPasswordError("Password is required.");
       setPasswordInputClass("ErrorInput");
@@ -193,6 +214,7 @@ const Login = () => {
       setPasswordInputClass("ErrorInput");
     } else {
       setPasswordError("");
+      setPasswordInputClass("");
     }
   };
 
@@ -214,7 +236,7 @@ const Login = () => {
       <LoginBox>
         <LoginForm onSubmit={handleSubmit}>
           <LoginTxt>
-            <label htmlFor="email">Email</label>
+            <Label>Email</Label>
           </LoginTxt>
           <LoginInput
             type="text"
@@ -225,8 +247,8 @@ const Login = () => {
           />
           {emailError && <ErrorMsg>{emailError}</ErrorMsg>}
           <LoginTxt>
-            <label htmlFor="password">Password</label>
-            <LinkPwd to="/users/login">Forgot password?</LinkPwd>
+            <Label>Password</Label>
+            <FindPwd>Forgot password?</FindPwd>
           </LoginTxt>
           <LoginInput
             type="password"
@@ -239,20 +261,18 @@ const Login = () => {
           <button type="submit">Log in</button>
         </LoginForm>
       </LoginBox>
-      <LinkBox>
-        <span>
-          Don’t have an account? <SignLink to="/users/">Sign up</SignLink>
-        </span>
-        <span>
+      <Signbox>
+        <SignTxt>
+          Don’t have an account? <SignLink to="/users/signup">Sign up</SignLink>
+        </SignTxt>
+        <SignTxt>
           Are you an employer?{" "}
-          <SignLink to="/users/login">
-            <div>
-              Sign up on Talent
-              <BiLinkExternal size="15" />
-            </div>
+          <SignLink to="/users/signup">
+            Sign up on Talent
+            <HiOutlineExternalLink size={15} />
           </SignLink>
-        </span>
-      </LinkBox>
+        </SignTxt>
+      </Signbox>
     </LoginSection>
   );
 };
