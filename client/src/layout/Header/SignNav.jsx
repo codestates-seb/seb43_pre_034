@@ -1,10 +1,11 @@
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
-const SignContainer = styled.ol`
+const SignContainer = styled.div`
   flex: 0 0 132px;
   display: flex;
   font-size: 13px;
-  padding: 1rem;
+  margin: 1rem;
 
   .login_in {
     flex: 0 0 calc(100% / 2 - 2.5px);
@@ -16,6 +17,7 @@ const SignContainer = styled.ol`
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
   }
   .sign_up {
     flex: 0 0 calc(100% / 2 - 2.5px);
@@ -28,18 +30,28 @@ const SignContainer = styled.ol`
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
   }
 
   @media ${(props) => props.theme.breakpoints.mobileMax} {
-    padding: 1rem 1rem 1rem 0;
+    margin: 1rem 1rem 1rem 0;
   }
 `;
 
 const SignNav = () => {
+  const navigate = useNavigate();
+
   return (
     <SignContainer>
-      <li className="login_in">Log in</li>
-      <li className="sign_up">Sign up</li>
+      <button
+        className="login_in"
+        onClick={() => {
+          navigate("/users/login");
+        }}
+      >
+        Log in
+      </button>
+      <button className="sign_up">Sign up</button>
     </SignContainer>
   );
 };
