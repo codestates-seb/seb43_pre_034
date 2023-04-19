@@ -18,7 +18,6 @@ const ContentPart = () => {
 
 const Content = styled.div`
   flex: 0 1 802px;
-  height: 100%;
   box-sizing: border-box;
   overflow: hidden;
 `;
@@ -30,7 +29,6 @@ const CommonStyle = css`
 
 const CotentHead = styled.div`
   ${CommonStyle}
-  height: 100px;
   margin-bottom: 1rem;
 `;
 const ContentBody = styled.div`
