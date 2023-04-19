@@ -1,49 +1,71 @@
 import styled from "styled-components";
-import { TiArrowSortedUp, TiArrowSortedDown } from "react-icons/ti";
+import { GoTriangleUp, GoTriangleDown } from "react-icons/go";
 import { BsBookmark } from "react-icons/bs";
 import { BiHistory } from "react-icons/bi";
 import { ImCheckmark } from "react-icons/im";
+import { useState } from "react";
 
+// styled-component
 const VotingCompo = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
   font-size: 22px;
   width: 40px;
   margin-right: 16px;
   color: #6a737c;
   > * {
-    margin-bottom: 15px;
+    margin-bottom: 10px;
   }
   .icons {
     font-size: 18px;
     font-weight: bold;
   }
+  .vote {
+    font-size: 45px;
+  }
+  .checked {
+    cursor: pointer;
+    color: #1b4d2c;
+  }
+  .icon-check {
+    cursor: pointer;
+  }
 `;
+
+// 기본 container
 const VotingContainer = () => {
   return (
     <VotingCompo>
-      <TiArrowSortedUp />
+      <GoTriangleUp className="vote" />
       <p>0</p>
-      <TiArrowSortedDown />
+      <GoTriangleDown className="vote" />
       <BsBookmark className="icons" />
       <BiHistory className="icons" />
     </VotingCompo>
   );
 };
 
-const VotingOnlyAuthor = () => {
+// 작성자 채택 전/후 container
+const VotingChecked = () => {
+  const [isChecked, setIsChecked] = useState(false);
+  const changeChecked = () => {
+    setIsChecked(!isChecked);
+    console.log(isChecked);
+  };
   return (
     <VotingCompo>
-      <TiArrowSortedUp />
+      <GoTriangleUp className="vote" />
       <p>0</p>
-      <TiArrowSortedDown />
+      <GoTriangleDown className="vote" />
       <BsBookmark className="icons" />
-      <ImCheckmark />
+      <ImCheckmark
+        onClick={changeChecked}
+        className={isChecked ? "checked" : "icon-check"}
+      />
       <BiHistory className="icons" />
     </VotingCompo>
   );
 };
 
-export { VotingContainer, VotingOnlyAuthor };
+export { VotingContainer, VotingChecked };
