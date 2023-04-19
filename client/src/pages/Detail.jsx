@@ -12,7 +12,7 @@ import { Comment } from "../components/QuestionDetail/Comment";
 // styled-components
 // 상세페이지-전체 구성
 const DetailPage = styled.div`
-  max-width: 1051px;
+  max-width: 1100px;
   border-left: 1px solid #d6d9dc;
   padding: 24px;
   @media ${({ theme }) => theme.breakpoints.mobileMax} {
@@ -86,7 +86,7 @@ const DetailBodyCon = styled.div`
     justify-content: space-between;
     padding-top: 4px;
     margin: 16px 0px;
-    @media (max-width: 607px) {
+    @media (max-width: 456px) {
       display: flex;
       flex-direction: column;
     }
@@ -107,7 +107,8 @@ const AnswerCompo = styled.section`
   }
   .answer-container {
     display: flex;
-    padding-top: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid hsl(210, 8%, 90%);
     .answer-body {
       vertical-align: baseline;
       padding-right: 16px;
@@ -121,7 +122,7 @@ const AnswerCompo = styled.section`
       justify-content: space-between;
       padding-top: 4px;
       margin: 16px 0px;
-      @media (max-width: 607px) {
+      @media (max-width: 456px) {
         display: flex;
         flex-direction: column;
       }
