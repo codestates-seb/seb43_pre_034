@@ -30,6 +30,7 @@ dependencies {
 	runtimeOnly 'com.h2database:h2'
 	annotationProcessor 'org.projectlombok:lombok'
 
+
 }
 
 tasks.named('test') {
