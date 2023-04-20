@@ -25,7 +25,7 @@ public class QuestionService {
         User user = question.getUser();
         Optional<User> verifiedUser = UserService.findVerifiedUser(user.getUserId());
         if (!verifiedUser.isPresent()) {
-            throw new BusinessLogicException(ExceptionCode.NO_PERMISSION_DELETING_POST);
+            throw new BusinessLogicException(ExceptionCode.NO_PERMISSION_CREATING_POST);
         }
         question.setUser(user);
         return questionRepository.save(question);
