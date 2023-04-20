@@ -41,4 +41,40 @@ const LoginBtn = ({ children, ...rest }) => {
   return <ButtonLogin {...rest}>{children}</ButtonLogin>;
 };
 
-export { AskQuestionBtn, PostAnswerBtn, LoginBtn };
+const GlobalBtn = styled.button`
+  background: #0a95ff;
+  color: #fff;
+  border: solid 1px #7aa7c7;
+  border-radius: 3px;
+  width: ${({ width }) => width};
+  height: ${({ height }) => height};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: ${({ padding }) => padding};
+  cursor: pointer;
+  font-size: 13px;
+`;
+
+/**
+ * 공통적으로 사용하는 파란색 배경의 버튼 컴포넌트
+ * @property {string} height 높이
+ * @property {string} width 너비
+ * @property {string} padding 패딩
+ * @property {string} buttonText 텍스트
+ */
+
+const BluebgBtn = ({ height, width, padding, buttonText }) => {
+  return (
+    <GlobalBtn
+      width={width || "100%"}
+      height={height || "38px"}
+      padding={padding || "10.4px"}
+      // onClick={onClick}
+    >
+      {buttonText}
+    </GlobalBtn>
+  );
+};
+
+export { AskQuestionBtn, PostAnswerBtn, LoginBtn, BluebgBtn };
