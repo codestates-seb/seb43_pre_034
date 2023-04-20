@@ -4,6 +4,8 @@ import com.codestates.stackoverflow.answer.mapper.AnswerMapper;
 import com.codestates.stackoverflow.answer.service.AnswerService;
 import com.codestates.stackoverflow.answer.dto.AnswerDto;
 import com.codestates.stackoverflow.answer.entity.Answer;
+import com.codestates.stackoverflow.dto.MultiResponseDto;
+import com.codestates.stackoverflow.dto.SingleResponseDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -40,15 +42,17 @@ public class AnswerController {
 
         AnswerDto.ResponseDto response = mapper.answerToResponse(createdAnswer);
 
-        return new ResponseEntity<>(response, HttpStatus.CREATED);
+        return new ResponseEntity<>(
+                new SingleResponseDto<>(response), HttpStatus.CREATED);
     }
 
     @GetMapping("/{answer-id")
-    public ResponseEntity getAnswer(@PathVariable("answer-id") @Positive Long answerId) {
+    public ResponseEntity getAnswer(@PathVariable("answer-id") @Positive long answerId) {
         Answer findAnswer = answerService.findAnswer(answerId);
         AnswerDto.ResponseDto response = mapper.answerToResponse(findAnswer);
 
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        return new ResponseEntity<>(
+                new SingleResponseDto<>(response), HttpStatus.OK);
     }
 
     @GetMapping("/questions/{question-id}")
@@ -60,33 +64,36 @@ public class AnswerController {
         List<Answer> answerList = answerPage.getContent();
         List<AnswerDto.ResponseDto> responseList = mapper.answersToResponses(answerList);
 
-        return new ResponseEntity<>(responseList, HttpStatus.OK);
+        return new ResponseEntity<>(
+                new MultiResponseDto<>(responseList,answerPage), HttpStatus.OK);
 
     }
 
     @PatchMapping("/{answer-id}")
-    public ResponseEntity patchAnswer(@PathVariable("answer-id") @Positive Long answerId,
+    public ResponseEntity patchAnswer(@PathVariable("answer-id") @Positive long answerId,
                                       @Valid @RequestBody AnswerDto.PatchDto requestBody) {
         requestBody.setAnswerId(answerId);
         Answer answer = mapper.patchToAnswer(requestBody);
         Answer updatedAnswer = answerService.updateAnswer(answer);
         AnswerDto.ResponseDto response = mapper.answerToResponse(updatedAnswer);
 
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        return new ResponseEntity<>(
+                new SingleResponseDto<>(response), HttpStatus.OK);
     }
 
     @PatchMapping("/{user-id}/{answer-id}")  //check를 바꾸기 위한 메서드
-    public ResponseEntity patchAnswerCheck(@PathVariable("user-id") @Positive Long userId,
-                                           @PathVariable("answer-id") Long answerId) {
+    public ResponseEntity patchAnswerCheck(@PathVariable("user-id") @Positive long userId,
+                                           @PathVariable("answer-id") long answerId) {
 
         Answer chekedAnswer = answerService.updateCheck(userId, answerId);
         AnswerDto.ResponseDto response = mapper.answerToResponse(chekedAnswer);
 
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        return new ResponseEntity<>(
+                new SingleResponseDto<>(response), HttpStatus.OK);
     }
 
     @DeleteMapping("/{answer-id}")
-    public ResponseEntity deleteAnswer(@PathVariable("answer-id") @Positive Long answerId){
+    public ResponseEntity deleteAnswer(@PathVariable("answer-id") @Positive long answerId){
         answerService.deleteAnswer(answerId);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

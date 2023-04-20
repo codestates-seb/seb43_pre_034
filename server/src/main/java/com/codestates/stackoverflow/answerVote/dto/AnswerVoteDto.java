@@ -11,17 +11,17 @@ public class AnswerVoteDto {
 
     @Getter
     public static class PostDto {
-        private Long userId;
-        private Long answerId;
+        private long userId;
+        private long answerId;
         private AnswerVote.VoteType voteType;
     }
     @Getter
     @AllArgsConstructor
     public static class PatchDto {
-        private Long answerVoteId;
+        private long answerVoteId;
         private AnswerVote.VoteType voteType;
 
-        public void setAnswerVoteId(Long answerVoteId) {
+        public void setAnswerVoteId(long answerVoteId) {
             this.answerVoteId = answerVoteId;
         }
     }
@@ -29,9 +29,9 @@ public class AnswerVoteDto {
     @AllArgsConstructor
     @Getter
     public static class ResponseDto {
-        private Long answerVoteId;
-        private Long userId;
-        private Long answerId;
+        private long answerVoteId;
+        private long userId;
+        private long answerId;
         private AnswerVote.VoteType voteType;
     }
 }

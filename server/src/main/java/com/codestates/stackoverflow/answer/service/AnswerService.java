@@ -3,7 +3,9 @@ package com.codestates.stackoverflow.answer.service;
 import com.codestates.stackoverflow.answer.entity.Answer;
 import com.codestates.stackoverflow.answer.mapper.AnswerMapper;
 import com.codestates.stackoverflow.answer.repository.AnswerRepository;
+import com.codestates.stackoverflow.exception.BusinessLogicException;
 import com.codestates.stackoverflow.question.entity.Question;
+import com.codestates.stackoverflow.question.service.QuestionService;
 import com.codestates.stackoverflow.user.service.UserService;
 import org.apache.catalina.User;
 import org.springframework.data.domain.Page;
@@ -29,7 +31,7 @@ public class AnswerService {
         this.mapper = mapper;
     }
 
-    public Answer createAnswer(Answer answer, Long userId, Long questionId) {
+    public Answer createAnswer(Answer answer, long userId, long questionId) {
         Question findQuestion = questionService.findVerifiedQuestion(questionId);
         User findUser = userService.findVerifiedUser(userId);
 
@@ -51,9 +53,9 @@ public class AnswerService {
 
 
     // check 필드 변경만을 위한 update 기능
-    public Answer updateCheck(Long userId, Long answerId) {
+    public Answer updateCheck(long userId, long answerId) {
         Answer findAnswer = findVerifiedAnswer(answerId);
-        Long masterUserId = findAnswer.getQuestion().getUser().getUserId();
+        long masterUserId = findAnswer.getQuestion().getUser().getUserId();
         if(masterUserId==userId) {
             if (!findAnswer.isCheck()) {
                 findAnswer.setCheck(true);
@@ -64,28 +66,28 @@ public class AnswerService {
         return answerRepository.save(findAnswer);
     }
 
-    public Answer findAnswer(Long answerId) {
+    public Answer findAnswer(long answerId) {
 
         return findVerifiedAnswer(answerId);
     }
 
     //questionId에 해당하는 답변글 모두 조회해서 가져옴
-    public Page<Answer> findAnswers(Long questionId, int page, int size) {
+    public Page<Answer> findAnswers(long questionId, int page, int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by("answerId").descending());
         Optional<Page<Answer>> optionalAnswers =answerRepository.findByQuestionQuestionId(questionId,pageable);
 
-        Page<Answer> answerPage = optionalAnswers.orElseThrow(() -> new RuntimeException("답변이 없습니다"));
+        Page<Answer> answerPage = optionalAnswers.orElseThrow(() ->  new BusinessLogicException(ExceptionCode.Answer_NOT_FOUND));
         return answerPage;
     }
 
-    public void deleteAnswer(Long answerId) {
+    public void deleteAnswer(long answerId) {
         Answer findAnswer = findVerifiedAnswer(answerId);
 
         answerRepository.delete(findAnswer);
     }
     //답변이 없는 경우가 있기 때문에 Optional  사용
-    private Answer findVerifiedAnswer(Long answerId) {
+    private Answer findVerifiedAnswer(long answerId) {
         Optional<Answer> optionalAnswer = answerRepository.findById(answerId);
-        return optionalAnswer.orElseThrow(() -> new RuntimeException("답변이 없습니다"));
+        return optionalAnswer.orElseThrow(() -> new BusinessLogicException(ExceptionCode.Answer_NOT_FOUND));
     }
 }
