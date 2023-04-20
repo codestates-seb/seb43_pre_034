@@ -47,8 +47,7 @@ const TitleInputBox = styled.div`
     }
     &:focus {
       outline: none !important;
-      text-align: lefimport { useState } from "react";
-t;
+      text-align: left;
       border: 1px solid #7aa7c7;
       box-shadow: 0 0 2px 4px #cbe4f6;
     }
