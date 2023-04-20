@@ -54,7 +54,6 @@ public interface AnswerMapper {
                 .checked(answer.isCheked())
                 .createdAt(answer.getCreatedAt())
                 .modifiedAt(answer.getModifiedAt())
-                .createdBy(answer.getCreatedBy())
                 .build();
     }
 

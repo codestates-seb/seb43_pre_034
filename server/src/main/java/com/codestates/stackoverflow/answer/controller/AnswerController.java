@@ -35,12 +35,13 @@ public class AnswerController {
     public ResponseEntity postAnswer(@Valid @RequestBody AnswerDto.PostDto requestBody){
 
         Answer answer = mapper.postToAnswer(requestBody);
-        Long userId = requestBody.getUserId();
-        Long questionId = requestBody.getQuestionId();
+        long userId = requestBody.getUserId();
+        long questionId = requestBody.getQuestionId();
 
         Answer createdAnswer = answerService.createAnswer(answer, userId, questionId);
 
         AnswerDto.ResponseDto response = mapper.answerToResponse(createdAnswer);
+
 
         return new ResponseEntity<>(
                 new SingleResponseDto<>(response), HttpStatus.CREATED);
@@ -88,7 +89,7 @@ public class AnswerController {
         AnswerDto.ResponseDto response = mapper.answerToResponse(chekedAnswer);
 
         return new ResponseEntity<>(
-                new SingleResponseDto<>(response), HttpStatus.OK);
+                new SingleResponseDto<>(response.isChecked()), HttpStatus.OK);
     }
 
     @DeleteMapping("/{answer-id}")
