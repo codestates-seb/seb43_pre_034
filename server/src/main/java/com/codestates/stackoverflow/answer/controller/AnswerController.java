@@ -66,7 +66,6 @@ public class AnswerController {
 
         return new ResponseEntity<>(
                 new MultiResponseDto<>(responseList,answerPage), HttpStatus.OK);
-
     }
 
     @PatchMapping("/{answer-id}")

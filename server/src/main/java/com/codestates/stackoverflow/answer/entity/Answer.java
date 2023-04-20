@@ -61,11 +61,25 @@ public class Answer extends Auditable {
     }
 
 
-    public void setAnswerVote(AnswerVote answerVote) { //answer 와 answerVoto 매핑
+    public void addAnswerVote(AnswerVote answerVote) { //answer 와 answerVoto 매핑
         this.answerVotes.add(answerVote);
         if(answerVote.getAnswer() != this) {
             answerVote.setAnswer(this);
         }
+        updateScore();
+    }
+
+    private void updateScore() {
+        int score = 0;
+
+        for (AnswerVote answerVote : answerVotes) {
+            if(answerVote.getVoteType() == AnswerVote.VoteType.LIKE) {
+                score++;
+            } else if (answerVote.getVoteType() == AnswerVote.VoteType.DISLIKE) {
+                score--;
+            }
+        }
+        this.score = score;
     }
 
 }
