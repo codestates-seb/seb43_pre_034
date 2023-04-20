@@ -3,17 +3,23 @@ import { HiPencil } from "react-icons/hi";
 import { BsStackOverflow } from "react-icons/bs";
 // sidebar 스타일
 const SideBarCompo = styled.section`
-  margin-top: 20px;
   ul {
     width: ${(props) => props.theme.widthSize.sidebar};
+    @media ${({ theme }) => theme.breakpoints.tabletMax} {
+      width: 100%;
+    }
   }
+  margin: 20px 0 0 20px;
   background-color: hsl(
     47.272727272727266,
     89.18918918918922%,
     92.74509803921569%
   );
   font-size: 20px;
-  margin-left: 20px;
+  @media ${({ theme }) => theme.breakpoints.tabletMax} {
+    width: 100%;
+    margin-left: 0px;
+  }
   border: 1px solid #f1e5bc;
   box-shadow: 0 1px 2px hsla(0, 0%, 0%, 0.05), 0 1px 4px hsla(0, 0%, 0%, 0.05),
     0 2px 8px hsla(0, 0%, 0%, 0.05);
@@ -45,9 +51,9 @@ const SideBarCompo = styled.section`
     padding-left: 3px;
     color: #3b4045;
     vertical-align: baseline;
-  }
-  @media ${({ theme }) => theme.breakpoints.tabletMax} {
-    display: none;
+    @media ${({ theme }) => theme.breakpoints.tabletMax} {
+      width: 100%;
+    }
   }
 `;
 
@@ -86,9 +92,16 @@ const SideBar = () => {
   );
 };
 
-const SideBarEditCompo = styled.ul`
-  list-style: inside;
-  width: 363px;
+const SideBarEditCompo = styled.section`
+  position: sticky;
+  top: 50px;
+  ul {
+    list-style: inside;
+    width: 363px;
+    @media ${({ theme }) => theme.breakpoints.tabletMax} {
+      width: 100%;
+    }
+  }
 
   background-color: hsl(
     47.272727272727266,

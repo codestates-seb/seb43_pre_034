@@ -8,6 +8,8 @@ import AskQuestion from "./pages/AskQuesion";
 import Login from "./pages/Login";
 import Detail from "./pages/Detail";
 import Signup from "./pages/Signup";
+import { EditQuestion, EditAnswer } from "./pages/Edit";
+import { AnswerAuthor } from "./components/QuestionDetail/AuthorInfo";
 
 const Container = styled.div`
   display: flex;
@@ -25,7 +27,12 @@ function App() {
           {/* NavBar 특정 페이지만 보이기 */}
           <Route element={<NavBar />}>
             <Route path="/" element={<Home />} />
-            <Route path="/questions" element={<Detail />} />
+            <Route path="/question/:id" element={<Detail />} />
+            <Route path="question/:id/edit" element={<EditQuestion />} />
+            <Route
+              path="/question/:id/answeredit/:answerid"
+              element={<EditAnswer />}
+            />
           </Route>
           {/* NavBar 특정 페이지 숨기기 */}
           <Route path="/question/ask" element={<AskQuestion />} />
