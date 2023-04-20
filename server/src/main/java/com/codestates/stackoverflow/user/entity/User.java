@@ -6,6 +6,7 @@ import com.codestates.stackoverflow.question.entity.Question;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
 public class User extends Auditable {
     @Id
@@ -42,9 +44,9 @@ public class User extends Auditable {
     List<Answer> answers = new ArrayList<>();
 
     // User별 Question과 Answer의 Score 합산
-    public void setScore() {
-        this.score = score;
-    }
+//    public void setScore() {
+//        this.score = score;
+//    }
 
     public User(String email) {
         this.email = email;
