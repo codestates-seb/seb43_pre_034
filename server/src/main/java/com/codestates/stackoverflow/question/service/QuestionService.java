@@ -21,9 +21,11 @@ import java.util.Optional;
 @Transactional
 public class QuestionService {
     private final QuestionRepository questionRepository;
+    private final UserRepository userRepository;
+
     public Question createQuestion(Question question) { //질문글 생성
         User user = question.getUser();
-        Optional<User> verifiedUser = UserService.findVerifiedUser(user.getUserId());
+        Optional<User> verifiedUser = userRepository.findById(user.getUserId());
         if (!verifiedUser.isPresent()) {
             throw new BusinessLogicException(ExceptionCode.NO_PERMISSION_CREATING_POST);
         }
@@ -35,7 +37,7 @@ public class QuestionService {
         Question findQuestion = findVerifiedQuestion(question.getQuestionId());
 
         User user = question.getUser();
-        Optional<User> verifiedUser = UserService.findVerifiedUser(user.getUserId());
+        Optional<User> verifiedUser = userRepository.findById(user.getUserId());
         if (!verifiedUser.isPresent() || !findQuestion.getUser().getUserId().equals(user.getUserId())) {
             throw new BusinessLogicException(ExceptionCode.NO_PERMISSION_EDITING_POST);
         }
@@ -64,7 +66,7 @@ public class QuestionService {
         Question findQuestion = findVerifiedQuestion(questionId);
 
         User user = findQuestion.getUser();
-        Optional<User> verifiedUser = UserService.findVerifiedUser(user.getUserId());
+        Optional<User> verifiedUser = userRepository.findById(user.getUserId());
         if (!verifiedUser.isPresent() || !findQuestion.getUser().getUserId().equals(user.getUserId())) {
             throw new BusinessLogicException(ExceptionCode.NO_PERMISSION_DELETING_POST);
         }

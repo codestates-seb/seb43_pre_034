@@ -1,13 +1,14 @@
 package com.codestates.stackoverflow.answer.service;
 
 import com.codestates.stackoverflow.answer.entity.Answer;
+import com.codestates.stackoverflow.user.entity.User;
 import com.codestates.stackoverflow.answer.mapper.AnswerMapper;
 import com.codestates.stackoverflow.answer.repository.AnswerRepository;
 import com.codestates.stackoverflow.exception.BusinessLogicException;
+import com.codestates.stackoverflow.exception.ExceptionCode;
 import com.codestates.stackoverflow.question.entity.Question;
 import com.codestates.stackoverflow.question.service.QuestionService;
 import com.codestates.stackoverflow.user.service.UserService;
-import org.apache.catalina.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -57,10 +58,10 @@ public class AnswerService {
         Answer findAnswer = findVerifiedAnswer(answerId);
         long masterUserId = findAnswer.getQuestion().getUser().getUserId();
         if(masterUserId==userId) {
-            if (!findAnswer.isCheck()) {
-                findAnswer.setCheck(true);
+            if (!findAnswer.isCheked()) {
+                findAnswer.setCheked(true);
             } else {
-                findAnswer.setCheck(false);
+                findAnswer.setCheked(false);
             }
         }
         return answerRepository.save(findAnswer);
@@ -76,7 +77,7 @@ public class AnswerService {
         Pageable pageable = PageRequest.of(page, size, Sort.by("answerId").descending());
         Optional<Page<Answer>> optionalAnswers =answerRepository.findByQuestionQuestionId(questionId,pageable);
 
-        Page<Answer> answerPage = optionalAnswers.orElseThrow(() ->  new BusinessLogicException(ExceptionCode.Answer_NOT_FOUND));
+        Page<Answer> answerPage = optionalAnswers.orElseThrow(() ->  new BusinessLogicException(ExceptionCode.ANSWER_NOT_FOUND));
         return answerPage;
     }
 
@@ -88,6 +89,6 @@ public class AnswerService {
     //답변이 없는 경우가 있기 때문에 Optional  사용
     private Answer findVerifiedAnswer(long answerId) {
         Optional<Answer> optionalAnswer = answerRepository.findById(answerId);
-        return optionalAnswer.orElseThrow(() -> new BusinessLogicException(ExceptionCode.Answer_NOT_FOUND));
+        return optionalAnswer.orElseThrow(() -> new BusinessLogicException(ExceptionCode.ANSWER_NOT_FOUND));
     }
 }

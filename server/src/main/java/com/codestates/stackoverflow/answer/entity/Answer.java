@@ -37,10 +37,10 @@ public class Answer extends Auditable {
 
 
     @Column(nullable = false)
-    private int score;
+    private int score=0;
 
     @Column(columnDefinition = "BOOLEAN NOT NULL")
-    private boolean check= false;
+    private boolean cheked = false;
 
     @OneToMany(mappedBy = "answer", cascade = {CascadeType.ALL})
     private List<AnswerVote> answerVotes = new ArrayList<>();
