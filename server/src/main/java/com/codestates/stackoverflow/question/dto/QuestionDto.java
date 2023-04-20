@@ -10,7 +10,7 @@ public class QuestionDto {
     @Setter
     @Getter
     @NoArgsConstructor
-    public class QuestionPostDto {
+    public static class QuestionPostDto {
         @NotEmpty(message = "질문 제목을 작성해야 합니다.")
         private String title;
         @NotEmpty(message = "질문 내용을 작성해야 합니다.")
@@ -21,7 +21,7 @@ public class QuestionDto {
     @AllArgsConstructor
     @Setter
     @Getter
-    public class QuestionPatchDto {
+    public static class QuestionPatchDto {
         @Length(min = 1)
         private String title;
         @Length(min = 1)
