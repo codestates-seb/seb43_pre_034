@@ -44,6 +44,5 @@ public class AnswerDto {
         private boolean checked;
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
-        private String createdBy;
     }
 }

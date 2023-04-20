@@ -8,6 +8,7 @@ import com.codestates.stackoverflow.user.entity.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 
 import javax.persistence.Entity;
@@ -81,5 +82,6 @@ public class Answer extends Auditable {
         }
         this.score = score;
     }
+
 
 }

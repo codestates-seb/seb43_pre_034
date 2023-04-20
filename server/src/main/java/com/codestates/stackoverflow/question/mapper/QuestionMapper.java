@@ -18,8 +18,10 @@ public interface QuestionMapper {
     Question questionPatchDtoToQuestion(QuestionDto.QuestionPatchDto questionPatchDto);
 
     @Mapping(source = "user.userId", target = "userId")
+    @Mapping(source = "user.name", target = "name")
     QuestionResponseDto questionToQuestionResponseDto(Question question);
 
     @Mapping(source = "user.userId", target = "userId")
+    @Mapping(source = "user.name", target = "name")
     List<QuestionResponseDto> questionsToResponseDto(List<Question>questions);
 }
