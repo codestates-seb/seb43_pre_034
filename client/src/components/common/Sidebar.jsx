@@ -92,9 +92,16 @@ const SideBar = () => {
   );
 };
 
-const SideBarEditCompo = styled.ul`
-  list-style: inside;
-  width: 363px;
+const SideBarEditCompo = styled.section`
+  position: sticky;
+  top: 50px;
+  ul {
+    list-style: inside;
+    width: 363px;
+    @media ${({ theme }) => theme.breakpoints.tabletMax} {
+      width: 100%;
+    }
+  }
 
   background-color: hsl(
     47.272727272727266,
