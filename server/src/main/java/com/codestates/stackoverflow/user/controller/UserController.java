@@ -33,7 +33,7 @@ public class UserController {
     private final UserService userService;
     private final UserMapper mapper;
 
-    @PostMapping("/")
+    @PostMapping
     public ResponseEntity join(@Valid @RequestBody UserDto.Post requestBody) {
         User user = mapper.userPostToUser(requestBody);
 
@@ -73,7 +73,7 @@ public class UserController {
         return "redirect:/login";
     }
 
-    @GetMapping("/{userId}")
+    @GetMapping("/{user-id}")
     public ResponseEntity getUser(@PathVariable("user-id") @Positive long userId) {
         User user = userService.findUser(userId);
         return new ResponseEntity<>(
@@ -81,8 +81,8 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity getUsers(@Positive @RequestParam int page,
-                                   @Positive @RequestParam int size) {
+    public ResponseEntity getUsers(@Positive @RequestParam(value = "page",defaultValue = "1") int page,
+                                   @Positive @RequestParam(value = "size",defaultValue = "15") int size) {
         Page<User> pageUsers = userService.findUsers(page - 1, size);
         List<User> users = pageUsers.getContent();
         return new ResponseEntity<>(
