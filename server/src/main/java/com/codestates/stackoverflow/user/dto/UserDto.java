@@ -28,6 +28,10 @@ public class UserDto {
         private String name;
 
         private User.Status status;
+
+        public void setUserId(long userId) {
+            this.userId = userId;
+        }
     }
 
     public static class Response {

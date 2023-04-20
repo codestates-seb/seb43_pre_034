@@ -9,11 +9,10 @@ import java.util.List;
 @Getter
 public class MultiResponseDto<T> {
     private List<T> data;
-    private PageInfo pageInfo;
+    private PageDto pageInfo;
 
     public MultiResponseDto(List<T> data, Page page) {
         this.data = data;
-        this.pageInfo = new PageInfo(page.getNumber() + 1,
-                page.getSize(), page.getTotalElements(), page.getTotalPages());
+        this.pageInfo = new PageDto(data, page);
     }
 }
