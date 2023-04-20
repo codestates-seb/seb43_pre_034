@@ -30,8 +30,8 @@ public class Question extends Auditable {
 //    private List<QuestionComment> questionCommentList = new ArrayList<>();
 //    @OneToMany(mappedBy = "question", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
 //    private List<QuestionVote> questionVoteList = new ArrayList<>();
-//    @OneToMany(mappedBy = "question", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
-//    private List<Answer> answerList = new ArrayList<>();
+    @OneToMany(mappedBy = "question", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+    private List<Answer> answerList = new ArrayList<>();
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

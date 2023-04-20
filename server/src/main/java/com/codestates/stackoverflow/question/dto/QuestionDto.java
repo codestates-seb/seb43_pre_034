@@ -15,7 +15,7 @@ public class QuestionDto {
         private String title;
         @NotEmpty(message = "질문 내용을 작성해야 합니다.")
         private String body;
-        private long userid;
+        private long userId;
     }
 
     @AllArgsConstructor
