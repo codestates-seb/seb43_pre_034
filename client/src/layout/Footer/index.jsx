@@ -6,31 +6,38 @@ import { Link } from "react-router-dom";
 import logo from "../../assets/images/stack.png";
 
 const FooterContainer = styled.footer`
-  display: flex;
-  width: 100%;
+  width: 100vw;
   height: max-content;
+  color: hsl(210, 8%, 60%);
+  padding-top: 10px;
+  padding-bottom: 0px;
   background: ${(props) => props.theme.color.footerBg};
-  justify-content: center;
-  align-items: center;
 `;
 const FooterContents = styled.ul`
-  display: flex;
   max-width: 1264px;
-  min-width: 980px;
-  list-style: none;
-  margin-top: 30px;
-  margin-bottom: 60px;
+  margin: 0 auto;
+  display: flex;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  justify-content: space-around;
+  @media ${({ theme }) => theme.breakpoints.desktopMin} {
+    width: 100%;
+  }
   @media ${({ theme }) => theme.breakpoints.tabletMax} {
     width: 100%;
-    min-width: 630px;
     flex-direction: column;
     margin-bottom: 0px;
   }
   @media ${({ theme }) => theme.breakpoints.mobileMax} {
     margin-bottom: 25px;
     max-width: 500px;
+    margin: 0;
   }
-
+  li > ul {
+    @media ${({ theme }) => theme.breakpoints.tabletMax} {
+      width: 100%;
+    }
+  }
   .logo {
     width: 43px;
     height: 37px;
@@ -38,15 +45,43 @@ const FooterContents = styled.ul`
   }
   .stackoverflow {
     width: 190px;
+    @media ${({ theme }) => theme.breakpoints.tabletMax} {
+      width: 80%;
+    }
+    @media ${({ theme }) => theme.breakpoints.mobileMax} {
+    }
   }
   .products {
     width: 170px;
+    @media ${({ theme }) => theme.breakpoints.tabletMax} {
+      width: 80%;
+    }
+    @media ${({ theme }) => theme.breakpoints.mobileMax} {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+    }
   }
   .company {
     width: 190px;
+    @media ${({ theme }) => theme.breakpoints.tabletMax} {
+      width: 80%;
+    }
+    @media ${({ theme }) => theme.breakpoints.mobileMax} {
+      /* display: inline;
+      flex-wrap: wrap; */
+    }
+    ul {
+      @media ${({ theme }) => theme.breakpoints.mobileMax} {
+        width: 400px;
+      }
+    }
   }
   .network {
     width: 270px;
+    @media ${({ theme }) => theme.breakpoints.tabletMax} {
+      width: 80%;
+    }
     ul {
       @media ${({ theme }) => theme.breakpoints.tabletMax} {
         display: flex;
@@ -121,8 +156,10 @@ const FooterList = styled.li`
     @media ${({ theme }) => theme.breakpoints.tabletMax} {
       display: flex;
       width: 750px;
-      min-width: 300px;
       display: inline-block;
+    }
+    @media ${({ theme }) => theme.breakpoints.mobileMax} {
+      width: 100%;
     }
   }
   h2 {
@@ -242,3 +279,5 @@ const Footer = () => {
 };
 
 export default Footer;
+
+// @media ${({ theme }) => theme.breakpoints.mobileMax} {}
