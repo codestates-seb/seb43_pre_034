@@ -37,6 +37,7 @@ const EditSaveBtn = () => {
     </ButtonCompo>
   );
 };
+
 const ButtonLogin = styled.button`
   width: 278px;
   height: 37px;

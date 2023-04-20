@@ -1,13 +1,15 @@
 import styled from "styled-components";
 import { AskQuestionBtn } from "../components/common/Buttons";
-import {
-  VotingChecked,
-  VotingContainer,
-} from "../components/QuestionDetail/VotingCompo";
+import { VotingContainer } from "../components/QuestionDetail/VotingCompo";
 import { SideBar } from "../components/common/Sidebar";
-import { BottomBtn } from "../components/QuestionDetail/QuestionBottomButton";
 import { QuestionAuthor } from "../components/QuestionDetail/AuthorInfo";
-import { Comment } from "../components/QuestionDetail/Comment";
+import { QuBottomBtn } from "../components/QuestionDetail/QuestionBottomButton";
+import { QuComment } from "../components/QuestionDetail/Comment";
+import AddAnswer from "../components/QuestionDetail/AddAnswer";
+import AnswerCompo from "../components/QuestionDetail/AnswerCompo";
+import { useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 // styled-components
 // 상세페이지-전체 구성
@@ -65,23 +67,31 @@ const DetailBodyCon = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   @media ${({ theme }) => theme.breakpoints.tabletMax} {
     display: flex;
     flex-direction: column;
   }
   .question-answer-page {
+    width: inherit;
     display: flex;
     flex-direction: column;
   }
   .question {
     display: flex;
     flex-direction: row;
-    margin-top: 20px;
+    margin: 20px 0px 80px;
   }
   .question-body {
     padding-right: 16px;
     width: 100%;
     margin: 16px 0px;
+    .question-content {
+      font-size: 18px;
+      font-weight: 400;
+      min-height: 80px;
+      padding-left: 10px;
+    }
   }
   .question-bottom {
     width: 100%;
@@ -102,64 +112,34 @@ const DetailBodyCon = styled.div`
     }
   }
 `;
-// 답변 전체 구성
-const AnswerCompo = styled.section`
-  width: 100%;
-  padding-top: 10px;
-  h2 {
-    font-size: 20px;
-    .total-num {
-      margin-right: 8px;
-    }
-  }
-  .answer-container {
-    display: flex;
-    padding: 16px 0;
-    border-bottom: 1px solid hsl(210, 8%, 90%);
-    .answer-body {
-      vertical-align: baseline;
-      padding-right: 16px;
-      width: 100%;
-      margin: 16px 0px;
-    }
-    .answer-bottom {
-      width: 100%;
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      padding-top: 4px;
-      margin: 16px 0px;
-      @media (max-width: 456px) {
-        display: flex;
-        flex-direction: column;
-      }
-    }
-  }
-`;
 
 // components
 // 상세페이지 - 질문글
-const DetailBody = () => {
+const DetailBody = ({ quData }) => {
+  console.log(quData.data.questionId);
   return (
     <DetailBodyCon>
       <div className="question-answer-page">
         <section className="question">
           <VotingContainer />
           <section className="question-body">
-            <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-              Asperiores, earum tempore hic quaerat blanditiis molestias veniam
-              incidunt, in deserunt odit officia assumenda quo mollitia amet
-              vero odio quas expedita eos.
-            </p>
+            <p className="question-content">{quData.data.body}</p>
             <div className="question-bottom">
-              <BottomBtn />
-              <QuestionAuthor />
+              <QuBottomBtn questionId={quData && quData.data.questionId} />
+              <QuestionAuthor quData={quData && quData.data} />
             </div>
-            <Comment />
+            <QuComment
+              questionId={quData && quData.data.questionId}
+              questionData={quData && quData.data}
+            />
           </section>
         </section>
-        <DetailAnswer />
+        {/* answer는 컴포넌트 이동해서 get요청하기 */}
+        <AnswerCompo questionId={quData && quData.data.questionId} />
+        <AddAnswer
+          questionId={quData && quData.questionId}
+          quData={quData && quData.data}
+        />
       </div>
       <section className="sidebar">
         <SideBar />
@@ -168,54 +148,47 @@ const DetailBody = () => {
   );
 };
 
-// 상세페이지 - 답변
-const DetailAnswer = () => {
-  return (
-    <AnswerCompo>
-      <h2>
-        <span className="total-num">1</span>Answer
-      </h2>
-      <section className="answer-container">
-        <VotingChecked />
-        <section className="answer-body">
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            Exercitationem sint fugit alias vero delectus ex et, rem accusantium
-            quis aliquam dicta, deleniti dolore expedita voluptate quisquam,
-            quibusdam tempora! Cumque, accusamus.
-          </p>
-          <div className="answer-bottom">
-            <BottomBtn />
-            <QuestionAuthor />
-          </div>
-          <Comment />
-        </section>
-      </section>
-    </AnswerCompo>
-  );
-};
-
 const Detail = () => {
+  const { id } = useParams();
+  const [quData, setQuData] = useState(null);
+
+  useEffect(() => {
+    axios
+      .get(
+        `http://ec2-54-180-87-180.ap-northeast-2.compute.amazonaws.com:8080/questions/${id}`,
+      )
+      .then((res) => {
+        setQuData(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [id]);
+
   return (
     <DetailPage>
-      <DetailHeader>
-        <div className="header">
-          <h1>Angular disable button if variables are empty</h1>
-          <AskQuestionBtn />
-        </div>
-        <section className="question-info">
-          <p>
-            Asked <span className="span">3 days ago</span>
-          </p>
-          <p>
-            Modified <span className="span">yesterday</span>
-          </p>
-          <p>
-            Viewed <span className="span">62 times</span>
-          </p>
-        </section>
-      </DetailHeader>
-      <DetailBody />
+      {quData && (
+        <>
+          <DetailHeader>
+            <div className="header">
+              <h1>{quData.data.title}</h1>
+              <AskQuestionBtn />
+            </div>
+            <section className="question-info">
+              <p>
+                Asked <span className="span">3 days ago</span>
+              </p>
+              <p>
+                Modified <span className="span">yesterday</span>
+              </p>
+              <p>
+                Viewed <span className="span">62 times</span>
+              </p>
+            </section>
+          </DetailHeader>
+          <DetailBody quData={quData} />
+        </>
+      )}
     </DetailPage>
   );
 };
