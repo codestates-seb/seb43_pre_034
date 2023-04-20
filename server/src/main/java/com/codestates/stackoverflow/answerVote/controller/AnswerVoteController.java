@@ -1,6 +1,7 @@
 package com.codestates.stackoverflow.answerVote.controller;
 
 import com.codestates.stackoverflow.answer.entity.Answer;
+import com.codestates.stackoverflow.answer.repository.AnswerRepository;
 import com.codestates.stackoverflow.answerVote.dto.AnswerVoteDto;
 import com.codestates.stackoverflow.answerVote.mapper.AnswerVoteMapper;
 
@@ -9,6 +10,7 @@ import com.codestates.stackoverflow.answerVote.entity.AnswerVote;
 import com.codestates.stackoverflow.answerVote.repository.AnswerVoteRepository;
 import com.codestates.stackoverflow.answerVote.service.AnswerVoteService;
 
+import com.codestates.stackoverflow.exception.BusinessLogicException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -29,17 +31,24 @@ public class AnswerVoteController {
 
     private final AnswerVoteRepository answerVoteRepository;
 
-    public AnswerVoteController(AnswerVoteService answerVoteService, AnswerVoteMapper mapper, AnswerVoteRepository answerVoteRepository) {
+    private final AnswerRepository answerRepository;
+
+    public AnswerVoteController(AnswerVoteService answerVoteService, AnswerVoteMapper mapper, AnswerVoteRepository answerVoteRepository, AnswerRepository answerRepository) {
         this.answerVoteService = answerVoteService;
         this.mapper = mapper;
         this.answerVoteRepository = answerVoteRepository;
+        this.answerRepository = answerRepository;
     }
 
 
     @PostMapping()
     public ResponseEntity postAnswerVote(@Valid  @RequestBody AnswerVoteDto.PostDto requestBody) {
 
-        AnswerVote answerVote = answerVoteService.createAnswerVote(mapper.postToVote(requestBody));
+        AnswerVote answerVote = answerVoteService.createAnswerVote(mapper.postToVote(requestBody),requestBody.getAnswerId());
+
+        Answer answer = answerRepository.findById(requestBody.getAnswerId())
+                .orElseThrow(() ->  new BusinessLogicException(ExceptionCode.ANSWER_NOT_FOUND));
+
 
         AnswerVoteDto.ResponseDto response = mapper.voteToResponse(answerVote);
 
@@ -51,7 +60,7 @@ public class AnswerVoteController {
                                            @Valid @RequestBody AnswerVoteDto.PatchDto requestBody ){
 
         AnswerVote findAnswerVote = answerVoteRepository.findById(answerVoteId)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid AnswerVote ID"));
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.ANSWER_VOTE_NOT_FOUND));
 
         requestBody.setAnswerVoteId(answerVoteId);
 
