@@ -126,7 +126,7 @@ const FacebookButton = styled(LoginBtn)`
   }
 `;
 
-const Facebook_Id = process.env.REACT_APP_REACT_APP_FACEBOOK;
+const Facebook_Id = process.env.REACT_APP_FACEBOOK;
 
 const handleFacebook = (response) => {
   // response 객체에는 페이스북 로그인 후의 정보가 들어있음

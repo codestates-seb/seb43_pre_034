@@ -15,6 +15,9 @@ import { RiQuestionnaireFill } from "react-icons/ri";
 import { HiChevronUpDown } from "react-icons/hi2";
 import { HiOutlineExternalLink } from "react-icons/hi";
 
+//img
+import captlogo from "../assets/images/captlogo.png";
+
 const SignWrap = styled.section`
   height: 100vh;
   display: flex;
@@ -242,6 +245,61 @@ const CaptBox = styled.div`
   border-radius: 3px;
   border: 1px solid rgb(227, 230, 232);
   margin: 10px 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+const Captcha = styled.div`
+  width: 140px;
+  height: 140px;
+  border-radius: 3px;
+  box-shadow: 1px 1px 3px rgba(211, 211, 211, 0.5);
+  background-color: rgb(249, 249, 249);
+  border: 1px solid rgb(211, 211, 211);
+  display: flex;
+  flex-direction: column;
+`;
+
+const CheckRobo = styled.div`
+  width: 100%;
+  height: 90px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  input {
+    width: 22px;
+    height: 22px;
+    margin-right: 5px;
+  }
+  span {
+    font-size: 13px;
+    font-weight: 500;
+  }
+`;
+
+const Captlogo = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img {
+    width: 25px;
+    margin-right: 2px;
+  }
+  span {
+    font-size: 10px;
+    color: rgb(12, 13, 14);
+  }
+`;
+
+const Privacy = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  span {
+    font-size: 9px;
+    margin-top: 3px;
+    color: rgb(12, 13, 14);
+  }
 `;
 
 const AgreeBox = styled.div`
@@ -295,6 +353,8 @@ const Signup = () => {
   // 중복 닉네임 체크한다면 사용
   // const [displayNameInputClass, setDisplayNameInputClass] = useState("");
   const [isChecked, setIsChecked] = useState(false);
+  const [isCaptChecked, setIsCaptChecked] = useState(false);
+  const [CaptError, setCaptError] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -313,11 +373,19 @@ const Signup = () => {
     if (password === "") {
       setPasswordError("Password is required.");
       setPasswordInputClass("ErrorInput");
-    } else if (!passwordRegex.test(password)) {
+    } else if (password.length < 8) {
       setPasswordError("Password must be at least 8 characters long");
+    } else if (!passwordRegex.test(password)) {
+      setPasswordError("Invalid password");
       setPasswordInputClass("ErrorInput");
     } else {
       setPasswordError("");
+    }
+
+    if (!isCaptChecked) {
+      const captchaInput = document.querySelector('input[type="checkbox"]');
+      setCaptError("CAPTCHA response required.");
+      return;
     }
 
     if (emailError || passwordError) {
@@ -397,6 +465,10 @@ const Signup = () => {
 
   const handleCheckboxChange = (event) => {
     setIsChecked(event.target.checked);
+  };
+
+  const handleCaptchaChange = (e) => {
+    setIsCaptChecked(e.target.checked);
   };
 
   return (
@@ -486,7 +558,26 @@ const Signup = () => {
                 least 1 letter and 1 number.
               </HelpMsg>
             )}
-            <CaptBox></CaptBox>
+            <CaptBox>
+              <Captcha>
+                <CheckRobo>
+                  <input
+                    type="checkbox"
+                    checked={isCaptChecked}
+                    onChange={handleCaptchaChange}
+                  />
+                  <span>I`m not a robot</span>
+                </CheckRobo>
+                <Captlogo>
+                  <img src={captlogo} alt="캡챠로고" />
+                  <span>reCAPTCHA</span>
+                </Captlogo>
+                <Privacy>
+                  <span>Privacy - Terms</span>
+                </Privacy>
+              </Captcha>
+              {CaptError && <ErrorMsg>{CaptError}</ErrorMsg>}
+            </CaptBox>
             <AgreeBox>
               <HelpMsg className="dark">
                 <input
