@@ -2,6 +2,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+// import axios from 'axios';
 
 //component
 import { LoginBtn } from "../components/common/Buttons";
@@ -13,6 +14,9 @@ import { FaFacebookSquare } from "react-icons/fa";
 import { RiQuestionnaireFill } from "react-icons/ri";
 import { HiChevronUpDown } from "react-icons/hi2";
 import { HiOutlineExternalLink } from "react-icons/hi";
+
+//img
+import captlogo from "../assets/images/captlogo.png";
 
 const SignWrap = styled.section`
   height: 100vh;
@@ -234,9 +238,75 @@ const Label = styled.span`
     margin-top: 4px;
   }
 `;
+
+const CaptBox = styled.div`
+  background-color: rgb(241, 242, 243);
+  height: 160px;
+  border-radius: 3px;
+  border: 1px solid rgb(227, 230, 232);
+  margin: 10px 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+const Captcha = styled.div`
+  width: 140px;
+  height: 140px;
+  border-radius: 3px;
+  box-shadow: 1px 1px 3px rgba(211, 211, 211, 0.5);
+  background-color: rgb(249, 249, 249);
+  border: 1px solid rgb(211, 211, 211);
+  display: flex;
+  flex-direction: column;
+`;
+
+const CheckRobo = styled.div`
+  width: 100%;
+  height: 90px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  input {
+    width: 22px;
+    height: 22px;
+    margin-right: 5px;
+  }
+  span {
+    font-size: 13px;
+    font-weight: 500;
+  }
+`;
+
+const Captlogo = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img {
+    width: 25px;
+    margin-right: 2px;
+  }
+  span {
+    font-size: 10px;
+    color: rgb(12, 13, 14);
+  }
+`;
+
+const Privacy = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  span {
+    font-size: 9px;
+    margin-top: 3px;
+    color: rgb(12, 13, 14);
+  }
+`;
+
 const AgreeBox = styled.div`
-  margin-top: 12px;
   margin-bottom: 5px;
+  .dark {
+    color: rgb(12, 13, 14);
+  }
 `;
 
 const LoginBox = styled.div`
@@ -283,10 +353,12 @@ const Signup = () => {
   // 중복 닉네임 체크한다면 사용
   // const [displayNameInputClass, setDisplayNameInputClass] = useState("");
   const [isChecked, setIsChecked] = useState(false);
+  const [isCaptChecked, setIsCaptChecked] = useState(false);
+  const [CaptError, setCaptError] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // 이메일 양식 검증
+
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       setEmailError("The email is not a valid email address.");
@@ -297,21 +369,106 @@ const Signup = () => {
       setEmailInputClass("");
     }
 
-    // 비밀번호 길이 검증
     const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
     if (password === "") {
       setPasswordError("Password is required.");
       setPasswordInputClass("ErrorInput");
-    } else if (!passwordRegex.test(password)) {
+    } else if (password.length < 8) {
       setPasswordError("Password must be at least 8 characters long");
+    } else if (!passwordRegex.test(password)) {
+      setPasswordError("Invalid password");
       setPasswordInputClass("ErrorInput");
     } else {
       setPasswordError("");
     }
+
+    if (!isCaptChecked) {
+      const captchaInput = document.querySelector('input[type="checkbox"]');
+      setCaptError("CAPTCHA response required.");
+      return;
+    }
+
+    if (emailError || passwordError) {
+      return;
+    }
+
+    const user = {
+      email: email,
+      password: password,
+      displayName: displayName,
+    };
+
+    // fetch 로 통신
+    // fetch("/api/users", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(user),
+    // })
+    //   .then((response) => {
+    //     if (!response.ok) {
+    //       throw new Error("Failed to create user account");
+    //     }
+    //     return response.json();
+    //   })
+    //   .then((data) => {
+    //     console.log("User account created successfully:", data);
+    //   })
+    //   .catch((error) => {
+    //     console.error(error);
+    //   });
   };
+
+  // axios 로 통신
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   // 이메일 양식 검증
+  //   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  //   if (!emailRegex.test(email)) {
+  //     setEmailError("The email is not a valid email address.");
+  //     setEmailInputClass("ErrorInput");
+  //     return;
+  //   } else {
+  //     setEmailError("");
+  //     setEmailInputClass("");
+  //   }
+
+  //   // 비밀번호 길이 검증
+  //   const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+  //   if (password === "") {
+  //     setPasswordError("Password is required.");
+  //     setPasswordInputClass("ErrorInput");
+  //   } else if (!passwordRegex.test(password)) {
+  //     setPasswordError("Password must be at least 8 characters long");
+  //     setPasswordInputClass("ErrorInput");
+  //   } else {
+  //     setPasswordError("");
+  //   }
+
+  //   // 입력된 정보를 서버로 전송
+  //   if (!emailError && !passwordError) {
+  //     try {
+  //       const response = await axios.post("/signup", {
+  //         email,
+  //         password,
+  //         displayName,
+  //       });
+  //       console.log(response);
+  //       // 회원가입 성공 처리
+  //     } catch (error) {
+  //       console.error(error);
+  //       // 회원가입 실패 처리
+  //     }
+  //   }
+  // };
 
   const handleCheckboxChange = (event) => {
     setIsChecked(event.target.checked);
+  };
+
+  const handleCaptchaChange = (e) => {
+    setIsCaptChecked(e.target.checked);
   };
 
   return (
@@ -401,8 +558,28 @@ const Signup = () => {
                 least 1 letter and 1 number.
               </HelpMsg>
             )}
+            <CaptBox>
+              <Captcha>
+                <CheckRobo>
+                  <input
+                    type="checkbox"
+                    checked={isCaptChecked}
+                    onChange={handleCaptchaChange}
+                  />
+                  <span>I`m not a robot</span>
+                </CheckRobo>
+                <Captlogo>
+                  <img src={captlogo} alt="캡챠로고" />
+                  <span>reCAPTCHA</span>
+                </Captlogo>
+                <Privacy>
+                  <span>Privacy - Terms</span>
+                </Privacy>
+              </Captcha>
+              {CaptError && <ErrorMsg>{CaptError}</ErrorMsg>}
+            </CaptBox>
             <AgreeBox>
-              <HelpMsg>
+              <HelpMsg className="dark">
                 <input
                   type="checkbox"
                   checked={isChecked}
