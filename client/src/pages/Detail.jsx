@@ -1,22 +1,32 @@
 import styled from "styled-components";
 import { AskQuestionBtn } from "../components/common/Buttons";
-import { VotingContainer } from "../components/QuestionDetail/VotingCompo";
+import {
+  VotingChecked,
+  VotingContainer,
+} from "../components/QuestionDetail/VotingCompo";
+import { SideBar } from "../components/common/Sidebar";
+import { BottomBtn } from "../components/QuestionDetail/QuestionBottomButton";
+import { QuestionAuthor } from "../components/QuestionDetail/AuthorInfo";
+import { Comment } from "../components/QuestionDetail/Comment";
+
+// styled-components
+// 상세페이지-전체 구성
 const DetailPage = styled.div`
   max-width: 1051px;
+  border-left: 1px solid #d6d9dc;
+  padding: 24px;
   @media ${({ theme }) => theme.breakpoints.mobileMax} {
     width: 100%;
-    margin: 24px 16px;
+    border: none;
   }
   @media ${({ theme }) => theme.breakpoints.tabletMax} {
     width: 100%;
-    margin: 24px 16px;
   }
   @media ${({ theme }) => theme.breakpoints.desktopMin} {
     width: 100%;
-    margin: 24px 16px;
   }
 `;
-
+// 상세페이지-헤더
 const DetailHeader = styled.div`
   h1 {
     font-size: 30px;
@@ -46,28 +56,138 @@ const DetailHeader = styled.div`
       color: #3b4045;
     }
     .question-info {
-      font-size: 14px;
+      font-size: 12px;
+    }
+  }
+`;
+// 상세페이지-본문(질문글)
+const DetailBodyCon = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  .question-answer-page {
+    display: flex;
+    flex-direction: column;
+  }
+  .question {
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+  }
+  .question-body {
+    padding-right: 16px;
+    width: 100%;
+    margin: 16px 0px;
+  }
+  .question-bottom {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-top: 4px;
+    margin: 16px 0px;
+    @media (max-width: 607px) {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+  .sidebar {
+    height: 100vh;
+  }
+`;
+// 답변 전체 구성
+const AnswerCompo = styled.section`
+  width: 100%;
+  padding-top: 10px;
+  h2 {
+    font-size: 20px;
+    .total-num {
+      margin-right: 8px;
+    }
+  }
+  .answer-container {
+    display: flex;
+    padding-top: 16px;
+    .answer-body {
+      vertical-align: baseline;
+      padding-right: 16px;
+      width: 100%;
+      margin: 16px 0px;
+    }
+    .answer-bottom {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      padding-top: 4px;
+      margin: 16px 0px;
+      @media (max-width: 607px) {
+        display: flex;
+        flex-direction: column;
+      }
     }
   }
 `;
 
-const DetailBodyCon = styled.div`
-  display: flex;
-  flex-direction: row;
-  margin-top: 20px;
-  width: 100%;
-`;
+// components
+// 상세페이지 - 질문글
 const DetailBody = () => {
   return (
     <DetailBodyCon>
-      <VotingContainer />
-      <div>
-        <p>hihihihihihihihihiii</p>
+      <div className="question-answer-page">
+        <section className="question">
+          <VotingContainer />
+          <section className="question-body">
+            <p>
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+              Asperiores, earum tempore hic quaerat blanditiis molestias veniam
+              incidunt, in deserunt odit officia assumenda quo mollitia amet
+              vero odio quas expedita eos.
+            </p>
+            <div className="question-bottom">
+              <BottomBtn />
+              <QuestionAuthor />
+            </div>
+            <Comment />
+          </section>
+        </section>
+        <DetailAnswer />
       </div>
+      <section className="sidebar">
+        <SideBar />
+      </section>
     </DetailBodyCon>
   );
 };
-function Detail() {
+
+// 상세페이지 - 답변
+const DetailAnswer = () => {
+  return (
+    <AnswerCompo>
+      <h2>
+        <span className="total-num">1</span>Answer
+      </h2>
+      <section className="answer-container">
+        <VotingChecked />
+        <section className="answer-body">
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+            Exercitationem sint fugit alias vero delectus ex et, rem accusantium
+            quis aliquam dicta, deleniti dolore expedita voluptate quisquam,
+            quibusdam tempora! Cumque, accusamus.
+          </p>
+          <div className="answer-bottom">
+            <BottomBtn />
+            <QuestionAuthor />
+          </div>
+          <Comment />
+        </section>
+      </section>
+    </AnswerCompo>
+  );
+};
+
+const Detail = () => {
   return (
     <DetailPage>
       <DetailHeader>
@@ -75,7 +195,7 @@ function Detail() {
           <h1>Angular disable button if variables are empty</h1>
           <AskQuestionBtn />
         </div>
-        <div className="question-info">
+        <section className="question-info">
           <p>
             Asked <span className="span">3 days ago</span>
           </p>
@@ -85,11 +205,11 @@ function Detail() {
           <p>
             Viewed <span className="span">62 times</span>
           </p>
-        </div>
+        </section>
       </DetailHeader>
       <DetailBody />
     </DetailPage>
   );
-}
+};
 
 export default Detail;
