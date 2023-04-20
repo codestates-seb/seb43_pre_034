@@ -1,6 +1,8 @@
 package com.codestates.stackoverflow.question.controller;
 
+import com.codestates.stackoverflow.dto.MultiResponseDto;
 import com.codestates.stackoverflow.dto.PageDto;
+import com.codestates.stackoverflow.dto.SingleResponseDto;
 import com.codestates.stackoverflow.question.dto.QuestionDto;
 import com.codestates.stackoverflow.question.dto.QuestionResponseDto;
 import com.codestates.stackoverflow.question.entity.Question;
@@ -39,20 +41,26 @@ public class QuestionController {
         Question question = mapper.questionPatchDtoToQuestion(questionPatchDto);
         question.setQuestionId(questionId);
         Question editedQuestion = questionService.updateQuestion(question);
-        return new ResponseEntity<>(mapper.questionToQuestionResponseDto(editedQuestion), HttpStatus.OK);
+        return new ResponseEntity<>(
+                new SingleResponseDto<>(mapper.questionToQuestionResponseDto(editedQuestion)), HttpStatus.OK
+        );
     }
 
     @GetMapping("/{question_id}")
     public ResponseEntity getQuestion(@PathVariable("question_id") @Positive long questionId) {
         Question question = questionService.getQuestion(questionId);
-        return new ResponseEntity<>(mapper.questionToQuestionResponseDto(question), HttpStatus.OK);
+        return new ResponseEntity<>(
+                new SingleResponseDto<>(mapper.questionToQuestionResponseDto(question)), HttpStatus.OK
+        );
     }
 
     @GetMapping
     public ResponseEntity getQuestions(Pageable pageable) {
         Page<Question> questionPage = questionService.getQuestions(pageable);
         List<Question> questionList = questionPage.getContent();
-        return new ResponseEntity<>(new PageDto<>(mapper.questionsToResponseDto(questionList), questionPage), HttpStatus.OK);
+        return new ResponseEntity<>(
+                new MultiResponseDto<>(mapper.questionsToResponseDto(questionList), questionPage), HttpStatus.OK
+        );
     }
 
     @DeleteMapping("/{question_id}")
