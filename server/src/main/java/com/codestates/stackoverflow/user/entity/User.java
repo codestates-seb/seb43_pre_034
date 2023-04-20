@@ -3,10 +3,7 @@ package com.codestates.stackoverflow.user.entity;
 import com.codestates.stackoverflow.answer.entity.Answer;
 import com.codestates.stackoverflow.audit.Auditable;
 import com.codestates.stackoverflow.question.entity.Question;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -15,6 +12,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@Table(name = "users")
 @NoArgsConstructor
 public class User extends Auditable {
     @Id
