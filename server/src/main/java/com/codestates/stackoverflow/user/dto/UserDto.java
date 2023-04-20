@@ -1,16 +1,18 @@
 package com.codestates.stackoverflow.user.dto;
 
 import com.codestates.stackoverflow.user.entity.User;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.*;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-
-@Getter
-@AllArgsConstructor
+//
+//@Getter
+//@AllArgsConstructor
 public class UserDto {
 
+    @Getter
+    @Setter
+    @AllArgsConstructor
     public static class Post {
         @NotBlank(message = "이름을 입력해주세요.")
         private String name;
@@ -20,20 +22,23 @@ public class UserDto {
         @NotBlank(message = "비밀번호를 입력해주세요.")
         private String password;
     }
-
+    @Getter
+    @AllArgsConstructor
+    @Setter
     public static class Patch {
-        private long userId;
 
+        private long userId;
         @NotBlank(message = "이름을 입력해주세요.")
         private String name;
 
         private User.Status status;
 
-        public void setUserId(long userId) {
-            this.userId = userId;
-        }
     }
-
+    @Getter
+    @Setter
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class Response {
         private long userId;
         private String name;

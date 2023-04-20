@@ -5,6 +5,7 @@ import com.codestates.stackoverflow.answer.repository.AnswerRepository;
 import com.codestates.stackoverflow.answerVote.entity.AnswerVote;
 import com.codestates.stackoverflow.answerVote.repository.AnswerVoteRepository;
 import com.codestates.stackoverflow.exception.BusinessLogicException;
+import com.codestates.stackoverflow.exception.ExceptionCode;
 import org.springframework.stereotype.Service;
 
 @Service

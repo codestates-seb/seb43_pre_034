@@ -10,6 +10,7 @@ import lombok.Getter;
 public class AnswerVoteDto {
 
     @Getter
+    @AllArgsConstructor
     public static class PostDto {
         private long userId;
         private long answerId;

@@ -11,6 +11,7 @@ import com.codestates.stackoverflow.answerVote.repository.AnswerVoteRepository;
 import com.codestates.stackoverflow.answerVote.service.AnswerVoteService;
 
 import com.codestates.stackoverflow.exception.BusinessLogicException;
+import com.codestates.stackoverflow.exception.ExceptionCode;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -65,6 +66,7 @@ public class AnswerVoteController {
         requestBody.setAnswerVoteId(answerVoteId);
 
         AnswerVote answerVote = mapper.patchToVote(requestBody);
+
 
         answerVoteService.updateAnswerVote(findAnswerVote,requestBody.getVoteType());
 

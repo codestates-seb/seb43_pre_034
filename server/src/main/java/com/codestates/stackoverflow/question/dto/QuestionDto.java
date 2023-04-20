@@ -6,20 +6,19 @@ import org.hibernate.validator.constraints.Length;
 import javax.validation.constraints.NotEmpty;
 
 public class QuestionDto {
-    @AllArgsConstructor
-    @NoArgsConstructor
+
     @Setter
     @Getter
+    @NoArgsConstructor
     public class QuestionPostDto {
         @NotEmpty(message = "질문 제목을 작성해야 합니다.")
         private String title;
         @NotEmpty(message = "질문 내용을 작성해야 합니다.")
         private String body;
-        private long userid;
+        private long userId;
     }
 
     @AllArgsConstructor
-    @NoArgsConstructor
     @Setter
     @Getter
     public class QuestionPatchDto {

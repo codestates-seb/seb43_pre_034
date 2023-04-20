@@ -46,7 +46,7 @@ public class AnswerController {
                 new SingleResponseDto<>(response), HttpStatus.CREATED);
     }
 
-    @GetMapping("/{answer-id")
+    @GetMapping("/{answer-id}")
     public ResponseEntity getAnswer(@PathVariable("answer-id") @Positive long answerId) {
         Answer findAnswer = answerService.findAnswer(answerId);
         AnswerDto.ResponseDto response = mapper.answerToResponse(findAnswer);
