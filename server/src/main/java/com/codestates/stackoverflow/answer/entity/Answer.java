@@ -1,5 +1,6 @@
 package com.codestates.stackoverflow.answer.entity;
 
+import com.codestates.stackoverflow.answerVote.entity.AnswerVote;
 import com.codestates.stackoverflow.audit.Auditable;
 import com.codestates.stackoverflow.question.entity.Question;
 
@@ -43,6 +44,7 @@ public class Answer extends Auditable {
 
     @OneToMany(mappedBy = "answer", cascade = {CascadeType.ALL})
     private List<AnswerVote> answerVotes = new ArrayList<>();
+
 
     public void setUser(User user) { //user와 answer 연관관계매핑 , List<Answer> 에 추가해준다
         this.user = user;
