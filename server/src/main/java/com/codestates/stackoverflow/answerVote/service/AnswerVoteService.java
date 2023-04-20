@@ -32,7 +32,7 @@ public class AnswerVoteService {
         return findAnswerVote;
     }
 
-    public void deleteAnswerVote(Long answerVoteId) {
+    public void deleteAnswerVote(long answerVoteId) {
         answerVoteRepository.deleteById(answerVoteId);
 
     }

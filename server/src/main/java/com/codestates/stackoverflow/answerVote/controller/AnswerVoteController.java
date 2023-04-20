@@ -47,7 +47,7 @@ public class AnswerVoteController {
     }
 
     @PatchMapping("answerVotes/{answerVote-id}")
-    public ResponseEntity updateAnswerVote(@PathVariable("answerVote-id") @Positive Long answerVoteId,
+    public ResponseEntity updateAnswerVote(@PathVariable("answerVote-id") @Positive long answerVoteId,
                                            @Valid @RequestBody AnswerVoteDto.PatchDto requestBody ){
 
         AnswerVote findAnswerVote = answerVoteRepository.findById(answerVoteId)
@@ -65,7 +65,7 @@ public class AnswerVoteController {
     }
 
     @DeleteMapping("answerVotes/{answerVote-id}")
-    public ResponseEntity<Void> deleteAnswerVote(@PathVariable Long answerVoteId) {
+    public ResponseEntity<Void> deleteAnswerVote(@PathVariable long answerVoteId) {
         answerVoteService.deleteAnswerVote(answerVoteId);
         return ResponseEntity.noContent().build();
     }
