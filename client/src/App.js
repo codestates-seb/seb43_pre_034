@@ -10,6 +10,7 @@ import Detail from "./pages/Detail";
 import Signup from "./pages/Signup";
 import { EditQuestion, EditAnswer } from "./pages/Edit";
 import { AnswerAuthor } from "./components/QuestionDetail/AuthorInfo";
+import MyPage from "./pages/MyPage";
 
 const Container = styled.div`
   display: flex;
@@ -33,6 +34,7 @@ function App() {
               path="/question/:id/answeredit/:answerid"
               element={<EditAnswer />}
             />
+            <Route path="/users/info" element={<MyPage />} />
           </Route>
           {/* NavBar 특정 페이지 숨기기 */}
           <Route path="/question/ask" element={<AskQuestion />} />
