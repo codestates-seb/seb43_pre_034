@@ -1,6 +1,7 @@
 package com.codestates.stackoverflow.answer.entity;
 
 import com.codestates.stackoverflow.answerVote.entity.AnswerVote;
+import com.codestates.stackoverflow.answerVote.mapper.AnswerVoteMapper;
 import com.codestates.stackoverflow.audit.Auditable;
 import com.codestates.stackoverflow.question.entity.Question;
 
@@ -70,7 +71,15 @@ public class Answer extends Auditable {
         updateScore();
     }
 
-    private void updateScore() {
+    public void removeAnswerVote(AnswerVote answerVote) {
+        this.answerVotes.remove(answerVote);
+        if(answerVote.getAnswer() != this) {
+            answerVote.setAnswer(this);
+        }
+        updateScore();
+    }
+
+    public void updateScore() {
         int score = 0;
 
         for (AnswerVote answerVote : answerVotes) {
@@ -82,6 +91,7 @@ public class Answer extends Auditable {
         }
         this.score = score;
     }
+
 
 
 }
