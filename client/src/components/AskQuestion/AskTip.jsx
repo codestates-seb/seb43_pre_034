@@ -2,15 +2,15 @@ import styled from "styled-components";
 import { PencilSvg } from "../../assets/PencilSvg.js";
 
 const AskTipContainer = styled.div`
-  flex: 0 1 30%;
+  flex: 0 1 28%;
   display: flex;
   flex-direction: column;
   border: 1px solid #d0d4d7;
   box-shadow: hsl(210, 8%, 85%) 0px 2px 2px 0px;
-  margin: 0 0 0 20px;
+  margin-left: 1rem;
 
   .tip_title {
-    padding: 0.8rem 1rem;
+    padding: 1rem;
     color: #232629;
     font-size: 15px;
     background: #f8f9f9;
@@ -27,7 +27,7 @@ const AskTipContent = styled.div`
   display: flex;
   font-size: 12px;
   background: #fff;
-  padding: 1rem;
+  padding: 1.4rem 1rem 1rem 1rem;
 
   p {
     margin: 0 0 0.6rem 1rem;
@@ -35,7 +35,7 @@ const AskTipContent = styled.div`
   }
 `;
 
-const AskTip = ({ title, content, content2, content3 }) => {
+const AskTip = ({ title, content, content2 }) => {
   return (
     <AskTipContainer>
       <div className="tip_title">{title}</div>
@@ -46,7 +46,6 @@ const AskTip = ({ title, content, content2, content3 }) => {
         <div>
           <p>{content}</p>
           {content2 ? <p>{content2}</p> : null}
-          {content3 ? <p>{content3}</p> : null}
         </div>
       </AskTipContent>
     </AskTipContainer>
