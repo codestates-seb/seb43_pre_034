@@ -26,7 +26,8 @@ public class AnswerDto {
     public static class PatchDto {
         private long answerId;
 
-        @Pattern(regexp = "^\\S", message = "Fill in the blank")
+        private long questionId;
+        @NotBlank(message = "Fill in the blank")
         private String body;
     }
 
