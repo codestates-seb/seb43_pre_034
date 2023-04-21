@@ -71,15 +71,16 @@ const GlobalBtn = styled.button`
  * @property {string} width 너비
  * @property {string} padding 패딩
  * @property {string} buttonText 텍스트
+ * @property {function} onClick 이벤트 리스너
  */
 
-const BluebgBtn = ({ height, width, padding, buttonText }) => {
+const BluebgBtn = ({ height, width, padding, buttonText, onClick }) => {
   return (
     <GlobalBtn
       width={width || "100%"}
       height={height || "38px"}
       padding={padding || "10.4px"}
-      // onClick={onClick}
+      onClick={onClick}
     >
       {buttonText}
     </GlobalBtn>

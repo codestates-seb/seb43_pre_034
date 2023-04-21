@@ -6,8 +6,8 @@ import { BluebgBtn } from "../components/common/Buttons";
 // components
 import WriteGuide from "../components/AskQuestion/WriteGuide";
 import QuillEditor from "../components/QuillEditor";
-import AskInput from "../components/AskQuestion/AskInput";
 import AskTip from "../components/AskQuestion/AskTip";
+import AskDeleteModal from "../components/AskQuestion/AskDeleteModal";
 
 const AskContainer = styled.main`
   width: 100%;
@@ -26,6 +26,11 @@ const AskContainer = styled.main`
     padding: 0 24px;
     flex-direction: column;
     max-width: ${(props) => props.theme.widthSize.contentMax};
+  }
+  .write_form {
+    z-index: 2;
+    opacity: 0.3 !important;
+    cursor: not-allowed !important;
   }
   @media screen and (max-width: 1100px) {
     display: block;
@@ -57,6 +62,63 @@ const AskTop = styled.div`
     .is_display {
       display: none;
     }
+  }
+`;
+
+const AskInputContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  align-items: flex-start;
+
+  @media screen and (max-width: 1100px) {
+    flex-direction: column;
+  }
+`;
+
+const TitleInputBox = styled.div`
+  flex: 0 1 70%;
+  padding: 1.5rem;
+  flex-direction: column;
+  min-width: 737px;
+  border-radius: 3px;
+  background: #fff;
+  border: 1px solid #e0dfdf;
+
+  .ask_title {
+    font-size: 15px;
+    font-weight: bold;
+    color #0C0D0E;
+  }
+  p {
+    font-size: 13px;
+    color: #3B4045;
+    margin: 7px 0px 10px 0;
+    white-space: normal;
+  }
+  input {
+    border: 1px solid #ced2d5;
+    border-radius: 3px;
+    width: 97%;
+    padding: 0.45rem 0.5rem;
+    margin-bottom: 1rem;
+    ::placeholder {
+      color: lightgray;
+    }
+    &:focus {
+      outline: none !important;
+      text-align: left;
+      border: 1px solid #7aa7c7;
+      box-shadow: 0 0 2px 4px #cbe4f6;
+    }
+  }
+
+  @media screen and (max-width: 1100px) {
+    display: 0 1 1052px;
+    width: 100%;
+    min-width: 0;
+    min-height: 0;
   }
 `;
 
@@ -105,99 +167,156 @@ const EditorBox = styled.div`
   }
 `;
 
-const SubmitCancelBtnDiv = styled.div`
+const SubmitCancelBox = styled.div`
   display: flex;
   gap: 0.5rem;
   width: 100%;
   margin-bottom: 6rem;
   justify-content: flex-start;
-
-  .cancal_btn {
-    background: none;
-    border-radius: 3px;
-    color: #c22e32;
-    width: 110px;
-    height: 37px;
-    padding: 10.4px;
-    border: none;
-    cursor: pointer;
-    font-size: 13px;
-    box-shadow: rgba(255, 255, 255, 0.4) 0px 1px 0px 0px inset;
-
-    &:hover {
-      background: #fdf2f2;
-    }
-    &:active {
-      background: hsl(358, 76%, 90%);
-      padding: 0 10.4px;
-      border: 3px solid hsl(358, 74%, 83%);
-    }
-  }
 `;
 
 const AskQuestion = () => {
-  let [isTitle, setIsTitle] = useState(false);
+  let [isClicked, setIsClicked] = useState("titleClick");
+  let [askForm, setAskForm] = useState({
+    title: "",
+    content: "",
+    tags: [],
+  });
+
+  const onsubmitHandler = (e) => {
+    e.preventDefault();
+  };
+  const discardDraft = () => {
+    setAskForm({ title: "", content: "", tags: [] });
+    window.scrollTo(0, 0);
+    window.location.href = "/";
+  };
+
   return (
     <AskContainer>
-      <div className="ask_content">
+      <form onSubmit={onsubmitHandler} className="ask_content">
         <AskTop>
           <span className="ask_title">Ask a public question</span>
           <AskBackground className="is_display" />
         </AskTop>
         <WriteGuide />
-        <AskInput />
-        <EditorContainer>
-          <AskTip
-            title="Introduce the problem"
-            content="Explain how you encountered the problem you’re trying to solve, and any difficulties that have prevented you from solving it yourself."
-          />
+        <AskInputContainer>
+          {isClicked === "titleClick" ? (
+            <AskTip
+              title="Writing a good title"
+              content="Your title should summarize the problem."
+              content2="You might find that you have a better idea of your title after
+          writing out the rest of the question."
+            />
+          ) : null}
+          <TitleInputBox>
+            <label htmlFor="title" className="ask_title">
+              Title
+            </label>
+            <p>
+              Be specific and imagine you’re asking a question to another
+              person.
+            </p>
+            <input
+              type="text"
+              name="title"
+              placeholder="e.g. Is there an R function for finding the index of an element in a vector?"
+              value={askForm.title}
+              onChange={(e) =>
+                setAskForm({ ...askForm, title: e.target.value })
+              }
+            />
+            {isClicked === "titleClick" ? (
+              <BluebgBtn
+                buttonText="Next"
+                width="51px"
+                height="37px"
+                onClick={() => setIsClicked("contentClick")}
+              />
+            ) : null}
+          </TitleInputBox>
+        </AskInputContainer>
+        <EditorContainer
+          className={
+            isClicked === "contentClick" || askForm.content
+              ? null
+              : "write_form"
+          }
+        >
+          {isClicked === "contentClick" ? (
+            <AskTip
+              title="Introduce the problem"
+              content="Explain how you encountered the problem you’re trying to solve, and any difficulties that have prevented you from solving it yourself."
+            />
+          ) : null}
           <EditorBox>
-            <div className="ask_title">
+            <label htmlFor="content" className="ask_title">
               What are the details of your problem?
-            </div>
+            </label>
             <p>
               Introduce the problem and expand on what you put in the title.
               Minimum 20 characters.
             </p>
             <div>
-              <QuillEditor EditorWidth={"100%"} EditorHeight={"200px"} />
+              <QuillEditor
+                editorWidth={"100%"}
+                editorHeight={"200px"}
+                inputValue={askForm.content}
+                setEditorText={setAskForm}
+                editorText={askForm}
+              />
             </div>
             <div className="padding_bottombox" />
-            <BluebgBtn buttonText="Next" width="51px" height="37px" />
+            {isClicked === "contentClick" ? (
+              <BluebgBtn
+                buttonText="Next"
+                width="51px"
+                height="37px"
+                onClick={() => setIsClicked("tagClick")}
+              />
+            ) : null}
           </EditorBox>
         </EditorContainer>
-        <EditorContainer>
-          <AskTip
-            title="Expand on the problem"
-            content="Explain how you encountered the problem you’re trying to solve, and any difficulties that have prevented you from solving it yourself."
-            content2="Not all questions benefit from including code, but if your problem is better understood with code you’ve written, you should include a minimal, reproducible example."
-            content3="Please make sure to post code and errors as text directly to the question (and not as images), and format them appropriately."
-          />
-          <EditorBox>
-            <div className="ask_title">
-              What did you try and what were you expecting?
-            </div>
+        <AskInputContainer
+          className={isClicked === "tagClick" ? null : "write_form"}
+        >
+          {isClicked === "tagClick" ? (
+            <AskTip
+              title="Adding tags"
+              content="Tags help ensure that your question will get attention from the right people."
+              content2="Tag things in more than one way so people can find them more easily. Add tags for product lines, projects, teams, and the specific technologies or languages used."
+            />
+          ) : null}
+          <TitleInputBox>
+            <label htmlFor="tags" className="ask_title">
+              Tags
+            </label>
             <p>
-              Describe what you tried, what you expected to happen, and what
-              actually resulted. Minimum 20 characters.
+              Be specific and imagine you’re asking a question to another
+              person.
             </p>
-            <div>
-              <QuillEditor EditorWidth={"100%"} EditorHeight={"200px"} />
-            </div>
-            <div className="padding_bottombox" />
-            <BluebgBtn buttonText="Next" width="51px" height="37px" />
-          </EditorBox>
-        </EditorContainer>
-        <AskInput />
-        <SubmitCancelBtnDiv>
-          <BluebgBtn
-            buttonText="Post your question"
-            width="140px"
-            height="37px"
-          />
-          <button className="cancal_btn">Discard draft</button>
-        </SubmitCancelBtnDiv>
-      </div>
+            <input
+              type="text"
+              name="tags"
+              value={askForm.tags}
+              placeholder="e.g. Is there an R function for finding the index of an element in a vector?"
+              onChange={(e) => setAskForm({ ...askForm, tags: e.target.value })}
+            />
+            {isClicked === "tagClick" ? (
+              <BluebgBtn
+                type="submit"
+                buttonText="Post your question"
+                width="140px"
+                height="37px"
+                onClick={discardDraft}
+              />
+            ) : null}
+          </TitleInputBox>
+        </AskInputContainer>
+        <SubmitCancelBox>
+          <AskDeleteModal>Discard draft</AskDeleteModal>
+        </SubmitCancelBox>
+      </form>
     </AskContainer>
   );
 };
