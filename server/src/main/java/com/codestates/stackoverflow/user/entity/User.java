@@ -3,6 +3,7 @@ package com.codestates.stackoverflow.user.entity;
 import com.codestates.stackoverflow.answer.entity.Answer;
 import com.codestates.stackoverflow.audit.Auditable;
 import com.codestates.stackoverflow.question.entity.Question;
+import com.codestates.stackoverflow.questionComment.entity.QuestionComment;
 import lombok.*;
 
 import javax.persistence.*;
@@ -40,6 +41,9 @@ public class User extends Auditable {
 
     @OneToMany(mappedBy = "user")
     List<Answer> answers = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<QuestionComment> questionCommentList = new ArrayList<>();
 
     // User별 Question과 Answer의 Score 합산
 //    public void setScore() {

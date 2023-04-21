@@ -3,6 +3,7 @@ package com.codestates.stackoverflow.question.entity;
 
 import com.codestates.stackoverflow.answer.entity.Answer;
 import com.codestates.stackoverflow.audit.Auditable;
+import com.codestates.stackoverflow.questionComment.entity.QuestionComment;
 import com.codestates.stackoverflow.user.entity.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,8 +30,8 @@ public class Question extends Auditable {
 
     @Column(columnDefinition = "BOOLEAN NOT NULL")
     private boolean checked =false;
-//    @OneToMany(mappedBy = "question", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
-//    private List<QuestionComment> questionCommentList = new ArrayList<>();
+    @OneToMany(mappedBy = "question", cascade = {CascadeType.REMOVE})
+    private List<QuestionComment> questionCommentList = new ArrayList<>();
 //    @OneToMany(mappedBy = "question", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
 //    private List<QuestionVote> questionVoteList = new ArrayList<>();
     @OneToMany(mappedBy = "question", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
@@ -39,12 +40,12 @@ public class Question extends Auditable {
     @JoinColumn(name = "user_id")
     private User user;
 
-//    public void setQuestionComment(QuestionComment questionComment) {
-//        this.getQuestionCommentList().add(questionComment);
-//        if (questionComment.getQuestion() != this) {
-//            questionComment.setQuestion(this);
-//        }
-//    }
+    public void setQuestionComment(QuestionComment questionComment) {
+        this.getQuestionCommentList().add(questionComment);
+        if (questionComment.getQuestion() != this) {
+            questionComment.setQuestion(this);
+        }
+    }
 //
 //    public void setQuestionVote(QuestionVote questionVote) {
 //        this.getQuestionVoteList().add(questionVote);
@@ -52,17 +53,16 @@ public class Question extends Auditable {
 //            questionVote.setQuestion(this);
 //        }
 //    }
-//    public void setUser(User user) {
-//        this.user = user;
-//        if (!user.getQuestionList().contains(this)) {
-//            user.getQuestionList().add(this);
-//        }
-//    }
-//
-//    public void setAnswer(Answer answer) {
-//        this.getAnswerList().add(answer);
-//        if (answer.getQuestion() != this) {
-//            answer.setQuestion(this);
-//        }
-//    }
+    public void setUser(User user) {
+        this.user = user;
+        if (!user.getQuestions().contains(this)) {
+            user.getQuestions().add(this);
+        }
+    }
+    public void setAnswer(Answer answer) {
+        this.getAnswerList().add(answer);
+        if (answer.getQuestion() != this) {
+            answer.setQuestion(this);
+        }
+    }
 }
