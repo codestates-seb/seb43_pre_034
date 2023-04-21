@@ -42,7 +42,6 @@ public class AnswerController {
 
         AnswerDto.ResponseDto response = mapper.answerToResponse(createdAnswer);
 
-
         return new ResponseEntity<>(
                 new SingleResponseDto<>(response), HttpStatus.CREATED);
     }

@@ -22,7 +22,7 @@ import javax.validation.constraints.Positive;
 
 
 @RestController
-@RequestMapping("/answerVotes")
+@RequestMapping("/answer-votes")
 @Validated
 public class AnswerVoteController {
 
@@ -56,7 +56,7 @@ public class AnswerVoteController {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
-    @PatchMapping("/{answerVote-id}")
+    @PatchMapping("/{answer-vote-id}")
     public ResponseEntity patchAnswerVote(@PathVariable("answerVote-id") @Positive long answerVoteId,
                                            @Valid @RequestBody AnswerVoteDto.PatchDto requestBody ){
 
@@ -76,7 +76,7 @@ public class AnswerVoteController {
         }
     }
 
-    @DeleteMapping("/{answerVote-id}")
+    @DeleteMapping("/{answer-vote-id}")
     public ResponseEntity<Void> deleteAnswerVote(@PathVariable long answerVoteId) {
         answerVoteService.deleteAnswerVote(answerVoteId);
         return ResponseEntity.noContent().build();
