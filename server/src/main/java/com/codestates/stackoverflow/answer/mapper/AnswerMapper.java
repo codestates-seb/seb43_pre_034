@@ -36,6 +36,7 @@ public interface AnswerMapper {
         } else {
             Answer answer = new Answer();
 
+            answer.setAnswerId(patchDto.getAnswerId());
             answer.setBody(patchDto.getBody());
             return answer;
         }

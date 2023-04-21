@@ -28,14 +28,23 @@ public class AnswerVoteService {
         return answerVoteRepository.save(answerVote);
     }
 
-    public AnswerVote updateAnswerVote(AnswerVote answerVote, AnswerVote.VoteType voteType) {
-        AnswerVote findAnswerVote = answerVoteRepository.findById(answerVote.getAnswerVoteId())
+    public AnswerVote updateAnswerVote(long answerVoteId, AnswerVote.VoteType voteType) {
+        AnswerVote findAnswerVote = answerVoteRepository.findById(answerVoteId)
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.ANSWER_VOTE_NOT_FOUND));
 
+
+        Answer answer = answerRepository.findById(answerVoteId)
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.ANSWER_NOT_FOUND));
+
+
+
         if (findAnswerVote.getVoteType() == voteType) {
-            answerVoteRepository.delete(answerVote);
+            answer.removeAnswerVote(findAnswerVote);
+            answerVoteRepository.deleteById(findAnswerVote.getAnswerVoteId());
+
         } else {
             findAnswerVote.setVoteType(voteType);
+            answer.updateScore();
             return answerVoteRepository.save(findAnswerVote);
         }
 

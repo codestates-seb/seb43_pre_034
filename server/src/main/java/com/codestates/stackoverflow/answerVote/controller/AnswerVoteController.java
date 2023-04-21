@@ -56,26 +56,27 @@ public class AnswerVoteController {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
-    @PatchMapping("answerVotes/{answerVote-id}")
-    public ResponseEntity updateAnswerVote(@PathVariable("answerVote-id") @Positive long answerVoteId,
+    @PatchMapping("/{answerVote-id}")
+    public ResponseEntity patchAnswerVote(@PathVariable("answerVote-id") @Positive long answerVoteId,
                                            @Valid @RequestBody AnswerVoteDto.PatchDto requestBody ){
 
-        AnswerVote findAnswerVote = answerVoteRepository.findById(answerVoteId)
-                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.ANSWER_VOTE_NOT_FOUND));
 
-        requestBody.setAnswerVoteId(answerVoteId);
+        AnswerVote findAnswerVote= answerVoteService.updateAnswerVote(answerVoteId,requestBody.getVoteType());
 
-        AnswerVote answerVote = mapper.patchToVote(requestBody);
+        AnswerVoteDto.ResponseDto response = mapper.voteToResponse(findAnswerVote);
 
+        if(response.getUserId()!= requestBody.getUserId()){
+             new BusinessLogicException(ExceptionCode.NO_PERMISSION_EDITING_POST);
+        }
 
-        answerVoteService.updateAnswerVote(findAnswerVote,requestBody.getVoteType());
-
-        AnswerVoteDto.ResponseDto response = mapper.voteToResponse(answerVote);
-
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        if(answerVoteRepository.findById(response.getAnswerVoteId()).isEmpty()){    //같은 voteType을 누르면 삭제되기 때문에 만약 Id가 저장소에 없으면 응답을 delete와 같이 나타냄
+            return ResponseEntity.noContent().build();
+        }else {
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }
     }
 
-    @DeleteMapping("answerVotes/{answerVote-id}")
+    @DeleteMapping("/{answerVote-id}")
     public ResponseEntity<Void> deleteAnswerVote(@PathVariable long answerVoteId) {
         answerVoteService.deleteAnswerVote(answerVoteId);
         return ResponseEntity.noContent().build();
