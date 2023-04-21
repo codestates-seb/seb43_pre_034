@@ -23,7 +23,6 @@ public class AnswerVoteDto {
 
         private long userId;
 
-        private long answerId;
         private AnswerVote.VoteType voteType;
 
         public void setAnswerVoteId(long answerVoteId) {

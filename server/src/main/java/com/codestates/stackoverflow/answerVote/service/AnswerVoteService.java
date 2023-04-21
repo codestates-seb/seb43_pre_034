@@ -33,9 +33,7 @@ public class AnswerVoteService {
                 .orElseThrow(() -> new BusinessLogicException(ExceptionCode.ANSWER_VOTE_NOT_FOUND));
 
 
-        Answer answer = answerRepository.findById(answerVoteId)
-                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.ANSWER_NOT_FOUND));
-
+        Answer answer = findAnswerVote.getAnswer();
 
 
         if (findAnswerVote.getVoteType() == voteType) {

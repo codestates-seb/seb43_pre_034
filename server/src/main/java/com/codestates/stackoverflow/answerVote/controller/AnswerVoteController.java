@@ -66,7 +66,7 @@ public class AnswerVoteController {
         AnswerVoteDto.ResponseDto response = mapper.voteToResponse(findAnswerVote);
 
         if(response.getUserId()!= requestBody.getUserId()){
-             new BusinessLogicException(ExceptionCode.NO_PERMISSION_EDITING_POST);
+             throw new BusinessLogicException(ExceptionCode.NO_PERMISSION_EDITING_POST);
         }
 
         if(answerVoteRepository.findById(response.getAnswerVoteId()).isEmpty()){    //같은 voteType을 누르면 삭제되기 때문에 만약 Id가 저장소에 없으면 응답을 delete와 같이 나타냄
