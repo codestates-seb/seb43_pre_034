@@ -87,4 +87,31 @@ const BluebgBtn = ({ height, width, padding, buttonText, onClick }) => {
   );
 };
 
-export { AskQuestionBtn, PostAnswerBtn, LoginBtn, BluebgBtn, EditSaveBtn };
+const MyPageBtn = styled.button`
+  background: white;
+  color: #525960;
+  border-radius: 2rem;
+  border: none;
+  padding: 0.8rem;
+  margin-right: 0.5rem;
+  cursor: pointer;
+  &:hover {
+    background-color: hsl(206, 100%, 52%);
+  }
+`;
+/**
+ * MyPapge에서 사용하는 공통적인 버튼 컴포넌트
+ * @property {string} children 버튼 텍스트
+ */
+const MyPageNavBtn = ({ children }) => {
+  return <MyPageBtn>{children}</MyPageBtn>;
+};
+
+export {
+  AskQuestionBtn,
+  PostAnswerBtn,
+  LoginBtn,
+  BluebgBtn,
+  EditSaveBtn,
+  MyPageNavBtn,
+};

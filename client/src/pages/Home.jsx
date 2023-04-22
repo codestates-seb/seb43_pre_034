@@ -6,6 +6,9 @@ const Container = styled.div`
   display: flex;
   height: 100%;
   background: white;
+  @media ${(props) => props.theme.breakpoints.tabletMax} {
+    flex-direction: column;
+  }
 `;
 
 const Home = () => {
