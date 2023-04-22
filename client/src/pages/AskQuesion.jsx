@@ -2,12 +2,14 @@ import { useState } from "react";
 import styled from "styled-components";
 import { ReactComponent as AskBackground } from "../assets/images/ask_background.svg";
 import { BluebgBtn } from "../components/common/Buttons";
+import { useNavigate } from "react-router-dom";
 
 // components
 import WriteGuide from "../components/AskQuestion/WriteGuide";
 import QuillEditor from "../components/QuillEditor";
 import AskTip from "../components/AskQuestion/AskTip";
 import AskDeleteModal from "../components/AskQuestion/AskDeleteModal";
+import AskTags from "../components/AskQuestion/AskTags";
 
 const AskContainer = styled.main`
   width: 100%;
@@ -97,7 +99,7 @@ const TitleInputBox = styled.div`
     margin: 7px 0px 10px 0;
     white-space: normal;
   }
-  input {
+  > input {
     border: 1px solid #ced2d5;
     border-radius: 3px;
     width: 97%;
@@ -176,6 +178,7 @@ const SubmitCancelBox = styled.div`
 `;
 
 const AskQuestion = () => {
+  let navigate = useNavigate();
   let [isClicked, setIsClicked] = useState("titleClick");
   let [askForm, setAskForm] = useState({
     title: "",
@@ -183,18 +186,17 @@ const AskQuestion = () => {
     tags: [],
   });
 
-  const onsubmitHandler = (e) => {
+  const onSubmitHandler = (e) => {
     e.preventDefault();
-  };
-  const discardDraft = () => {
+    console.log("askForm >> ", askForm);
+
     setAskForm({ title: "", content: "", tags: [] });
-    window.scrollTo(0, 0);
-    window.location.href = "/";
+    navigate("/");
   };
 
   return (
     <AskContainer>
-      <form onSubmit={onsubmitHandler} className="ask_content">
+      <form onSubmit={onSubmitHandler} className="ask_content">
         <AskTop>
           <span className="ask_title">Ask a public question</span>
           <AskBackground className="is_display" />
@@ -301,28 +303,24 @@ const AskQuestion = () => {
               Be specific and imagine you’re asking a question to another
               person.
             </p>
-            <input
-              type="text"
-              className={isClicked === "tagClick" ? null : "write_form"}
-              disabled={isClicked === "tagClick" ? false : true}
-              name="tags"
-              value={askForm.tags}
-              placeholder="e.g. Is there an R function for finding the index of an element in a vector?"
-              onChange={(e) => setAskForm({ ...askForm, tags: e.target.value })}
+            <AskTags
+              askForm={askForm}
+              setAskForm={setAskForm}
+              isClicked={isClicked}
             />
             {isClicked === "tagClick" ? (
               <BluebgBtn
-                type="submit"
+                tyoe="submit"
                 buttonText="Post your question"
                 width="140px"
                 height="37px"
-                onClick={discardDraft}
+                // onClick={onSubmitHandler}
               />
             ) : null}
           </TitleInputBox>
         </AskInputContainer>
         <SubmitCancelBox>
-          <AskDeleteModal>Discard draft</AskDeleteModal>
+          <AskDeleteModal />
         </SubmitCancelBox>
       </form>
     </AskContainer>
