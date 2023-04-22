@@ -18,6 +18,6 @@ public class QuestionResponseDto {
     private int score;
 
     private boolean checked;
-    private LocalDateTime createdAt;
-    private LocalDateTime modifiedAt;
+    private String createdAt;
+    private String modifiedAt;
 }

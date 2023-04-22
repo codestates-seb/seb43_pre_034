@@ -36,7 +36,7 @@ public class QuestionCommentDto {
         private long userId;
         private long questionId;
         private String body;
-        private LocalDateTime createdAt;
-        private LocalDateTime modifiedAt;
+        private String createdAt;
+        private String modifiedAt;
     }
 }

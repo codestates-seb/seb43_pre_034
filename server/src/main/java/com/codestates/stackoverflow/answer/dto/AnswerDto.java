@@ -42,7 +42,7 @@ public class AnswerDto {
         private String body;
         private int score;
         private boolean checked;
-        private LocalDateTime createdAt;
-        private LocalDateTime modifiedAt;
+        private String createdAt;
+        private String modifiedAt;
     }
 }
