@@ -37,7 +37,6 @@ public class Answer extends Auditable {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String body;
 
-
     @Column(nullable = false)
     private int score=0;
 
@@ -62,7 +61,6 @@ public class Answer extends Auditable {
         }
     }
 
-
     public void addAnswerVote(AnswerVote answerVote) { //answer 와 answerVoto 매핑
         this.answerVotes.add(answerVote);
         if(answerVote.getAnswer() != this) {
@@ -78,7 +76,6 @@ public class Answer extends Auditable {
         }
         updateScore();
     }
-
     public void updateScore() {
         int score = 0;
 
@@ -91,7 +88,4 @@ public class Answer extends Auditable {
         }
         this.score = score;
     }
-
-
-
 }

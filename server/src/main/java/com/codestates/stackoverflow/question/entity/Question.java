@@ -59,6 +59,7 @@ public class Question extends Auditable {
             user.getQuestions().add(this);
         }
     }
+
     public void setAnswer(Answer answer) {
         this.getAnswerList().add(answer);
         if (answer.getQuestion() != this) {
