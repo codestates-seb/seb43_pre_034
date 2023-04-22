@@ -259,6 +259,12 @@ const AskQuestion = () => {
             </p>
             <div>
               <QuillEditor
+                className={
+                  isClicked === "contentClick" || askForm.content
+                    ? null
+                    : "write_form"
+                }
+                disabled={isClicked === "contentClick" ? false : true}
                 editorWidth={"100%"}
                 editorHeight={"200px"}
                 inputValue={askForm.content}
@@ -297,6 +303,8 @@ const AskQuestion = () => {
             </p>
             <input
               type="text"
+              className={isClicked === "tagClick" ? null : "write_form"}
+              disabled={isClicked === "tagClick" ? false : true}
               name="tags"
               value={askForm.tags}
               placeholder="e.g. Is there an R function for finding the index of an element in a vector?"
