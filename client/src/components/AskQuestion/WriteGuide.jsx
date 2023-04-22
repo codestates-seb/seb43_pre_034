@@ -7,7 +7,6 @@ const GuideContainer = styled.div`
   align-items: center;
 
   .right_marginbox {
-    margin-left: 20px;
     flex: 0 1 30%;
   }
   @media screen and (max-width: 1100px) {
