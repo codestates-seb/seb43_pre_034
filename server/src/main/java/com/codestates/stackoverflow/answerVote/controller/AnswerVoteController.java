@@ -12,6 +12,7 @@ import com.codestates.stackoverflow.answerVote.service.AnswerVoteService;
 
 import com.codestates.stackoverflow.exception.BusinessLogicException;
 import com.codestates.stackoverflow.exception.ExceptionCode;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -24,6 +25,7 @@ import javax.validation.constraints.Positive;
 @RestController
 @RequestMapping("/answer-votes")
 @Validated
+@RequiredArgsConstructor
 public class AnswerVoteController {
 
     private final AnswerVoteService answerVoteService;
@@ -33,13 +35,6 @@ public class AnswerVoteController {
     private final AnswerVoteRepository answerVoteRepository;
 
     private final AnswerRepository answerRepository;
-
-    public AnswerVoteController(AnswerVoteService answerVoteService, AnswerVoteMapper mapper, AnswerVoteRepository answerVoteRepository, AnswerRepository answerRepository) {
-        this.answerVoteService = answerVoteService;
-        this.mapper = mapper;
-        this.answerVoteRepository = answerVoteRepository;
-        this.answerRepository = answerRepository;
-    }
 
 
     @PostMapping()
@@ -57,21 +52,24 @@ public class AnswerVoteController {
 
     @PatchMapping("/{answer-vote-id}")
     public ResponseEntity patchAnswerVote(@PathVariable("answerVote-id") @Positive long answerVoteId,
-                                           @Valid @RequestBody AnswerVoteDto.PatchDto requestBody ){
+                                           @Valid @RequestBody AnswerVoteDto.PatchDto requestBody ) {
 
+        if (answerVoteId != requestBody.getAnswerVoteId()) {
+            throw new BusinessLogicException(ExceptionCode.INVALID_PATH);
+        } else {
+            AnswerVote findAnswerVote = answerVoteService.updateAnswerVote(answerVoteId, requestBody.getVoteType());
 
-        AnswerVote findAnswerVote= answerVoteService.updateAnswerVote(answerVoteId,requestBody.getVoteType());
+            AnswerVoteDto.ResponseDto response = mapper.voteToResponse(findAnswerVote);
 
-        AnswerVoteDto.ResponseDto response = mapper.voteToResponse(findAnswerVote);
+            if (response.getUserId() != requestBody.getUserId()) {
+                throw new BusinessLogicException(ExceptionCode.NO_PERMISSION_EDITING_POST);
+            }
 
-        if(response.getUserId()!= requestBody.getUserId()){
-             throw new BusinessLogicException(ExceptionCode.NO_PERMISSION_EDITING_POST);
-        }
-
-        if(answerVoteRepository.findById(response.getAnswerVoteId()).isEmpty()){    //같은 voteType을 누르면 삭제되기 때문에 만약 Id가 저장소에 없으면 응답을 delete와 같이 나타냄
-            return ResponseEntity.noContent().build();
-        }else {
-            return new ResponseEntity<>(response, HttpStatus.OK);
+            if (answerVoteRepository.findById(response.getAnswerVoteId()).isEmpty()) {    //같은 voteType을 누르면 삭제되기 때문에 만약 Id가 저장소에 없으면 응답을 delete와 같이 나타냄
+                return ResponseEntity.noContent().build();
+            } else {
+                return new ResponseEntity<>(response, HttpStatus.OK);
+            }
         }
     }
 

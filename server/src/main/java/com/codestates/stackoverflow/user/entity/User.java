@@ -1,6 +1,7 @@
 package com.codestates.stackoverflow.user.entity;
 
 import com.codestates.stackoverflow.answer.entity.Answer;
+import com.codestates.stackoverflow.answercomment.entity.AnswerComment;
 import com.codestates.stackoverflow.audit.Auditable;
 import com.codestates.stackoverflow.question.entity.Question;
 import com.codestates.stackoverflow.questionComment.entity.QuestionComment;
@@ -44,6 +45,9 @@ public class User extends Auditable {
 
     @OneToMany(mappedBy = "user")
     private List<QuestionComment> questionCommentList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<AnswerComment> answerCommentList = new ArrayList<>();
 
     // User별 Question과 Answer의 Score 합산
 //    public void setScore() {

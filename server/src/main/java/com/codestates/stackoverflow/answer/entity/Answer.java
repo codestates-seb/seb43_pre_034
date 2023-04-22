@@ -1,7 +1,7 @@
 package com.codestates.stackoverflow.answer.entity;
 
 import com.codestates.stackoverflow.answerVote.entity.AnswerVote;
-import com.codestates.stackoverflow.answerVote.mapper.AnswerVoteMapper;
+import com.codestates.stackoverflow.answercomment.entity.AnswerComment;
 import com.codestates.stackoverflow.audit.Auditable;
 import com.codestates.stackoverflow.question.entity.Question;
 
@@ -9,7 +9,7 @@ import com.codestates.stackoverflow.user.entity.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 
 
 import javax.persistence.Entity;
@@ -34,6 +34,9 @@ public class Answer extends Auditable {
     @JoinColumn(name = "QUESTION_ID")
     private Question question;
 
+    @Column(nullable = false)
+    private String title;
+
     @Column(columnDefinition = "TEXT", nullable = false)
     private String body;
 
@@ -45,6 +48,9 @@ public class Answer extends Auditable {
 
     @OneToMany(mappedBy = "answer", cascade = {CascadeType.ALL})
     private List<AnswerVote> answerVotes = new ArrayList<>();
+
+    @OneToMany(mappedBy = "answer", cascade = {CascadeType.ALL})
+    private List<AnswerComment> answerCommentList = new ArrayList<>();
 
 
     public void setUser(User user) { //user와 answer 연관관계매핑 , List<Answer> 에 추가해준다

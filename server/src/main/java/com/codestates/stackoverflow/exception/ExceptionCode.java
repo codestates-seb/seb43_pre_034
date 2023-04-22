@@ -13,7 +13,10 @@ public enum ExceptionCode {
     QUESTION_COMMENT_NOT_FOUND(404,"질문 댓글을 찾을 수 없습니다."),
     NO_PERMISSION_CREATING_POST(403, "회원만 작성 할 수 있습니다."),
     ANSWER_NOT_FOUND(403, "답변을 찾을 수 없습니다."),
-    ANSWER_VOTE_NOT_FOUND(403, "답변 추천을 찾을 수 없습니다.");
+    ANSWER_COMMENT_NOT_FOUND(403,"답변 댓글을 찾을 수 없습니다"),
+    ANSWER_VOTE_NOT_FOUND(403, "답변 추천을 찾을 수 없습니다."),
+    INVALID_PATH(404, "경로가 적합하지 않습니다");
+
 
     @Getter
     private int status;

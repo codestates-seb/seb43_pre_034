@@ -10,31 +10,26 @@ import com.codestates.stackoverflow.exception.ExceptionCode;
 import com.codestates.stackoverflow.question.entity.Question;
 import com.codestates.stackoverflow.question.service.QuestionService;
 import com.codestates.stackoverflow.user.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Optional;
 
 @Service
+@Transactional
+@RequiredArgsConstructor
 public class AnswerService {
 
     private final AnswerRepository answerRepository;
     private final UserService userService;
     private final QuestionService questionService;
-    private final AnswerMapper mapper;
-
     private final QuestionRepository questionRepository;
 
-    public AnswerService(AnswerRepository answerRepository, UserService userService, QuestionService questionService, AnswerMapper mapper, QuestionRepository questionRepository) {
-        this.answerRepository = answerRepository;
-        this.userService = userService;
-        this.questionService = questionService;
-        this.mapper = mapper;
-        this.questionRepository = questionRepository;
-    }
 
 
     public Answer createAnswer(Answer answer, long userId, long questionId) {
@@ -48,13 +43,18 @@ public class AnswerService {
 
     }
     // 기본적인 답변글 수정 기능
-    public Answer updateAnswer(Answer answer) {
+    public Answer updateAnswer(Answer answer , long userId) {
         Answer findAnswer = findVerifiedAnswer(answer.getAnswerId());
 
-        Optional.ofNullable(answer.getBody())
-                .ifPresent(findAnswer::setBody);
-
-        return answerRepository.save(findAnswer);
+        if (userId != findAnswer.getUser().getUserId()) {
+            throw new BusinessLogicException(ExceptionCode.NO_PERMISSION_EDITING_POST);
+        } else {
+            Optional.ofNullable(answer.getTitle())
+                    .ifPresent(findAnswer::setTitle);
+            Optional.ofNullable(answer.getBody())
+                    .ifPresent(findAnswer::setBody);
+            return answerRepository.save(findAnswer);
+        }
     }
 
 
@@ -62,7 +62,9 @@ public class AnswerService {
     public Answer updateCheck(long userId, long answerId) {
         Answer findAnswer = findVerifiedAnswer(answerId);
         long masterUserId = findAnswer.getQuestion().getUser().getUserId();
-        if(masterUserId==userId) {
+        if(masterUserId!=userId){
+            throw new BusinessLogicException(ExceptionCode.NO_PERMISSION_EDITING_POST);
+        }else {
             if (!findAnswer.isCheked()) {                                                //findAnswer의 체크가 안되어 있으면 체크해준다
                 findAnswer.setCheked(true);
                 long questionId =findAnswer.getQuestion().getQuestionId();
@@ -85,6 +87,7 @@ public class AnswerService {
                 }
             }
         }
+
         return answerRepository.save(findAnswer);
     }
 
@@ -102,14 +105,19 @@ public class AnswerService {
         return answerPage;
     }
 
-    public void deleteAnswer(long answerId) {
+    public void deleteAnswer(long answerId , long userId) {
         Answer findAnswer = findVerifiedAnswer(answerId);
 
-        answerRepository.delete(findAnswer);
+        if (userId != findAnswer.getUser().getUserId()) {
+            throw new BusinessLogicException(ExceptionCode.NO_PERMISSION_DELETING_POST);
+        } else {
+            answerRepository.delete(findAnswer);
+        }
     }
     //답변이 없는 경우가 있기 때문에 Optional  사용
-    private Answer findVerifiedAnswer(long answerId) {
+    public Answer findVerifiedAnswer(long answerId) {
         Optional<Answer> optionalAnswer = answerRepository.findById(answerId);
         return optionalAnswer.orElseThrow(() -> new BusinessLogicException(ExceptionCode.ANSWER_NOT_FOUND));
     }
+
 }
