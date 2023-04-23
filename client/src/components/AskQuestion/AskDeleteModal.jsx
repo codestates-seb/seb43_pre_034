@@ -106,7 +106,9 @@ const AskDeleteModal = () => {
   };
   return (
     <ModalContainer>
-      <CancalBtn onClick={modalHandler}>Discard draft</CancalBtn>
+      <CancalBtn type="reset" onClick={modalHandler}>
+        Discard draft
+      </CancalBtn>
       {isModal ? (
         <ModalBackdrop onClick={modalHandler}>
           <ModalView onClick={(e) => e.stopPropagation()}>
@@ -116,7 +118,11 @@ const AskDeleteModal = () => {
               undone.
             </p>
             <div>
-              <button className="delete_btn" onClick={onClickHandler}>
+              <button
+                type="reset"
+                className="delete_btn"
+                onClick={onClickHandler}
+              >
                 Dicard question
               </button>
               <button className="cancal_btn" onClick={modalHandler}>
