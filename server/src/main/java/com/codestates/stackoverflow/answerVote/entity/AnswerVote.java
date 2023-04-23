@@ -15,7 +15,6 @@ public class AnswerVote {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long answerVoteId;
 
-
     @ManyToOne
     @JoinColumn(name = "USER_ID")
     private User user;
@@ -26,6 +25,7 @@ public class AnswerVote {
 
     @Enumerated(EnumType.STRING)
     private VoteType voteType;
+
 
     public enum VoteType {
         LIKE,

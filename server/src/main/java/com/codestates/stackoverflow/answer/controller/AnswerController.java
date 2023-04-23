@@ -74,14 +74,13 @@ public class AnswerController {
                                       @Valid @RequestBody AnswerDto.PatchDto requestBody) {
         if (answerId != requestBody.getAnswerId()) {
             throw new BusinessLogicException(ExceptionCode.INVALID_PATH);
-        } else {
-            Answer answer = mapper.patchToAnswer(requestBody);
-            Answer updatedAnswer = answerService.updateAnswer(answer, userId);
-            AnswerDto.ResponseDto response = mapper.answerToResponse(updatedAnswer);
-
-            return new ResponseEntity<>(
-                    new SingleResponseDto<>(response), HttpStatus.OK);
         }
+        Answer answer = mapper.patchToAnswer(requestBody);
+        Answer updatedAnswer = answerService.updateAnswer(answer, userId);
+        AnswerDto.ResponseDto response = mapper.answerToResponse(updatedAnswer);
+
+        return new ResponseEntity<>(
+                new SingleResponseDto<>(response), HttpStatus.OK);
     }
 
     @PatchMapping("/{user-id}/{answer-id}/check")  //check를 바꾸기 위한 메서드

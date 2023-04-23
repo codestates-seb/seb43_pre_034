@@ -36,7 +36,7 @@ public class AnswerCommentController {
         AnswerComment createdComment = answerCommentService.createAnswerComment(answerComment,userId,answerId);
         AnswerCommentDto.ResponseDto response = mapper.commentToResponse(createdComment);
 
-        return new ResponseEntity(
+        return new ResponseEntity<>(
                 new SingleResponseDto<>(response), HttpStatus.CREATED);
     }
 
@@ -54,7 +54,7 @@ public class AnswerCommentController {
 
         AnswerCommentDto.ResponseDto response = mapper.commentToResponse(findAnswerComment);
 
-        return new ResponseEntity(
+        return new ResponseEntity<>(
                 new SingleResponseDto<>(response), HttpStatus.OK);
     }
 
@@ -66,7 +66,7 @@ public class AnswerCommentController {
         List<AnswerComment> answerCommentList = answerCommentPage.getContent();
         List<AnswerCommentDto.ResponseDto> responseList = mapper.commentsToResponses(answerCommentList);
 
-        return new ResponseEntity(
+        return new ResponseEntity<>(
                 new MultiResponseDto<>(responseList,answerCommentPage), HttpStatus.OK);
     }
 

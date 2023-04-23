@@ -1,9 +1,7 @@
 package com.codestates.stackoverflow.answer.service;
 
 import com.codestates.stackoverflow.answer.entity.Answer;
-import com.codestates.stackoverflow.question.repository.QuestionRepository;
 import com.codestates.stackoverflow.user.entity.User;
-import com.codestates.stackoverflow.answer.mapper.AnswerMapper;
 import com.codestates.stackoverflow.answer.repository.AnswerRepository;
 import com.codestates.stackoverflow.exception.BusinessLogicException;
 import com.codestates.stackoverflow.exception.ExceptionCode;
@@ -28,8 +26,6 @@ public class AnswerService {
     private final AnswerRepository answerRepository;
     private final UserService userService;
     private final QuestionService questionService;
-    private final QuestionRepository questionRepository;
-
 
 
     public Answer createAnswer(Answer answer, long userId, long questionId) {
@@ -48,13 +44,12 @@ public class AnswerService {
 
         if (userId != findAnswer.getUser().getUserId()) {
             throw new BusinessLogicException(ExceptionCode.NO_PERMISSION_EDITING_POST);
-        } else {
-            Optional.ofNullable(answer.getTitle())
-                    .ifPresent(findAnswer::setTitle);
-            Optional.ofNullable(answer.getBody())
-                    .ifPresent(findAnswer::setBody);
-            return answerRepository.save(findAnswer);
         }
+        Optional.ofNullable(answer.getTitle())
+                .ifPresent(findAnswer::setTitle);
+        Optional.ofNullable(answer.getBody())
+                .ifPresent(findAnswer::setBody);
+        return answerRepository.save(findAnswer);
     }
 
 
@@ -64,19 +59,18 @@ public class AnswerService {
         long masterUserId = findAnswer.getQuestion().getUser().getUserId();
         if(masterUserId!=userId){
             throw new BusinessLogicException(ExceptionCode.NO_PERMISSION_EDITING_POST);
-        }else {
-            if (!findAnswer.isCheked()) {                                                //findAnswer의 체크가 안되어 있으면 체크해준다
-                findAnswer.setCheked(true);
-                long questionId =findAnswer.getQuestion().getQuestionId();
-                Question findQuestion = questionRepository.findById(questionId)          //findAnswer와 연결된 questionId를 통해 question검색
-                        .orElseThrow(() ->  new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND));
-                findQuestion.setChecked(true);                                           //question의 check 를 변경
+        }
+        if (!findAnswer.isCheked()) {                                                //findAnswer의 체크가 안되어 있으면 체크해준다
+            findAnswer.setCheked(true);
+            long questionId =findAnswer.getQuestion().getQuestionId();
+            Question findQuestion = questionService.findVerifiedQuestion(questionId);          //findAnswer와 연결된 questionId를 통해 question검색
+            findQuestion.setChecked(true);                                         //question의 check 를 변경
 
             } else {                                                                     //findAnswer의 체크가 되어 있다면 체크를 취소함
                 findAnswer.setCheked(false);
                 long questionId =findAnswer.getQuestion().getQuestionId();
-                Question findQuestion = questionRepository.findById(questionId)
-                        .orElseThrow(() ->  new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND));
+                Question findQuestion = questionService.findVerifiedQuestion(questionId);
+
                 findQuestion.setChecked(false);                                          // 위와 같은 방식으로 question의 체크를 취소
 
                 boolean allAnswerChecked =findQuestion.getAnswerList().stream()
@@ -86,8 +80,6 @@ public class AnswerService {
                     findQuestion.setChecked(true);                                       //따라서 allAnswerChecked가 true 면 question의 checked를 다시 true로 변경
                 }
             }
-        }
-
         return answerRepository.save(findAnswer);
     }
 
@@ -110,9 +102,8 @@ public class AnswerService {
 
         if (userId != findAnswer.getUser().getUserId()) {
             throw new BusinessLogicException(ExceptionCode.NO_PERMISSION_DELETING_POST);
-        } else {
-            answerRepository.delete(findAnswer);
         }
+        answerRepository.delete(findAnswer);
     }
     //답변이 없는 경우가 있기 때문에 Optional  사용
     public Answer findVerifiedAnswer(long answerId) {

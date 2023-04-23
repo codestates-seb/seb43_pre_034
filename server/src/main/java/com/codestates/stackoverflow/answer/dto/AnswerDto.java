@@ -41,6 +41,7 @@ public class AnswerDto {
         private long answerId;
         private long questionId;
         private long userId;
+        private String name;
         private String title;
         private String body;
         private int score;

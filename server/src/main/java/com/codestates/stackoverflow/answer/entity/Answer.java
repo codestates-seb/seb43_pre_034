@@ -69,9 +69,7 @@ public class Answer extends Auditable {
 
     public void addAnswerVote(AnswerVote answerVote) { //answer 와 answerVoto 매핑
         this.answerVotes.add(answerVote);
-        if(answerVote.getAnswer() != this) {
-            answerVote.setAnswer(this);
-        }
+        answerVote.setAnswer(this);
         updateScore();
     }
 
