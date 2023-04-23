@@ -1,14 +1,27 @@
 import styled from "styled-components";
 import { MyPageNavBtn } from "../common/Buttons";
-//버튼을 추가로 작성하고, common 하나 만들어서 사용해도 될듯?
-//그리고 map으로 돌려도 되지 않을까??
-function Nav() {
-  const navList = ["Activity", "Saves", "Settings"];
+import { MY_PAGE_URL_PATH } from "../../constants/constant";
+import { Link } from "react-router-dom";
+//마이 페이지 Nav 버튼들
+function Nav({ selectedNav }) {
+  const navList = ["Profile", "Activity", "Saves", "Settings"];
+  //객체를 사용해서 처리를 할 수도 있지 않을까??
+  //다양한 접근이 가능해보인다.
+  const navLinks = {
+    Profile: MY_PAGE_URL_PATH.USERS_PROFILE,
+    Settings: MY_PAGE_URL_PATH.USERS_PROFILE_EDIT,
+  };
   return (
     <Wrapper>
-      <ProfileBtn>Profile</ProfileBtn>
-      {navList.map((el, idx) => {
-        return <MyPageNavBtn key={idx}>{el}</MyPageNavBtn>;
+      {navList.map((section, idx) => {
+        if (section === selectedNav) {
+          return (
+            <Link to={navLinks[section]} key={idx}>
+              <ProfileBtn>{selectedNav}</ProfileBtn>
+            </Link>
+          );
+        }
+        return <MyPageNavBtn key={idx}>{section}</MyPageNavBtn>;
       })}
     </Wrapper>
   );
