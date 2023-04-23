@@ -114,4 +114,5 @@ export {
   BluebgBtn,
   EditSaveBtn,
   MyPageNavBtn,
+  ButtonCompo,
 };

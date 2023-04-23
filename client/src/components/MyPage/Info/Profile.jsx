@@ -5,7 +5,7 @@ import { AiOutlineClockCircle } from "react-icons/ai";
 import { SlCalender } from "react-icons/sl";
 import { BsFillPencilFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
-import { MY_PAGE_URL_PATH } from "../../constants/constant";
+import { MY_PAGE_URL_PATH } from "../../../constants/constant";
 function Profile() {
   return (
     <UserProfile>
