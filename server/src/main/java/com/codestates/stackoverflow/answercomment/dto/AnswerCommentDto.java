@@ -1,18 +1,17 @@
-package com.codestates.stackoverflow.questionComment.dto;
+package com.codestates.stackoverflow.answercomment.dto;
 
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
 
-
-public class QuestionCommentDto {
+public class AnswerCommentDto {
     @NoArgsConstructor
     @Setter
     @Getter
-    public static class QuestionCommentPostDto {
-        private long questionCommentId;
+    public static class PostDto {
+
         private long userId;
-        private long questionId;
+        private long answerId;
         @NotBlank(message = "댓글 내용을 작성해야 합니다.")
         private String body;
     }
@@ -20,10 +19,8 @@ public class QuestionCommentDto {
     @NoArgsConstructor
     @Setter
     @Getter
-    public static class QuestionCommentPatchDto {
-        private long questionCommentId;
-        private long userId;
-        private long questionId;
+    public static class PatchDto {
+        private long answerCommentId;
         @NotBlank(message = "댓글 내용을 작성해야 합니다.")
         private String body;
     }
@@ -31,10 +28,10 @@ public class QuestionCommentDto {
     @NoArgsConstructor
     @Builder
     @Getter
-    public static class QuestionCommentResponseDto {
-        private long questionCommentId;
+    public static class ResponseDto {
+        private long answerCommentId;
         private long userId;
-        private long questionId;
+        private long answerId;
         private String body;
         private String createdAt;
         private String modifiedAt;
