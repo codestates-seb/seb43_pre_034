@@ -51,6 +51,7 @@ public interface AnswerMapper {
         return AnswerDto.ResponseDto.builder()
                 .answerId(answer.getAnswerId())
                 .questionId(answer.getQuestion().getQuestionId())
+                .name(answer.getUser().getName())
                 .title(answer.getTitle())
                 .body(answer.getBody())
                 .score(answer.getScore())

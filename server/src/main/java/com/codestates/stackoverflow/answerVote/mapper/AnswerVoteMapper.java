@@ -12,7 +12,6 @@ public interface AnswerVoteMapper {
     @Mapping(source = "answerId", target = "answer.answerId")
     AnswerVote postToVote(AnswerVoteDto.PostDto requestBody);
 
-    @Mapping(source = "userId", target = "user.userId")
     AnswerVote patchToVote(AnswerVoteDto.PatchDto requestBody);
 
     @Mapping(source = "user.userId", target = "userId" )

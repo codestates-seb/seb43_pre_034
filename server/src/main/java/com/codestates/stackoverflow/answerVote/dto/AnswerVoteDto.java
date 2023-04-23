@@ -20,14 +20,8 @@ public class AnswerVoteDto {
     @AllArgsConstructor
     public static class PatchDto {
         private long answerVoteId;
-
-        private long userId;
-
         private AnswerVote.VoteType voteType;
 
-        public void setAnswerVoteId(long answerVoteId) {
-            this.answerVoteId = answerVoteId;
-        }
     }
 
     @AllArgsConstructor

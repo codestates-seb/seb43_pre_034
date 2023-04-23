@@ -46,12 +46,11 @@ public class AnswerCommentService {
 
         if (userId != findComment.getUser().getUserId()) {
             throw new BusinessLogicException(ExceptionCode.NO_PERMISSION_EDITING_POST);
-        } else {
-            Optional.ofNullable(answerComment.getBody())
-                    .ifPresent(findComment::setBody);
-
-            return answerCommentRepository.save(findComment);
         }
+        Optional.ofNullable(answerComment.getBody())
+                .ifPresent(findComment::setBody);
+
+        return answerCommentRepository.save(findComment);
     }
     public Page<AnswerComment> findAnswerComments(long answerId, int page, int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by("answerCommentId").descending());
@@ -70,9 +69,8 @@ public class AnswerCommentService {
 
         if (userId != findAnswerComment.getUser().getUserId()) {
             throw new BusinessLogicException(ExceptionCode.NO_PERMISSION_DELETING_POST);
-        } else {
-            answerCommentRepository.delete(findAnswerComment);
         }
+        answerCommentRepository.delete(findAnswerComment);
     }
 
     public AnswerComment findVerifiedComment(long answerCommentId) {

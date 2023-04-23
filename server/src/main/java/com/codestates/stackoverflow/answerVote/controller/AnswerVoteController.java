@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
+import java.util.Optional;
 
 
 @RestController
@@ -50,31 +51,33 @@ public class AnswerVoteController {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
-    @PatchMapping("/{answer-vote-id}")
-    public ResponseEntity patchAnswerVote(@PathVariable("answerVote-id") @Positive long answerVoteId,
-                                           @Valid @RequestBody AnswerVoteDto.PatchDto requestBody ) {
+    @PatchMapping("/{user-id}/{answer-vote-id}")
+    public ResponseEntity patchAnswerVote(@PathVariable("answer-vote-id") @Positive long answerVoteId,
+                                          @PathVariable("user-id") @Positive long userId,
+                                          @Valid @RequestBody AnswerVoteDto.PatchDto requestBody ) {
 
-        if (answerVoteId != requestBody.getAnswerVoteId()) {
-            throw new BusinessLogicException(ExceptionCode.INVALID_PATH);
-        } else {
-            AnswerVote findAnswerVote = answerVoteService.updateAnswerVote(answerVoteId, requestBody.getVoteType());
-
-            AnswerVoteDto.ResponseDto response = mapper.voteToResponse(findAnswerVote);
-
-            if (response.getUserId() != requestBody.getUserId()) {
-                throw new BusinessLogicException(ExceptionCode.NO_PERMISSION_EDITING_POST);
-            }
-
-            if (answerVoteRepository.findById(response.getAnswerVoteId()).isEmpty()) {    //같은 voteType을 누르면 삭제되기 때문에 만약 Id가 저장소에 없으면 응답을 delete와 같이 나타냄
-                return ResponseEntity.noContent().build();
-            } else {
-                return new ResponseEntity<>(response, HttpStatus.OK);
-            }
+        if (answerVoteId != requestBody.getAnswerVoteId()) {  //경로가 잘못되었을 시 에러처리
+             throw new BusinessLogicException(ExceptionCode.INVALID_PATH);
         }
+
+        answerVoteService.updateAnswerVote(answerVoteId, userId, requestBody.getVoteType());  //같은 타입의 vote를 누를 시 answerVoteId가 삭제됨
+
+        Optional<AnswerVote> optionalAnswerVote = answerVoteRepository.findById(answerVoteId); //따라서 voteId가 저장소에 있는지 확인
+
+        if (optionalAnswerVote.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+
+        AnswerVote findAnswerVote = optionalAnswerVote.get();        //삭제되지 않았으면 answerVote를 응답으로 처리
+        AnswerVoteDto.ResponseDto response = mapper.voteToResponse(findAnswerVote);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{answer-vote-id}")
-    public ResponseEntity<Void> deleteAnswerVote(@PathVariable long answerVoteId) {
+
+
+    @DeleteMapping("/{user-id}/{answer-vote-id}")
+    public ResponseEntity<Void> deleteAnswerVote(@PathVariable("answer-vote-id") long answerVoteId,
+                                                 @PathVariable("user-id") @Positive long userId) {
         answerVoteService.deleteAnswerVote(answerVoteId);
         return ResponseEntity.noContent().build();
     }
