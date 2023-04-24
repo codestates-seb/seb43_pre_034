@@ -1,9 +1,9 @@
 package com.codestates.stackoverflow.question.entity;
 
-
 import com.codestates.stackoverflow.answer.entity.Answer;
 import com.codestates.stackoverflow.audit.Auditable;
 import com.codestates.stackoverflow.questionComment.entity.QuestionComment;
+import com.codestates.stackoverflow.questionVote.entity.QuestionVote;
 import com.codestates.stackoverflow.user.entity.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,29 +30,16 @@ public class Question extends Auditable {
 
     @Column(columnDefinition = "BOOLEAN NOT NULL")
     private boolean checked =false;
-    @OneToMany(mappedBy = "question", cascade = {CascadeType.REMOVE})
+    @OneToMany(mappedBy = "question", cascade = {CascadeType.REMOVE, CascadeType.MERGE})
     private List<QuestionComment> questionCommentList = new ArrayList<>();
-//    @OneToMany(mappedBy = "question", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
-//    private List<QuestionVote> questionVoteList = new ArrayList<>();
-    @OneToMany(mappedBy = "question", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+    @OneToMany(mappedBy = "question", cascade = {CascadeType.ALL})
+    private List<QuestionVote> questionVoteList = new ArrayList<>();
+    @OneToMany(mappedBy = "question", cascade = {CascadeType.ALL})
     private List<Answer> answerList = new ArrayList<>();
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-    public void setQuestionComment(QuestionComment questionComment) {
-        this.getQuestionCommentList().add(questionComment);
-        if (questionComment.getQuestion() != this) {
-            questionComment.setQuestion(this);
-        }
-    }
-//
-//    public void setQuestionVote(QuestionVote questionVote) {
-//        this.getQuestionVoteList().add(questionVote);
-//        if (questionVote.getQuestion() != this) {
-//            questionVote.setQuestion(this);
-//        }
-//    }
     public void setUser(User user) {
         this.user = user;
         if (!user.getQuestions().contains(this)) {
@@ -65,5 +52,33 @@ public class Question extends Auditable {
         if (answer.getQuestion() != this) {
             answer.setQuestion(this);
         }
+    }
+
+    public void addQuestionVote(QuestionVote questionVote) {
+        this.questionVoteList.add(questionVote);
+        questionVote.setQuestion(this);
+        updateScore();
+    }
+
+    public void removeQuestionVote(QuestionVote questionVote) {
+        this.questionVoteList.remove(questionVote);
+        if(questionVote.getQuestion() != this) {
+            questionVote.setQuestion(this);
+        }
+        updateScore();
+    }
+
+    public void updateScore() {
+        this.score = questionVoteList.stream()
+                .mapToInt(questionVote -> {
+                    if (questionVote.getVoteType() == QuestionVote.VoteType.LIKE) {
+                        return 1;
+                    } else if (questionVote.getVoteType() == QuestionVote.VoteType.DISLIKE) {
+                        return -1;
+                    } else {
+                        return 0;
+                    }
+                })
+                .sum();
     }
 }
