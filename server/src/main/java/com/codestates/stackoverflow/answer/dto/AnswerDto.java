@@ -13,8 +13,6 @@ public class AnswerDto {
     public static class PostDto {
         private long userId;
         private long questionId;
-        @NotBlank(message = "Fill in the blank")
-        private String title;
 
         @NotBlank(message = "Fill in the blank")
         private String body;
@@ -26,8 +24,7 @@ public class AnswerDto {
     public static class PatchDto {
 
         private long answerId;
-        @NotBlank(message = "Fill in the blank")
-        private String title;
+
         @NotBlank(message = "Fill in the blank")
         private String body;
     }
@@ -42,7 +39,6 @@ public class AnswerDto {
         private long questionId;
         private long userId;
         private String name;
-        private String title;
         private String body;
         private int score;
         private boolean checked;
