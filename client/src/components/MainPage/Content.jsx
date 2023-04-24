@@ -4,10 +4,10 @@ import DownerPart from "./DonwerPart";
 import Questions from "./Question";
 import useFetchMainPage from "../../hooks/useFetchMainPage";
 import { useState, useRef, useCallback } from "react";
+
 const ContentPart = () => {
-  const [query, setQuery] = useState("");
   const [pageNumber, setPageNumber] = useState(1);
-  const { data, loading, hasMore, error } = useFetchMainPage(query, pageNumber);
+  const { data, loading, hasMore, error } = useFetchMainPage(pageNumber);
   const observer = useRef();
   const lastDataElementRef = useCallback(
     (node) => {
@@ -22,10 +22,7 @@ const ContentPart = () => {
     },
     [loading, hasMore],
   );
-  const handleSearch = (e) => {
-    setQuery(e.target.value);
-    setPageNumber(1);
-  };
+
   return (
     <Content>
       <CotentHead>
@@ -33,14 +30,13 @@ const ContentPart = () => {
         <DownerPart />
       </CotentHead>
       <ContentBody>
-        <input type="text" onChange={handleSearch}></input>
         {data.map((data, index) => {
           if (data.length === index + 1) {
             return (
-              <Questions ref={lastDataElementRef} key={data} data={data} />
+              <Questions ref={lastDataElementRef} key={index} data={data} />
             );
           } else {
-            return <Questions key={data} data={data} />;
+            return <Questions key={index} data={data} />;
           }
         })}
         {error && "...Error"}

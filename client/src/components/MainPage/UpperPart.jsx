@@ -1,10 +1,16 @@
 import styled from "styled-components";
 import { AskQuestionBtn } from "../common/Buttons";
+import { useNavigate } from "react-router-dom";
 const UpperPart = () => {
+  const navigate = useNavigate();
+
+  const handleOnclick = () => {
+    navigate("/questions/ask");
+  };
   return (
     <Upper>
       <ContentTitle>All Questions</ContentTitle>
-      <AskQuestionBtn />
+      <AskQuestionBtn handleOnclick={handleOnclick} />
     </Upper>
   );
 };

@@ -150,6 +150,9 @@ const DetailBody = ({ quData }) => {
 };
 
 const Detail = () => {
+  const handleOnclick = () => {
+    navigate("/questions/ask");
+  };
   const { id } = useParams();
   const [quData, setQuData] = useState(null);
   console.log(id);
@@ -171,7 +174,7 @@ const Detail = () => {
           <DetailHeader>
             <div className="header">
               <h1>{quData.data.title}</h1>
-              <AskQuestionBtn />
+              <AskQuestionBtn handleOnclick={handleOnclick} />
             </div>
             <section className="question-info">
               <p>

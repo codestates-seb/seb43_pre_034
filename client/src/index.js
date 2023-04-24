@@ -10,7 +10,7 @@ import theme from "./style/theme";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
+  <>
     {/* <Provider store={store}> */}
     <ThemeProvider theme={theme}>
       <GlobalStyle />
@@ -19,5 +19,5 @@ root.render(
       </BrowserRouter>
     </ThemeProvider>
     {/* </Provider> */}
-  </React.StrictMode>,
+  </>,
 );
