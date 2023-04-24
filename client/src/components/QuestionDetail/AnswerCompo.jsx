@@ -86,9 +86,7 @@ const AnswerCompo = ({ questionId }) => {
 
   useEffect(() => {
     axios
-      .get(
-        `http://ec2-54-180-87-180.ap-northeast-2.compute.amazonaws.com:8080/answers/questions/${questionId}`,
-      )
+      .get(`${process.env.REACT_APP_API_URL}/answers/questions/${questionId}`)
       .then((res) => {
         setAnData(res.data.data);
       })

@@ -17,6 +17,7 @@ const DetailPage = styled.div`
   max-width: 1100px;
   border-left: 1px solid #d6d9dc;
   padding: 24px;
+
   @media ${({ theme }) => theme.breakpoints.mobileMax} {
     width: 100%;
     border: none;
@@ -151,12 +152,10 @@ const DetailBody = ({ quData }) => {
 const Detail = () => {
   const { id } = useParams();
   const [quData, setQuData] = useState(null);
-
+  console.log(id);
   useEffect(() => {
     axios
-      .get(
-        `http://ec2-54-180-87-180.ap-northeast-2.compute.amazonaws.com:8080/questions/${id}`,
-      )
+      .get(`${process.env.REACT_APP_API_URL}/questions/${id}`)
       .then((res) => {
         setQuData(res.data);
       })
