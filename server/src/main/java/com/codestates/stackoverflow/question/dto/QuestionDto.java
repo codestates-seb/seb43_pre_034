@@ -3,6 +3,8 @@ package com.codestates.stackoverflow.question.dto;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+import java.util.List;
 
 public class QuestionDto {
 
@@ -16,6 +18,8 @@ public class QuestionDto {
         private String body;
         private long userId;
         private long questionId;
+        @Size(max=10, message = "태그는 최대 10개까지 가능합니다.")
+        private List<String> tags;
     }
 
     @AllArgsConstructor
@@ -29,5 +33,7 @@ public class QuestionDto {
         private String body;
         private long userId;
         private long questionId;
+        @Size(max=10, message = "태그는 최대 10개까지 가능합니다.")
+        private List<String> tags;
     }
 }

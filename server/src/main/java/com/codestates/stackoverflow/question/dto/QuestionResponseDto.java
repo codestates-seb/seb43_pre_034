@@ -2,7 +2,9 @@ package com.codestates.stackoverflow.question.dto;
 
 import lombok.*;
 
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,6 +19,7 @@ public class QuestionResponseDto {
     private String body;
     private int score;
     private boolean checked;
+    private List<String> tags;
     private String createdAt;
     private String modifiedAt;
 }

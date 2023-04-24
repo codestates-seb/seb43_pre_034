@@ -27,9 +27,10 @@ public class Question extends Auditable {
     private String body;
     @Column
     private int score=0;
-
     @Column(columnDefinition = "BOOLEAN NOT NULL")
     private boolean checked =false;
+    @ElementCollection(fetch = FetchType.LAZY)
+    private List<String> tags = new ArrayList<>();
     @OneToMany(mappedBy = "question", cascade = {CascadeType.REMOVE, CascadeType.MERGE})
     private List<QuestionComment> questionCommentList = new ArrayList<>();
     @OneToMany(mappedBy = "question", cascade = {CascadeType.ALL})

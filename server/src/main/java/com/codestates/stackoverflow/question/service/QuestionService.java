@@ -46,6 +46,8 @@ public class QuestionService {
                 .ifPresent(title -> findQuestion.setTitle(title));
         Optional.ofNullable(question.getBody())
                 .ifPresent(body -> findQuestion.setBody(body));
+        Optional.ofNullable(question.getTags())
+                .ifPresent(tags -> findQuestion.setTags(tags));
 
         return questionRepository.save(findQuestion);
     }
