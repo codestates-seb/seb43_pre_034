@@ -57,9 +57,7 @@ const QuBottomBtnAuthor = ({ questionId }) => {
   console.log(questionId);
   useEffect(() => {
     axios
-      .delete(
-        `http://ec2-54-180-87-180.ap-northeast-2.compute.amazonaws.com:8080/questions/${questionId}`,
-      )
+      .delete(`${process.env.REACT_APP_API_URL}/questions/${questionId}`)
       .then((res) => {
         console.log(res);
       })

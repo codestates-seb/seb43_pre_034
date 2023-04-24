@@ -30,10 +30,10 @@ function App() {
           {/* NavBar 특정 페이지만 보이기 */}
           <Route element={<NavBar />}>
             <Route path="/" element={<Home />} />
-            <Route path="/question/:id" element={<Detail />} />
-            <Route path="/question/:id/edit" element={<EditQuestion />} />
+            <Route path="/questions/:id" element={<Detail />} />
+            <Route path="/questions/:id/edit" element={<EditQuestion />} />
             <Route
-              path="/question/:id/answeredit/:answerid"
+              path="/questions/:id/answeredit/:answerid"
               element={<EditAnswer />}
             />
             <Route path={MY_PAGE_URL_PATH.USERS_PROFILE} element={<MyPage />} />
@@ -43,7 +43,7 @@ function App() {
             />
           </Route>
           {/* NavBar 특정 페이지 숨기기 */}
-          <Route path="/question/ask" element={<AskQuestion />} />
+          <Route path="/questions/ask" element={<AskQuestion />} />
           {/* <Route path="/users/login" element={<Login />} />
           <Route path="/users/signup" element={<Signup />} /> */}
         </Routes>

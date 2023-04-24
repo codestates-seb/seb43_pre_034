@@ -90,16 +90,20 @@ const CommentListCon = styled.div`
 
 // component
 // Question comment list
-const QuCommentList = ({ quCommentList }) => {
-  // console.log(commentList);
+const QuCommentList = ({ quCommentList, setQuCommentList }) => {
   // 삭제요청
   const onDeleteComment = (questionId, questionCommentId) => {
     axios
       .delete(
-        `https://2297-59-17-229-47.jp.ngrok.io/questions/${questionId}/comments/${questionCommentId}`,
+        `${process.env.REACT_APP_API_URL}/questions/${questionId}/comments/${questionCommentId}`,
       )
       .then((res) => {
         console.log(res);
+        setQuCommentList(
+          quCommentList.filter(
+            (comment) => comment.questionCommentId !== questionCommentId,
+          ),
+        );
       })
       .catch((err) => {
         console.log(err);
@@ -179,14 +183,13 @@ const AnCommentList = ({ anCommentList }) => {
 
 // Question comment component
 const QuComment = ({ questionId, questionData }) => {
-  // console.log(questionData);
   // input창 열기/닫기
   const [showInput, setShowInput] = useState(false);
   const handleShowInput = () => {
     setShowInput(!showInput);
   };
   // 댓글 추가하기
-  const questionCommentId = useRef(0);
+  // const questionCommentId = useRef(0);
   const [content, setContent] = useState("");
   const [quComment, setQuComment] = useState([]);
 
@@ -199,6 +202,7 @@ const QuComment = ({ questionId, questionData }) => {
       )
       .then((res) => {
         // 반환된 댓글 리스트를 Comment 컴포넌트의 state에 저장
+        console.log(res.data);
         setQuComment(res.data);
       })
       .catch((err) => {
@@ -208,10 +212,10 @@ const QuComment = ({ questionId, questionData }) => {
   const handleContentChange = (event) => {
     setContent(event.target.value);
   };
-
+  console.log(quComment);
   const handleCommentSubmit = () => {
     const newComment = {
-      questionCommentId: questionCommentId.current,
+      // questionCommentId: questionCommentId.current,
       userId: questionData.userId,
       questionId: questionId,
       body: content,
@@ -223,11 +227,12 @@ const QuComment = ({ questionId, questionData }) => {
       )
       .then((res) => {
         console.log(res.data);
+        setQuComment(res.data);
       })
       .catch((err) => {
         console.error(err);
       });
-    questionCommentId.current++;
+    // questionCommentId.current++;
     // 입력된 댓글 내용 초기화 및 입력창 닫기
     setContent("");
     setShowInput(false);
@@ -235,7 +240,12 @@ const QuComment = ({ questionId, questionData }) => {
 
   return (
     <CommentContainer>
-      {quComment ? <QuCommentList quCommentList={quComment} /> : null}
+      {quComment ? (
+        <QuCommentList
+          quCommentList={quComment}
+          setQuCommentList={setQuComment}
+        />
+      ) : null}
       <button className="commentBtn" onClick={handleShowInput}>
         Add a comment
       </button>
