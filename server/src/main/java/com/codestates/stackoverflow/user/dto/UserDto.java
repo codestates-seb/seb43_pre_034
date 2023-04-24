@@ -13,7 +13,7 @@ public class UserDto {
     @Getter
     @Setter
     @AllArgsConstructor
-
+    @NoArgsConstructor
     public static class Post {
         @NotBlank(message = "이름을 입력해주세요.")
         private String name;
