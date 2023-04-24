@@ -24,7 +24,6 @@ public class User extends Auditable {
     private String name;
     @Column(nullable = false, updatable = false, unique = true)
     private String email;
-    @Getter(AccessLevel.NONE)
     @Column(length = 100, nullable = false)
     private String password;
 
@@ -62,14 +61,7 @@ public class User extends Auditable {
         this.name = name;
         this.email = email;
     }
-    
-    public void setName(String name) {
-        this.name = name;
-    }
 
-    public void setStatus(Status status) {
-        this.status = status;
-    }
     public enum Status {
         MEMBER_ACTIVE("활동중"),
         MEMBER_SLEEP("휴면 상태"),
