@@ -16,6 +16,8 @@ public enum ExceptionCode {
     ANSWER_COMMENT_NOT_FOUND(403,"답변 댓글을 찾을 수 없습니다"),
     ANSWER_VOTE_NOT_FOUND(403, "답변 추천을 찾을 수 없습니다."),
     ANSWER_VOTE_EXIST(409, "추천이 존재합니다.") ,
+    QUESTION_VOTE_NOT_FOUND(403, "질문 추천을 찾을 수 없습니다") ,
+    QUESTION_VOTE_EXIST(409, "질문 추천이 존재합니다.") ,
     INVALID_PATH(404, "경로가 적합하지 않습니다");
 
 

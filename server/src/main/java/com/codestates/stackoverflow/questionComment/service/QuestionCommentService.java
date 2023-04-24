@@ -9,7 +9,6 @@ import com.codestates.stackoverflow.questionComment.repository.QuestionCommentRe
 import com.codestates.stackoverflow.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
 
 import javax.transaction.Transactional;
 import java.util.Collections;

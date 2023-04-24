@@ -16,7 +16,6 @@ public class QuestionResponseDto {
     private String title;
     private String body;
     private int score;
-
     private boolean checked;
     private String createdAt;
     private String modifiedAt;

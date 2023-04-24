@@ -10,7 +10,6 @@ public class QuestionCommentDto {
     @Setter
     @Getter
     public static class QuestionCommentPostDto {
-        private long questionCommentId;
         private long userId;
         private long questionId;
         @NotBlank(message = "댓글 내용을 작성해야 합니다.")
