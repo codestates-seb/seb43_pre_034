@@ -2,9 +2,11 @@ import styled from "styled-components";
 import { CgProfile } from "react-icons/cg";
 import { ButtonCompo } from "../../common/Buttons";
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 function EditRight() {
   //현재 저장된 값을 지정(서버에서 가져와야 함!)
+  let param = useParams;
   const [inputValue, setInputValue] = useState("hoinleekk");
 
   const handleInputChange = (event) => {
@@ -13,16 +15,18 @@ function EditRight() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    //서버에 PATCH로 보내기
-    // axios
-    //   .patch("/users/:id", { post: inputValue })
-    //   .then((response) => {
-    //     console.log("Post submitted successfully");
-    //     setInputValue("");
-    //   })
-    //   .catch((error) => {
-    //     console.error("Error submitting post:", error);
-    //   });
+    //서버에 PATCH로 보내기 useParam을 사용해서 id number를 가져와야 한다.(현재는 일단 고정된 형태!)
+    axios
+      .patch(`${process.env.REACT_APP_API_URL}/users/${param}`, {
+        post: inputValue,
+      })
+      .then((response) => {
+        console.log("Post submitted successfully");
+        setInputValue("");
+      })
+      .catch((error) => {
+        console.error("Error submitting post:", error);
+      });
   };
   return (
     <EditSection>

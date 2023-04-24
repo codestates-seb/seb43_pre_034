@@ -14,9 +14,9 @@ const ButtonCompo = styled.button`
 `;
 
 // 질문 추가 버튼
-const AskQuestionBtn = () => {
+const AskQuestionBtn = ({ handleOnclick }) => {
   return (
-    <ButtonCompo>
+    <ButtonCompo onClick={handleOnclick || null}>
       <span>Ask Question</span>
     </ButtonCompo>
   );

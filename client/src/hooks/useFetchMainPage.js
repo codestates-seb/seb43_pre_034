@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-export default function useFetchMainPage(query, pageNumber) {
+export default function useFetchMainPage(pageNumber) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [data, setData] = useState([]);
@@ -10,30 +10,25 @@ export default function useFetchMainPage(query, pageNumber) {
   useEffect(() => {
     setLoading(true);
     setError(false);
-    let cancel;
     axios({
       method: "GET",
-      url: "http://openlibrary.org/search.json",
+      url: `${process.env.REACT_APP_API_URL}/questions/`,
       params: {
-        q: query,
         page: pageNumber,
       },
-      cancelToken: new axios.CancelToken((c) => (cancel = c)),
     })
       .then((res) => {
+        console.log(res.data.data);
         setData((datas) => {
-          return [
-            ...new Set([...datas, ...res.data.docs.map((el) => el.title)]),
-          ];
+          return [...datas, ...res.data.data];
         });
-        setHasMore(res.data.docs.length > 0);
+        setHasMore(res.data.data.length > 0);
         setLoading(false);
       })
       .catch((error) => {
-        if (axios.isCancel(error)) return;
+        console.log(error);
         setError(true);
       });
-    return () => cancel();
-  }, [query, pageNumber]);
+  }, [pageNumber]);
   return { data, loading, error, hasMore };
 }
