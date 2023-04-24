@@ -34,9 +34,6 @@ public class Answer extends Auditable {
     @JoinColumn(name = "QUESTION_ID")
     private Question question;
 
-    @Column(nullable = false)
-    private String title;
-
     @Column(columnDefinition = "TEXT", nullable = false)
     private String body;
 

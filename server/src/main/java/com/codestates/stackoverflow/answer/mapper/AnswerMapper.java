@@ -23,7 +23,6 @@ public interface AnswerMapper {
             User user = new User();
             user.setUserId(postDto.getUserId());
 
-            answer.setTitle(postDto.getTitle());
             answer.setBody(postDto.getBody());
             answer.setQuestion(question);
             answer.setUser(user);
@@ -38,7 +37,6 @@ public interface AnswerMapper {
             Answer answer = new Answer();
 
             answer.setAnswerId(patchDto.getAnswerId());
-            answer.setTitle((patchDto.getTitle()));
             answer.setBody(patchDto.getBody());
             return answer;
         }
@@ -52,7 +50,6 @@ public interface AnswerMapper {
                 .answerId(answer.getAnswerId())
                 .questionId(answer.getQuestion().getQuestionId())
                 .name(answer.getUser().getName())
-                .title(answer.getTitle())
                 .body(answer.getBody())
                 .score(answer.getScore())
                 .userId(answer.getUser().getUserId())
