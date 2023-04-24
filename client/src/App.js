@@ -31,7 +31,7 @@ function App() {
           <Route element={<NavBar />}>
             <Route path="/" element={<Home />} />
             <Route path="/question/:id" element={<Detail />} />
-            <Route path="question/:id/edit" element={<EditQuestion />} />
+            <Route path="/question/:id/edit" element={<EditQuestion />} />
             <Route
               path="/question/:id/answeredit/:answerid"
               element={<EditAnswer />}
