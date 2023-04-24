@@ -28,7 +28,7 @@ public class AnswerCommentService {
 
     private final UserService userService;
 
-    public AnswerComment createAnswerComment(AnswerComment answerComment, long answerId ,long userId) { // 댓글 작성
+    public AnswerComment createAnswerComment(AnswerComment answerComment, long userId ,long answerId) { // 댓글 작성
         Answer findAnswer = answerService.findVerifiedAnswer(answerId);
         User findUser = userService.findVerifiedUser(userId);
 
