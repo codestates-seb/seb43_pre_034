@@ -1,8 +1,8 @@
+import axios from "axios";
 import { useState } from "react";
 import styled from "styled-components";
 import { ReactComponent as AskBackground } from "../assets/images/ask_background.svg";
 import { BluebgBtn } from "../components/common/Buttons";
-import { useNavigate } from "react-router-dom";
 
 // components
 import WriteGuide from "../components/AskQuestion/WriteGuide";
@@ -178,7 +178,6 @@ const SubmitCancelBox = styled.div`
 `;
 
 const AskQuestion = () => {
-  let navigate = useNavigate();
   let [isClicked, setIsClicked] = useState("titleClick");
   let [askForm, setAskForm] = useState({
     title: "",
@@ -190,8 +189,21 @@ const AskQuestion = () => {
     e.preventDefault();
     console.log("askForm >> ", askForm);
 
+    axios
+      .post(`${process.env.REACT_APP_API_URL}/questions`, {
+        title: askForm.title,
+        body: askForm.content,
+        userId: 3,
+      })
+      .then((res) => {
+        console.log(res.data.questionId);
+        window.location.href = `${res.data.questionId}`;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
     setAskForm({ title: "", content: "", tags: [] });
-    navigate("/");
   };
 
   return (
@@ -314,7 +326,6 @@ const AskQuestion = () => {
                 buttonText="Post your question"
                 width="140px"
                 height="37px"
-                // onClick={onSubmitHandler}
               />
             ) : null}
           </TitleInputBox>
