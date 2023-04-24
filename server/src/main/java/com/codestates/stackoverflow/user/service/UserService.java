@@ -2,17 +2,22 @@ package com.codestates.stackoverflow.user.service;
 
 import com.codestates.stackoverflow.exception.BusinessLogicException;
 import com.codestates.stackoverflow.exception.ExceptionCode;
+import com.codestates.stackoverflow.security.auth.utils.CustomAuthorityUtils;
 import com.codestates.stackoverflow.user.entity.User;
+import com.codestates.stackoverflow.user.helper.MemberRegistrationApplicationEvent;
 import com.codestates.stackoverflow.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -21,12 +26,26 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final ApplicationEventPublisher publisher;
+    private final PasswordEncoder passwordEncoder;
+    private final CustomAuthorityUtils authorityUtils;
 
 
 
     public User createUser(User user) {
         verifyExistEmail(user.getEmail());
-        return userRepository.save(user);
+
+        String encryptedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encryptedPassword);
+
+        List<String> roles = authorityUtils.createRoles(user.getEmail());
+        user.setRoles(roles);
+
+        User savedUser = userRepository.save(user);
+
+        // 회원가입 후 메일 전송 기능
+        // publisher.publishEvent(new MemberRegistrationApplicationEvent(savedUser));
+        return savedUser;
     }
 
     public User findUser(long userId) {

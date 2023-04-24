@@ -28,7 +28,7 @@ public class AnswerCommentService {
 
     private final UserService userService;
 
-    public AnswerComment createAnswerComment(AnswerComment answerComment, long answerId ,long userId) { // 댓글 작성
+    public AnswerComment createAnswerComment(AnswerComment answerComment, long userId ,long answerId) { // 댓글 작성
         Answer findAnswer = answerService.findVerifiedAnswer(answerId);
         User findUser = userService.findVerifiedUser(userId);
 
@@ -46,12 +46,11 @@ public class AnswerCommentService {
 
         if (userId != findComment.getUser().getUserId()) {
             throw new BusinessLogicException(ExceptionCode.NO_PERMISSION_EDITING_POST);
-        } else {
-            Optional.ofNullable(answerComment.getBody())
-                    .ifPresent(findComment::setBody);
-
-            return answerCommentRepository.save(findComment);
         }
+        Optional.ofNullable(answerComment.getBody())
+                .ifPresent(findComment::setBody);
+
+        return answerCommentRepository.save(findComment);
     }
     public Page<AnswerComment> findAnswerComments(long answerId, int page, int size) {
         Pageable pageable = PageRequest.of(page, size, Sort.by("answerCommentId").descending());
@@ -70,9 +69,8 @@ public class AnswerCommentService {
 
         if (userId != findAnswerComment.getUser().getUserId()) {
             throw new BusinessLogicException(ExceptionCode.NO_PERMISSION_DELETING_POST);
-        } else {
-            answerCommentRepository.delete(findAnswerComment);
         }
+        answerCommentRepository.delete(findAnswerComment);
     }
 
     public AnswerComment findVerifiedComment(long answerCommentId) {
