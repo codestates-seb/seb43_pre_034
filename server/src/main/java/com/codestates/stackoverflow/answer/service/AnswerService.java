@@ -45,8 +45,7 @@ public class AnswerService {
         if (userId != findAnswer.getUser().getUserId()) {
             throw new BusinessLogicException(ExceptionCode.NO_PERMISSION_EDITING_POST);
         }
-        Optional.ofNullable(answer.getTitle())
-                .ifPresent(findAnswer::setTitle);
+
         Optional.ofNullable(answer.getBody())
                 .ifPresent(findAnswer::setBody);
         return answerRepository.save(findAnswer);
