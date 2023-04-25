@@ -181,7 +181,7 @@ const AskQuestion = () => {
   let [isClicked, setIsClicked] = useState("titleClick");
   let [askForm, setAskForm] = useState({
     title: "",
-    content: "",
+    body: "",
     tags: [],
   });
 
@@ -192,7 +192,8 @@ const AskQuestion = () => {
     axios
       .post(`${process.env.REACT_APP_API_URL}/questions`, {
         title: askForm.title,
-        body: askForm.content,
+        body: askForm.body,
+        tags: askForm.tags,
         userId: 3,
       })
       .then((res) => {
@@ -203,7 +204,7 @@ const AskQuestion = () => {
         console.log(err);
       });
 
-    setAskForm({ title: "", content: "", tags: [] });
+    setAskForm({ title: "", body: "", tags: [] });
   };
 
   return (
@@ -218,8 +219,8 @@ const AskQuestion = () => {
           {isClicked === "titleClick" ? (
             <AskTip
               title="Writing a good title"
-              content="Your title should summarize the problem."
-              content2="You might find that you have a better idea of your title after
+              body="Your title should summarize the problem."
+              body2="You might find that you have a better idea of your title after
           writing out the rest of the question."
             />
           ) : null}
@@ -245,26 +246,24 @@ const AskQuestion = () => {
                 buttonText="Next"
                 width="51px"
                 height="37px"
-                onClick={() => setIsClicked("contentClick")}
+                onClick={() => setIsClicked("bodyClick")}
               />
             ) : null}
           </TitleInputBox>
         </AskInputContainer>
         <EditorContainer
           className={
-            isClicked === "contentClick" || askForm.content
-              ? null
-              : "write_form"
+            isClicked === "bodyClick" || askForm.body ? null : "write_form"
           }
         >
-          {isClicked === "contentClick" ? (
+          {isClicked === "bodyClick" ? (
             <AskTip
               title="Introduce the problem"
-              content="Explain how you encountered the problem you’re trying to solve, and any difficulties that have prevented you from solving it yourself."
+              body="Explain how you encountered the problem you’re trying to solve, and any difficulties that have prevented you from solving it yourself."
             />
           ) : null}
           <EditorBox>
-            <label htmlFor="content" className="ask_title">
+            <label htmlFor="body" className="ask_title">
               What are the details of your problem?
             </label>
             <p>
@@ -274,20 +273,20 @@ const AskQuestion = () => {
             <div>
               <QuillEditor
                 className={
-                  isClicked === "contentClick" || askForm.content
+                  isClicked === "bodyClick" || askForm.content
                     ? null
                     : "write_form"
                 }
-                disabled={isClicked === "contentClick" ? false : true}
+                disabled={isClicked === "bodyClick" ? false : true}
                 editorWidth={"100%"}
                 editorHeight={"200px"}
-                inputValue={askForm.content}
+                inputValue={askForm.body}
                 setEditorText={setAskForm}
                 editorText={askForm}
               />
             </div>
             <div className="padding_bottombox" />
-            {isClicked === "contentClick" ? (
+            {isClicked === "bodyClick" ? (
               <BluebgBtn
                 buttonText="Next"
                 width="51px"
@@ -303,8 +302,8 @@ const AskQuestion = () => {
           {isClicked === "tagClick" ? (
             <AskTip
               title="Adding tags"
-              content="Tags help ensure that your question will get attention from the right people."
-              content2="Tag things in more than one way so people can find them more easily. Add tags for product lines, projects, teams, and the specific technologies or languages used."
+              body="Tags help ensure that your question will get attention from the right people."
+              body2="Tag things in more than one way so people can find them more easily. Add tags for product lines, projects, teams, and the specific technologies or languages used."
             />
           ) : null}
           <TitleInputBox>
