@@ -133,7 +133,7 @@ const AddAnswer = ({ questionId, quData }) => {
   }, [anList]);
   const onCreateAnswer = (e) => {
     e.preventDefault();
-    console.log(anForm);
+
     axios
       .post(`${process.env.REACT_APP_API_URL}/answers`, {
         userId: 1,

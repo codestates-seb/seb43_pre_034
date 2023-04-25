@@ -57,7 +57,6 @@ const AnBottomBtn = ({ anData }) => {
 // 작성자가 보는 화면
 // 게시글 하단
 const QuBottomBtnAuthor = ({ questionId }) => {
-  console.log(questionId);
   useEffect(() => {
     axios
       .delete(`${process.env.REACT_APP_API_URL}/questions/${questionId}`)
