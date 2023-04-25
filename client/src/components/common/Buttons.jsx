@@ -30,9 +30,9 @@ const PostAnswerBtn = () => {
   );
 };
 // 수정 저장 버튼
-const EditSaveBtn = () => {
+const EditSaveBtn = ({ onClick }) => {
   return (
-    <ButtonCompo>
+    <ButtonCompo onClick={onClick || null}>
       <span>Save Edit</span>
     </ButtonCompo>
   );

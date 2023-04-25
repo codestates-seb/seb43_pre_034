@@ -13,6 +13,7 @@ const FooterContainer = styled.footer`
   padding-bottom: 0px;
   background: ${(props) => props.theme.color.footerBg};
 `;
+
 const FooterContents = styled.ul`
   max-width: 1264px;
   margin: 0 auto;

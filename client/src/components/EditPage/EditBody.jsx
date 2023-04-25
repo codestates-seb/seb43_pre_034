@@ -15,11 +15,18 @@ const EditBodyCon = styled.section`
 `;
 
 //Edit-body
-const EditBody = ({ content }) => {
+const EditBody = ({ content, editBody, setEditBody, quData }) => {
+  console.log(editBody);
   return (
     <EditBodyCon>
       <h2 className="edit-body">{content}</h2>
-      <QuillEditor EditorHeight={"290px"} EditorWidth={"100%"} />
+      <QuillEditor
+        editorWidth={"100%"}
+        editorHeight={"300px"}
+        inputValue={editBody ? editBody.body : ""}
+        editorText={quData ? editBody.body : ""}
+        setEditorText={setEditBody}
+      />
     </EditBodyCon>
   );
 };

@@ -3,8 +3,7 @@ import { ReactComponent as SearchSvg } from "../../assets/images/search.svg";
 import { useState } from "react";
 
 const SearchContainer = styled.div`
-  max-width: 700px;
-  width: 100%;
+  width: 400%;
   display: flex;
   justify-content: flex-end;
   position: relative;
@@ -25,10 +24,6 @@ const SearchForm = styled.form`
   @media ${(props) => props.theme.breakpoints.mobileMax} {
     justify-content: flex-end;
     position: none;
-    /* left: 0;
-    right: 0;
-    top: 100%; */
-
     margin-right: 7px;
     svg {
       width: 25px;
@@ -59,11 +54,6 @@ const SearchInput = styled.input`
   }
 
   @media ${(props) => props.theme.breakpoints.mobileMax} {
-    /* position: absolute;
-    width: 165%;
-    top: 30px;
-    left: -110px;
-    z-index: 9999; */
     display: none;
   }
 `;
@@ -75,7 +65,7 @@ const SearchInputNav = styled.div`
   position: absolute;
   top: 20px;
   width: 100%;
-  max-width: 680px;
+  max-width: 720px;
   min-width: 420px;
   z-index: 2000;
   border: 1px solid #d6d9dc;
@@ -84,16 +74,18 @@ const SearchInputNav = styled.div`
     0 3px 8px hsla(0, 0%, 0%, 0.09);
 
   @media ${(props) => props.theme.breakpoints.tabletMax} {
-    min-width: none;
+    min-width: 353px;
     inset: 0px auto auto 0px;
+    top: -10px;
     left: 0;
     right: 0;
     margin: 0px;
     transform: translate3d(0px, 30px, 0px);
   }
   @media ${(props) => props.theme.breakpoints.mobileMax} {
-    width: 210%;
-    left: -110px;
+    min-width: 210px;
+    left: -31%;
+    width: 171%;
   }
 `;
 
@@ -140,6 +132,7 @@ const Search = () => {
           placeholder="Search..."
           value={search}
           onFocus={() => setIsSearchClick(true)}
+          onBlur={() => setIsSearchClick(false)}
           onChange={(e) => setSearch(e.target.value)}
         />
         <SearchSvg

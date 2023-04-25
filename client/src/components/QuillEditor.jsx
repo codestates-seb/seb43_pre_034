@@ -39,12 +39,12 @@ const QuillEditor = ({
     "background",
   ];
 
-  const onChangeHandler = (content) => {
-    setEditorText({ ...editorText, content: content });
+  const onChangeHandler = (body) => {
+    setEditorText({ ...editorText, body: body });
   };
 
   return (
-    <div name="content">
+    <div name="body">
       <ReactQuill
         style={{ height: editorHeight, width: editorWidth }}
         modules={modules}

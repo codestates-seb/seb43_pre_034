@@ -35,7 +35,7 @@ const AskTipContent = styled.div`
   }
 `;
 
-const AskTip = ({ title, content, content2 }) => {
+const AskTip = ({ title, body, body2 }) => {
   return (
     <AskTipContainer>
       <div className="tip_title">{title}</div>
@@ -44,8 +44,8 @@ const AskTip = ({ title, content, content2 }) => {
           <PencilSvg />
         </div>
         <div>
-          <p>{content}</p>
-          {content2 ? <p>{content2}</p> : null}
+          <p>{body}</p>
+          {body2 ? <p>{body2}</p> : null}
         </div>
       </AskTipContent>
     </AskTipContainer>

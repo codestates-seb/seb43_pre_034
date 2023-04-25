@@ -6,7 +6,6 @@ import { QuestionAuthor } from "../components/QuestionDetail/AuthorInfo";
 import { QuBottomBtn } from "../components/QuestionDetail/QuestionBottomButton";
 import { QuComment } from "../components/QuestionDetail/Comment";
 import AddAnswer from "../components/QuestionDetail/AddAnswer";
-import AnswerCompo from "../components/QuestionDetail/AnswerCompo";
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -117,7 +116,6 @@ const DetailBodyCon = styled.div`
 // components
 // 상세페이지 - 질문글
 const DetailBody = ({ quData }) => {
-  console.log(quData.data.questionId);
   return (
     <DetailBodyCon>
       <div className="question-answer-page">
@@ -136,9 +134,8 @@ const DetailBody = ({ quData }) => {
           </section>
         </section>
         {/* answer는 컴포넌트 이동해서 get요청하기 */}
-        <AnswerCompo questionId={quData && quData.data.questionId} />
         <AddAnswer
-          questionId={quData && quData.questionId}
+          questionId={quData && quData.data.questionId}
           quData={quData && quData.data}
         />
       </div>
@@ -156,7 +153,7 @@ const Detail = () => {
   };
   const { id } = useParams();
   const [quData, setQuData] = useState(null);
-  console.log(id);
+
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_API_URL}/questions/${id}`)

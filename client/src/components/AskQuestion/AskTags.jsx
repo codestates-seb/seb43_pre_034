@@ -61,7 +61,7 @@ const TagsContainer = styled.div`
 
 const AskTags = ({ askForm, setAskForm, isClicked }) => {
   const removeTags = (idxToRemove) => {
-    let removed = tags.slice();
+    let removed = askForm.tags.slice();
     let filterd = removed.splice(0, idxToRemove, 1);
 
     setAskForm({ ...askForm, tags: filterd });

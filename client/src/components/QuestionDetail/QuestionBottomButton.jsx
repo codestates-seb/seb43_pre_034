@@ -22,12 +22,12 @@ const QuestionBottomBtn = styled.ul`
 
 // 일반 회원이 보는 화면
 // 게시글 하단
-const QuBottomBtn = () => {
+const QuBottomBtn = ({ questionId }) => {
   return (
     <QuestionBottomBtn>
       <li>Share</li>
       <li>
-        <Link to={"/question/:id/edit"} className="linkToEdit">
+        <Link to={`/questions/${questionId}/edit`} className="linkToEdit">
           Edit
         </Link>
       </li>
@@ -37,12 +37,15 @@ const QuBottomBtn = () => {
 };
 
 // 답변 하단
-const AnBottomBtn = () => {
+const AnBottomBtn = ({ anData }) => {
   return (
     <QuestionBottomBtn>
       <li>Share</li>
       <li>
-        <Link to={"/question/:id/answeredit/answerid"} className="linkToEdit">
+        <Link
+          to={`/questions/${anData.questionId}/answer-edit/${anData.answerId}`}
+          className="linkToEdit"
+        >
           Edit
         </Link>
       </li>
