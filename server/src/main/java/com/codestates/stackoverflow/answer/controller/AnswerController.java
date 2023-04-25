@@ -35,15 +35,10 @@ public class AnswerController {
     public ResponseEntity postAnswer(@Valid @RequestBody AnswerDto.PostDto requestBody){
 
         Answer answer = mapper.postToAnswer(requestBody);
-        long userId = requestBody.getUserId();
-        long questionId = requestBody.getQuestionId();
-
-        Answer createdAnswer = answerService.createAnswer(answer, userId, questionId);
-
+        Answer createdAnswer = answerService.createAnswer(answer);
         AnswerDto.ResponseDto response = mapper.answerToResponse(createdAnswer);
 
-        return new ResponseEntity<>(
-                new SingleResponseDto<>(response), HttpStatus.CREATED);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @GetMapping("/{answer-id}")
