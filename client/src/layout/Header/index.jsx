@@ -4,8 +4,7 @@ import styled from "styled-components";
 
 // components
 import TitleLogo from "./TitleLogo";
-import ProductsNav from "./ProductsNav";
-import Products from "./Products";
+import LeftList from "./LeftList";
 import SignNav from "./SignNav";
 import Search from "./Search";
 import UserNav from "./UserNav";
@@ -39,21 +38,17 @@ const StyledHeader = styled.div`
 `;
 
 const Header = () => {
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
 
   return (
     <HeaderContainer>
       <StyledHeader>
-        {isLogin ? (
-          <UserNav />
-        ) : (
-          <>
-            <TitleLogo />
-            <Products />
-            <Search />
-            <SignNav />
-          </>
-        )}
+        <>
+          <TitleLogo />
+          <LeftList isLogin={isLogin} />
+          <Search />
+          {isLogin ? <UserNav /> : <SignNav />}
+        </>
       </StyledHeader>
     </HeaderContainer>
   );
