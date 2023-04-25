@@ -53,7 +53,21 @@ public class SecurityConfiguration {
                 .apply(new CustomFilterConfigurer())
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
-//                        .antMatchers(HttpMethod.POST, "/uripath").permitAll() 추후 추가
+                        .antMatchers(HttpMethod.POST, "/users/login/**", "/users/signup/**").permitAll() // 로그인 및 회원 가입 모두 접근 가능
+                        .antMatchers(HttpMethod.GET, "/users/{user-id}/**").hasRole("USER") // 회원 조회 유저 접근 가능
+                        .antMatchers(HttpMethod.GET, "/users/**").hasRole("ADMIN")
+                        .antMatchers(HttpMethod.PATCH, "/users/**").hasAnyRole("USER", "ADMIN")
+                        .antMatchers(HttpMethod.DELETE, "/users/{user-id}/**").hasRole("USER")
+                        .antMatchers(HttpMethod.POST, "/questions/ask/**").hasRole("USER")
+                        .antMatchers(HttpMethod.GET, "/questions/{questions-id}/**", "/questions/{user-id}/**").permitAll()
+                        .antMatchers(HttpMethod.GET, "/questions/**").permitAll()
+                        .antMatchers(HttpMethod.PATCH, "/questions/{questions-id}/**").hasAnyRole("USER", "ADMIN")
+                        .antMatchers(HttpMethod.DELETE, "/questions/{question-id}/**").hasRole("USER")
+                        .antMatchers(HttpMethod.POST, "/answers/**").hasRole("USER")
+                        .antMatchers(HttpMethod.GET, "/answers/{answers-id}/**", "/questions/{user-id}/{answer-id}/**", "/answer/questions/**").permitAll()
+                        .antMatchers(HttpMethod.PATCH, "/answers/{answers-id}/**").hasAnyRole("USER", "ADMIN")
+                        .antMatchers(HttpMethod.DELETE, "/answers/{answers-id}/**").hasRole("USER")
+                        .antMatchers(HttpMethod.PATCH, "/answers/{user-id}/{answer-id}/**").hasRole("USER")
                         .anyRequest().permitAll());
         return http.build();
     }
