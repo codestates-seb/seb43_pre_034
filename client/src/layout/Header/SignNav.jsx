@@ -51,7 +51,14 @@ const SignNav = () => {
       >
         Log in
       </button>
-      <button className="sign_up">Sign up</button>
+      <button
+        className="sign_up"
+        onClick={() => {
+          navigate("/users/signup");
+        }}
+      >
+        Sign up
+      </button>
     </SignContainer>
   );
 };

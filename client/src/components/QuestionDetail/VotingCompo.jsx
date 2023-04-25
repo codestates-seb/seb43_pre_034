@@ -11,18 +11,19 @@ const VotingCompo = styled.div`
   flex-direction: column;
   align-items: center;
   font-size: 22px;
-  width: 40px;
-  margin-right: 16px;
+  width: 52px;
+  padding-right: 16px;
   color: #6a737c;
   > * {
-    margin-bottom: 10px;
+    margin-bottom: 5px;
   }
   .icons {
     font-size: 18px;
-    font-weight: bold;
+    color: #bbc2c8;
   }
   .vote {
-    font-size: 45px;
+    font-size: 42px;
+    color: #bbc2c8;
   }
   .checked {
     cursor: pointer;
@@ -30,6 +31,7 @@ const VotingCompo = styled.div`
   }
   .icon-check {
     cursor: pointer;
+    color: #bbc2c8;
   }
 `;
 

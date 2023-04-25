@@ -8,6 +8,11 @@ import AskQuestion from "./pages/AskQuesion";
 import Login from "./pages/Login";
 import Detail from "./pages/Detail";
 import Signup from "./pages/Signup";
+import { EditQuestion, EditAnswer } from "./pages/Edit";
+import MyPage from "./pages/MyPage";
+import MyPageEdit from "./pages/MyPageEdit";
+//URL PATH
+import { MY_PAGE_URL_PATH } from "./constants/constant";
 
 const Container = styled.div`
   display: flex;
@@ -25,10 +30,20 @@ function App() {
           {/* NavBar 특정 페이지만 보이기 */}
           <Route element={<NavBar />}>
             <Route path="/" element={<Home />} />
-            <Route path="/questions" element={<Detail />} />
+            <Route path="/questions/:id" element={<Detail />} />
+            <Route path="/questions/:id/edit" element={<EditQuestion />} />
+            <Route
+              path="/questions/:id/answeredit/:answerid"
+              element={<EditAnswer />}
+            />
+            <Route path={MY_PAGE_URL_PATH.USERS_PROFILE} element={<MyPage />} />
+            <Route
+              path={MY_PAGE_URL_PATH.USERS_PROFILE_EDIT}
+              element={<MyPageEdit />}
+            />
           </Route>
           {/* NavBar 특정 페이지 숨기기 */}
-          <Route path="/question/ask" element={<AskQuestion />} />
+          <Route path="/questions/ask" element={<AskQuestion />} />
           <Route path="/users/login" element={<Login />} />
           <Route path="/users/signup" element={<Signup />} />
         </Routes>

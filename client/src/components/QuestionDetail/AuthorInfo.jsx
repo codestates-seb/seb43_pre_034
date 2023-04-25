@@ -25,46 +25,59 @@ const AuthorInfo = styled.div`
     .user-info {
       margin-left: 6px;
       font-weight: 700;
-      p:first-of-type {
+      text-align: center;
+
+      .profile-name {
         color: #0074cc;
-        font-size: 16px;
-        font-weight: 300;
+        font-size: 14px;
+        font-weight: 500;
+        margin-bottom: 3px;
       }
     }
   }
 `;
 
 // 게시글 작성자 정보
-const QuestionAuthor = () => {
+const QuestionAuthor = ({ quData }) => {
+  if (!quData) {
+    return <div>Loading...</div>;
+  }
   return (
     <AuthorInfo>
-      <p className="created-at">
-        asked <span>Apr 14 at 6:33</span>
-      </p>
-      <section className="user-section">
-        {/* <img src="/" alt="user-profile" /> */}
-        <div className="img" />
-        <div className="user-info">
-          <p>user name</p>
-          <p>113</p>
-        </div>
-      </section>
+      {quData && (
+        <>
+          <p className="created-at">
+            asked <span>{quData.createdAt}</span>
+          </p>
+          <section className="user-section">
+            {/* <img src="/" alt="user-profile" /> */}
+            <div className="img" />
+            <div className="user-info">
+              <p className="profile-name">{quData.name}</p>
+              <p>113</p>
+            </div>
+          </section>
+        </>
+      )}
     </AuthorInfo>
   );
 };
 
 // 답변 작성자 정보
-const AnswerAuthor = () => {
+const AnswerAuthor = ({ anData }) => {
+  if (!anData) {
+    return <div>Loading...</div>;
+  }
   return (
     <AuthorInfo>
-      <p>
-        Answered <span>just now</span>
+      <p className="created-at">
+        Answered <span>{anData.createdAt}</span>
       </p>
       <section className="user-section">
         {/* <img src="/" alt="user-profile" /> */}
         <div className="img" />
         <div className="user-info">
-          <p>user name</p>
+          <p className="profile-name">{anData.name}</p>
           <p>113</p>
         </div>
       </section>

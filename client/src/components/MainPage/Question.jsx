@@ -1,7 +1,11 @@
 import styled, { css } from "styled-components";
 import { forwardRef } from "react";
-
+import { Link } from "react-router-dom";
 const Questions = forwardRef(({ data }, ref) => {
+  const { body, name, questionId } = data;
+  //`questions/${String(userId)}`
+  console.log(data);
+  const PATH = `questions/${questionId}`;
   return (
     <Question>
       <Status>
@@ -11,7 +15,7 @@ const Questions = forwardRef(({ data }, ref) => {
       </Status>
       <Info>
         <h3 className="title">
-          <a href="#!">{data}</a>
+          <QuestionSpecificLink to={PATH}>{name}</QuestionSpecificLink>
         </h3>
         <div>
           I try to update/inherit from QWinTaskbarButton so that I can control
@@ -86,6 +90,10 @@ const Info = styled.div`
     display: flex;
     justify-content: end;
   }
+`;
+
+const QuestionSpecificLink = styled(Link)`
+  text-decoration: none;
 `;
 
 export default Questions;

@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
+import axios from "axios";
 
+// styled component
 const CommentContainer = styled.div`
   width: 100%;
   .commentBtn {
@@ -42,20 +44,220 @@ const CommentContainer = styled.div`
     }
   }
 `;
-const Comment = () => {
+
+// commentList
+const CommentListCon = styled.div`
+  word-break: break-all;
+  padding-bottom: 10px;
+  line-height: 130%;
+  vertical-align: baseline;
+  .comment-list {
+    display: flex;
+    flex-direction: row;
+    /* justify-content: space-between; */
+    border-top: 1px solid hsl(210, 8%, 90%);
+    border-bottom: 1px solid hsl(210, 8%, 90%);
+  }
+  p {
+    width: 100%;
+    padding: 6px 6px 6px 16px;
+    font-size: 14px;
+    color: #232629;
+    .comment-user {
+      text-decoration: none;
+      color: #0074cc;
+      margin: 0px 10px;
+      cursor: pointer;
+      :active {
+        color: #0074cc;
+      }
+    }
+    span {
+      color: #9199a1;
+    }
+  }
+  .deleteBtn {
+    border: none;
+    background-color: inherit;
+    font-size: 12px;
+    text-align: center;
+    margin-bottom: 3px;
+    width: 65px;
+    color: #9199a1;
+    cursor: pointer;
+  }
+`;
+
+// component
+// Question comment list
+const QuCommentList = ({ quCommentList, setQuCommentList }) => {
+  // 삭제요청
+  const onDeleteComment = (questionId, questionCommentId) => {
+    axios
+      .delete(
+        `${process.env.REACT_APP_API_URL}/questions/${questionId}/comments/${questionCommentId}`,
+      )
+      .then((res) => {
+        console.log(res);
+        setQuCommentList(
+          quCommentList.filter(
+            (comment) => comment.questionCommentId !== questionCommentId,
+          ),
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  return (
+    <CommentListCon>
+      <ul>
+        {quCommentList &&
+          quCommentList.map((comment) => (
+            <li className="comment-list" key={comment.questionCommentId}>
+              <p>
+                {comment.body}-
+                <a className="comment-user" href="/#">
+                  {comment.userId}
+                </a>
+                <span>{comment.createdAt}</span>
+              </p>
+              <button
+                className="deleteBtn"
+                onClick={() =>
+                  onDeleteComment(comment.questionId, comment.questionCommentId)
+                }
+              >
+                DELETE
+              </button>
+            </li>
+          ))}
+      </ul>
+    </CommentListCon>
+  );
+};
+
+// Answer CommentList
+const AnCommentList = ({ anCommentList }) => {
+  // 삭제요청
+  const onDeleteComment = (userId, answerCommentId) => {
+    axios
+      .delete(
+        `https://2297-59-17-229-47.jp.ngrok.io/answer-comments/${userId}/${answerCommentId}`,
+      )
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  return (
+    <CommentListCon>
+      <ul>
+        {anCommentList &&
+          anCommentList.map((comments) => (
+            <li className="comment-list" key={comments.answerCommentId}>
+              <p>
+                {comments.body}-
+                <a className="comment-user" href="/#">
+                  {comments.userId}
+                </a>
+                <span>{comments.createdAt}</span>
+              </p>
+              <button
+                className="deleteBtn"
+                onClick={() =>
+                  onDeleteComment(comments.userId, comments.answerCommentId)
+                }
+              >
+                DELETE
+              </button>
+            </li>
+          ))}
+      </ul>
+    </CommentListCon>
+  );
+};
+
+// Question comment component
+const QuComment = ({ questionId, questionData }) => {
+  // input창 열기/닫기
   const [showInput, setShowInput] = useState(false);
   const handleShowInput = () => {
     setShowInput(!showInput);
   };
+  // 댓글 추가하기
+  // const questionCommentId = useRef(0);
+  const [content, setContent] = useState("");
+  const [quComment, setQuComment] = useState([]);
+
+  // post요청이 완료되면 commentList받아오기
+  useEffect(() => {
+    // 서버 API 호출
+    axios
+      .get(
+        `http://ec2-54-180-87-180.ap-northeast-2.compute.amazonaws.com:8080/questions/${questionId}/comments`,
+      )
+      .then((res) => {
+        // 반환된 댓글 리스트를 Comment 컴포넌트의 state에 저장
+        console.log(res.data);
+        setQuComment(res.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, [questionId]);
+  const handleContentChange = (event) => {
+    setContent(event.target.value);
+  };
+  console.log(quComment);
+  const handleCommentSubmit = () => {
+    const newComment = {
+      // questionCommentId: questionCommentId.current,
+      userId: questionData.userId,
+      questionId: questionId,
+      body: content,
+    };
+    axios
+      .post(
+        `http://ec2-54-180-87-180.ap-northeast-2.compute.amazonaws.com:8080/questions/${questionId}/comments`,
+        newComment,
+      )
+      .then((res) => {
+        console.log(res.data);
+        setQuComment(res.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+    // questionCommentId.current++;
+    // 입력된 댓글 내용 초기화 및 입력창 닫기
+    setContent("");
+    setShowInput(false);
+  };
+
   return (
     <CommentContainer>
+      {quComment ? (
+        <QuCommentList
+          quCommentList={quComment}
+          setQuCommentList={setQuComment}
+        />
+      ) : null}
       <button className="commentBtn" onClick={handleShowInput}>
         Add a comment
       </button>
       {showInput ? (
         <div className="write-comment">
-          <input className="input-comment" type="text"></input>
-          <button className="postBtn" onClick={handleShowInput}>
+          <input
+            className="input-comment"
+            type="text"
+            value={content}
+            onChange={handleContentChange}
+          ></input>
+          <button className="postBtn" onClick={handleCommentSubmit}>
             POST
           </button>
         </div>
@@ -64,4 +266,79 @@ const Comment = () => {
   );
 };
 
-export { Comment };
+//answer comment component
+const AnComment = ({ answerId }) => {
+  // input창 열기/닫기
+  const [showInput, setShowInput] = useState(false);
+  const handleShowInput = () => {
+    setShowInput(!showInput);
+  };
+  // 댓글 추가하기
+  const answerCommentId = useRef(0);
+  const [content, setContent] = useState("");
+  const [anCommentList, setAnCommentList] = useState([]);
+
+  // post요청이 완료되면 commentList받아오기
+  useEffect(() => {
+    // 서버 API 호출
+    axios
+      .get(
+        `http://ec2-54-180-87-180.ap-northeast-2.compute.amazonaws.com:8080/answer-comments/${answerId}`,
+      )
+      .then((res) => {
+        // 반환된 댓글 리스트를 Comment 컴포넌트의 state에 저장
+        setAnCommentList(res.data.data);
+        // console.log(res.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, [answerId]);
+  const handleContentChange = (event) => {
+    setContent(event.target.value);
+  };
+
+  const handleCommentSubmit = () => {
+    const newComment = {
+      answerCommentId: answerCommentId.current,
+      userId: 1,
+      answerId: answerId,
+      body: content,
+    };
+    axios
+      .post(`https://66f1-59-17-229-47.jp.ngrok.io/answer-comments`, newComment)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+    answerCommentId.current++;
+    // 입력된 댓글 내용 초기화 및 입력창 닫기
+    setContent("");
+    setShowInput(false);
+  };
+
+  return (
+    <CommentContainer>
+      {anCommentList ? <AnCommentList anCommentList={anCommentList} /> : null}
+      <button className="commentBtn" onClick={handleShowInput}>
+        Add a comment
+      </button>
+      {showInput ? (
+        <div className="write-comment">
+          <input
+            className="input-comment"
+            type="text"
+            value={content}
+            onChange={handleContentChange}
+          ></input>
+          <button className="postBtn" onClick={handleCommentSubmit}>
+            POST
+          </button>
+        </div>
+      ) : null}
+    </CommentContainer>
+  );
+};
+export { QuComment, AnComment };

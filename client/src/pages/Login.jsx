@@ -1,7 +1,13 @@
 //modules
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+
+//oauth
+import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
+import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
+
+import axios from "axios";
 
 //component
 import { LoginBtn } from "../components/common/Buttons";
@@ -53,6 +59,25 @@ const GoogleButton = styled(LoginBtn)`
   }
 `;
 
+//구글 oauth
+const GoogleLoginButton = () => {
+  const clientId = process.env.REACT_APP_GOOGLE_ID;
+  return (
+    <GoogleButton>
+      <GoogleOAuthProvider clientId={clientId}>
+        <GoogleLogin
+          onSuccess={(res) => {
+            console.log(res);
+          }}
+          onFailure={(err) => {
+            console.log(err);
+          }}
+        />
+      </GoogleOAuthProvider>
+    </GoogleButton>
+  );
+};
+
 //깃헙 로그인
 const GithubButton = styled(LoginBtn)`
   display: flex;
@@ -74,6 +99,12 @@ const GithubButton = styled(LoginBtn)`
   }
 `;
 
+const loginRequestHandler = () => {
+  const CLIENT_ID = process.env.REACT_APP_GITHUB_ID;
+  return window.location.assign(
+    `https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}`,
+  );
+};
 //페이스북 로그인
 const FacebookButton = styled(LoginBtn)`
   display: flex;
@@ -94,6 +125,13 @@ const FacebookButton = styled(LoginBtn)`
     width: 267px;
   }
 `;
+
+const Facebook_Id = process.env.REACT_APP_FACEBOOK;
+
+const handleFacebook = (response) => {
+  // response 객체에는 페이스북 로그인 후의 정보가 들어있음
+  console.log(response);
+};
 
 //이메일 로그인 박스
 const LoginBox = styled.div`
@@ -150,7 +188,8 @@ const LoginInput = styled.input`
   height: 28px;
   margin-bottom: 5px;
   border-radius: 4px;
-  font-size: 16px;
+  padding: 0 5px;
+  font-size: 13px;
   border: 1px solid rgb(186, 191, 196);
   &:focus {
     outline: none;
@@ -223,7 +262,54 @@ const Login = () => {
       setPasswordError("");
       setPasswordInputClass("");
     }
+
+    return axios
+      .post(
+        `http://ec2-54-180-87-180.ap-northeast-2.compute.amazonaws.com:8080/users/login`,
+        {
+          email: email,
+          password: password,
+        },
+        {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "application/json;charset=utf-8",
+          },
+        },
+      )
+      .then((response) => {
+        if (response.status === 200) {
+          localStorage.setItem("accessToken", response.data.token);
+          navigate("/");
+        }
+      })
+      .catch((error) => {
+        console.error("에러", error);
+        alert(error.message);
+      });
   };
+
+  //서버와 통신 -- 예시 코드
+  //   axios.post('url', {
+  //     email: email,
+  //     password: password
+  //   }, {
+  //     withCredentials: true,
+  //     headers: {
+  //       'Content-Type': 'application/json;charset=utf-8',
+  //     }
+  //   })
+  //   .then((response) => {
+  //     if (response.status === 200) {
+  //       localStorage.setItem('accessToken', response.data.token);
+  //       navigate('/');
+  //     }
+  //   })
+  //   .catch((error) => {
+  //     console.error('에러', error);
+  //     alert(error.message);
+  //   });
+  // };
 
   return (
     <LoginSection>
@@ -232,14 +318,23 @@ const Login = () => {
         <FcGoogle size="20" />
         <span>Log in with Google</span>
       </GoogleButton>
-      <GithubButton>
+      <GithubButton onClick={loginRequestHandler}>
         <AiFillGithub size="20" color="#fff" />
         <span>Log in with Github</span>
       </GithubButton>
-      <FacebookButton>
-        <FaFacebookSquare size="20" color="#fff" />
-        <span>Log in with Facebook</span>
-      </FacebookButton>
+      <FacebookLogin
+        appId={Facebook_Id}
+        autoLoad={false}
+        fields="name,first_name,last_name,email"
+        callback={handleFacebook}
+        disableMobileRedirect={true}
+        render={(renderProps) => (
+          <FacebookButton>
+            <FaFacebookSquare size="20" color="#fff" />
+            <span>Log in with Facebook</span>
+          </FacebookButton>
+        )}
+      />
       <LoginBox>
         <LoginForm onSubmit={handleSubmit}>
           <LoginTxt>
