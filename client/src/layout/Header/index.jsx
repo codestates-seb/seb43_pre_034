@@ -38,21 +38,17 @@ const StyledHeader = styled.div`
 `;
 
 const Header = () => {
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
 
   return (
     <HeaderContainer>
       <StyledHeader>
-        {isLogin ? (
-          <UserNav />
-        ) : (
-          <>
-            <TitleLogo />
-            <LeftList />
-            <Search />
-            <SignNav />
-          </>
-        )}
+        <>
+          <TitleLogo />
+          <LeftList isLogin={isLogin} />
+          <Search />
+          {isLogin ? <UserNav /> : <SignNav />}
+        </>
       </StyledHeader>
     </HeaderContainer>
   );

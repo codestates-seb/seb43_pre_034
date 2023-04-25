@@ -3,9 +3,10 @@ import { useState } from "react";
 import ProductsNav from "./ProductsNav";
 
 const LeftListContainer = styled.div`
-  flex: 0 0 250px;
+  flex: 0 1 250px;
   display: flex;
   height: 33px;
+  gap: 1rem;
   padding: 6px 12px;
   display: flex;
   justify-content: space-between;
@@ -16,15 +17,11 @@ const LeftListContainer = styled.div`
   }
 
   @media ${(props) => props.theme.breakpoints.tabletMax} {
-    flex: 0 0 78px;
-    padding: 0;
-
     .is_display {
       display: none;
     }
   }
   @media ${(props) => props.theme.breakpoints.mobileMax} {
-    flex: 1 0 47px;
     padding: 0;
     font-size: 11px;
 
@@ -63,21 +60,33 @@ const BtnNav = styled.button`
   }
 `;
 
-const LeftList = () => {
+const LeftList = ({ isLogin }) => {
   const [isProducts, setIsProcuts] = useState(false);
 
   return (
     <LeftListContainer>
-      <BtnNav className="is_display">About</BtnNav>
-      <BtnNav
-        onClick={() => {
-          setIsProcuts(!isProducts);
-        }}
-      >
-        Products
-      </BtnNav>
-      <BtnNav className="is_display">For Teams</BtnNav>
-      {isProducts ? <ProductsNav /> : null}
+      {isLogin ? (
+        <BtnNav
+          onClick={() => {
+            setIsProcuts(!isProducts);
+          }}
+        >
+          Products
+        </BtnNav>
+      ) : (
+        <>
+          <BtnNav className="is_display">About</BtnNav>
+          <BtnNav
+            onClick={() => {
+              setIsProcuts(!isProducts);
+            }}
+          >
+            Products
+          </BtnNav>
+          <BtnNav className="is_display">For Teams</BtnNav>
+          {isProducts ? <ProductsNav /> : null}
+        </>
+      )}
     </LeftListContainer>
   );
 };
