@@ -1,11 +1,11 @@
 //modules
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 //oauth
-import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
-import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
+// import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
+// import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 
 import axios from "axios";
 
@@ -60,23 +60,23 @@ const GoogleButton = styled(LoginBtn)`
 `;
 
 //구글 oauth
-const GoogleLoginButton = () => {
-  const clientId = process.env.REACT_APP_GOOGLE_ID;
-  return (
-    <GoogleButton>
-      <GoogleOAuthProvider clientId={clientId}>
-        <GoogleLogin
-          onSuccess={(res) => {
-            console.log(res);
-          }}
-          onFailure={(err) => {
-            console.log(err);
-          }}
-        />
-      </GoogleOAuthProvider>
-    </GoogleButton>
-  );
-};
+// const GoogleLoginButton = () => {
+//   const clientId = process.env.REACT_APP_GOOGLE_ID;
+//   return (
+//     <GoogleButton>
+//       <GoogleOAuthProvider clientId={clientId}>
+//         <GoogleLogin
+//           onSuccess={(res) => {
+//             console.log(res);
+//           }}
+//           onFailure={(err) => {
+//             console.log(err);
+//           }}
+//         />
+//       </GoogleOAuthProvider>
+//     </GoogleButton>
+//   );
+// };
 
 //깃헙 로그인
 const GithubButton = styled(LoginBtn)`
@@ -289,28 +289,6 @@ const Login = () => {
       });
   };
 
-  //서버와 통신 -- 예시 코드
-  //   axios.post('url', {
-  //     email: email,
-  //     password: password
-  //   }, {
-  //     withCredentials: true,
-  //     headers: {
-  //       'Content-Type': 'application/json;charset=utf-8',
-  //     }
-  //   })
-  //   .then((response) => {
-  //     if (response.status === 200) {
-  //       localStorage.setItem('accessToken', response.data.token);
-  //       navigate('/');
-  //     }
-  //   })
-  //   .catch((error) => {
-  //     console.error('에러', error);
-  //     alert(error.message);
-  //   });
-  // };
-
   return (
     <LoginSection>
       <img src={logo} className="logo" alt="로고" />
@@ -322,19 +300,10 @@ const Login = () => {
         <AiFillGithub size="20" color="#fff" />
         <span>Log in with Github</span>
       </GithubButton>
-      <FacebookLogin
-        appId={Facebook_Id}
-        autoLoad={false}
-        fields="name,first_name,last_name,email"
-        callback={handleFacebook}
-        disableMobileRedirect={true}
-        render={(renderProps) => (
-          <FacebookButton>
-            <FaFacebookSquare size="20" color="#fff" />
-            <span>Log in with Facebook</span>
-          </FacebookButton>
-        )}
-      />
+      <FacebookButton>
+        <FaFacebookSquare size="20" color="#fff" />
+        <span>Log in with Facebook</span>
+      </FacebookButton>
       <LoginBox>
         <LoginForm onSubmit={handleSubmit}>
           <LoginTxt>
