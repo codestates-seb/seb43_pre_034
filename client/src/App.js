@@ -5,9 +5,9 @@ import NavBar from "./layout/NavBar";
 // pages
 import Home from "./pages/Home";
 import AskQuestion from "./pages/AskQuesion";
-// import Login from "./pages/Login";
+import Login from "./pages/Login";
 import Detail from "./pages/Detail";
-// import Signup from "./pages/Signup";
+import Signup from "./pages/Signup";
 import { EditQuestion, EditAnswer } from "./pages/Edit";
 import MyPage from "./pages/MyPage";
 import MyPageEdit from "./pages/MyPageEdit";
@@ -44,8 +44,8 @@ function App() {
           </Route>
           {/* NavBar 특정 페이지 숨기기 */}
           <Route path="/questions/ask" element={<AskQuestion />} />
-          {/* <Route path="/users/login" element={<Login />} />
-          <Route path="/users/signup" element={<Signup />} /> */}
+          <Route path="/users/login" element={<Login />} />
+          <Route path="/users/signup" element={<Signup />} />
         </Routes>
       </Layout>
     </Container>
