@@ -1,10 +1,11 @@
 import styled, { css } from "styled-components";
 import { forwardRef } from "react";
 import { Link } from "react-router-dom";
+
+//main page questions component
 const Questions = forwardRef(({ data }, ref) => {
-  const { body, name, questionId } = data;
-  //`questions/${String(userId)}`
-  console.log(data);
+  //body랑 score를 추가해야 한다.
+  const { score, body, title, name, questionId } = data;
   const PATH = `questions/${questionId}`;
   return (
     <Question>
@@ -15,7 +16,7 @@ const Questions = forwardRef(({ data }, ref) => {
       </Status>
       <Info>
         <h3 className="title">
-          <QuestionSpecificLink to={PATH}>{name}</QuestionSpecificLink>
+          <QuestionSpecificLink to={PATH}>{title}</QuestionSpecificLink>
         </h3>
         <div>
           I try to update/inherit from QWinTaskbarButton so that I can control
@@ -23,19 +24,18 @@ const Questions = forwardRef(({ data }, ref) => {
           not exposed currently (at least in QT 5.15) I cannot figure ...
         </div>
         <div ref={ref} className="user-id">
-          Ghitas user avatar Ghita 4,425 asked 1 min ago
+          {name} asked 1 min ago
         </div>
       </Info>
     </Question>
   );
 });
 
-//react devtool에서 이름 명시
+//react devtool에서 표시되는 이름 명시
 Questions.displayName = "Questions";
 
 const Question = styled.div`
   width: 100%;
-  /* height: 150px; */
   display: flex;
   justify-content: center;
   border-top: 1px solid black;

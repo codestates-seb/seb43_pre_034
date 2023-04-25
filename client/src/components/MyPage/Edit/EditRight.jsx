@@ -5,8 +5,8 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 function EditRight() {
-  //현재 저장된 값을 지정(서버에서 가져와야 함!)
-  let param = useParams;
+  //현재 저장된 값을 지정(서버에서 가져와야 함!)-토큰으로 해야할 수도!
+  let { id } = useParams;
   const [inputValue, setInputValue] = useState("hoinleekk");
 
   const handleInputChange = (event) => {
@@ -17,10 +17,10 @@ function EditRight() {
     event.preventDefault();
     //서버에 PATCH로 보내기 useParam을 사용해서 id number를 가져와야 한다.(현재는 일단 고정된 형태!)
     axios
-      .patch(`${process.env.REACT_APP_API_URL}/users/${param}`, {
+      .patch(`${process.env.REACT_APP_API_URL}/users/${id}/info`, {
         post: inputValue,
       })
-      .then((response) => {
+      .then((res) => {
         console.log("Post submitted successfully");
         setInputValue("");
       })

@@ -7,7 +7,7 @@ import { useState, useRef, useCallback } from "react";
 
 const ContentPart = () => {
   const [pageNumber, setPageNumber] = useState(1);
-  const { data, loading, hasMore, error } = useFetchMainPage(pageNumber);
+  const { datas, loading, hasMore } = useFetchMainPage(pageNumber);
   const observer = useRef();
   const lastDataElementRef = useCallback(
     (node) => {
@@ -27,19 +27,16 @@ const ContentPart = () => {
     <Content>
       <CotentHead>
         <UpperPart />
-        <DownerPart />
+        <DownerPart data={datas} />
       </CotentHead>
       <ContentBody>
-        {data.map((data, index) => {
-          if (data.length === index + 1) {
-            return (
-              <Questions ref={lastDataElementRef} key={index} data={data} />
-            );
+        {datas.map((el, index) => {
+          if (datas.length === index + 1) {
+            return <Questions ref={lastDataElementRef} key={index} data={el} />;
           } else {
-            return <Questions key={index} data={data} />;
+            return <Questions key={index} data={el} />;
           }
         })}
-        {error && "...Error"}
         {loading && "...isLoading"}
       </ContentBody>
     </Content>
