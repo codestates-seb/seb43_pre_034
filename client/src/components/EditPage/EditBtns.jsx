@@ -7,6 +7,8 @@ const EditBtnsComp = styled.section`
   width: 100%;
   display: flex;
   flex-direction: row;
+  margin-top: 80px;
+  margin-bottom: 20px;
   .edit-btns {
     text-decoration: none;
   }
