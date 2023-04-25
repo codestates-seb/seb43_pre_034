@@ -98,7 +98,6 @@ const QuCommentList = ({ quCommentList, setQuCommentList }) => {
         `${process.env.REACT_APP_API_URL}/questions/${questionId}/comments/${questionCommentId}`,
       )
       .then((res) => {
-        console.log(res);
         setQuCommentList(
           quCommentList.filter(
             (comment) => comment.questionCommentId !== questionCommentId,
@@ -109,6 +108,7 @@ const QuCommentList = ({ quCommentList, setQuCommentList }) => {
         console.log(err);
       });
   };
+
   return (
     <CommentListCon>
       <ul>
@@ -138,21 +138,25 @@ const QuCommentList = ({ quCommentList, setQuCommentList }) => {
 };
 
 // Answer CommentList
-const AnCommentList = ({ anCommentList }) => {
+const AnCommentList = ({ anCommentList, setAnCommentList }) => {
   // 삭제요청
   const onDeleteComment = (userId, answerCommentId) => {
     axios
       .delete(
-        `https://2297-59-17-229-47.jp.ngrok.io/answer-comments/${userId}/${answerCommentId}`,
+        `${process.env.REACT_APP_API_URL}/answer-comments/${userId}/${answerCommentId}`,
       )
       .then((res) => {
         console.log(res);
+        setAnCommentList(
+          anCommentList.filter(
+            (comment) => comment.answerCommentId !== answerCommentId,
+          ),
+        );
       })
       .catch((error) => {
         console.log(error);
       });
   };
-
   return (
     <CommentListCon>
       <ul>
@@ -189,20 +193,16 @@ const QuComment = ({ questionId, questionData }) => {
     setShowInput(!showInput);
   };
   // 댓글 추가하기
-  // const questionCommentId = useRef(0);
+  const questionCommentId = useRef(0);
   const [content, setContent] = useState("");
   const [quComment, setQuComment] = useState([]);
-
   // post요청이 완료되면 commentList받아오기
   useEffect(() => {
     // 서버 API 호출
     axios
-      .get(
-        `http://ec2-54-180-87-180.ap-northeast-2.compute.amazonaws.com:8080/questions/${questionId}/comments`,
-      )
+      .get(`${process.env.REACT_APP_API_URL}/questions/${questionId}/comments`)
       .then((res) => {
         // 반환된 댓글 리스트를 Comment 컴포넌트의 state에 저장
-        console.log(res.data);
         setQuComment(res.data);
       })
       .catch((err) => {
@@ -212,28 +212,36 @@ const QuComment = ({ questionId, questionData }) => {
   const handleContentChange = (event) => {
     setContent(event.target.value);
   };
-  console.log(quComment);
+
   const handleCommentSubmit = () => {
     const newComment = {
-      // questionCommentId: questionCommentId.current,
+      questionCommentId: questionCommentId.current,
       userId: questionData.userId,
       questionId: questionId,
       body: content,
     };
+    console.log(newComment);
     axios
       .post(
-        `http://ec2-54-180-87-180.ap-northeast-2.compute.amazonaws.com:8080/questions/${questionId}/comments`,
+        `${process.env.REACT_APP_API_URL}/questions/${questionId}/comments`,
         newComment,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        },
       )
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setQuComment(res.data);
       })
       .catch((err) => {
         console.error(err);
       });
-    // questionCommentId.current++;
+
+    questionCommentId.current++;
     // 입력된 댓글 내용 초기화 및 입력창 닫기
+
     setContent("");
     setShowInput(false);
   };
@@ -274,7 +282,6 @@ const AnComment = ({ answerId }) => {
     setShowInput(!showInput);
   };
   // 댓글 추가하기
-  const answerCommentId = useRef(0);
   const [content, setContent] = useState("");
   const [anCommentList, setAnCommentList] = useState([]);
 
@@ -282,38 +289,36 @@ const AnComment = ({ answerId }) => {
   useEffect(() => {
     // 서버 API 호출
     axios
-      .get(
-        `http://ec2-54-180-87-180.ap-northeast-2.compute.amazonaws.com:8080/answer-comments/${answerId}`,
-      )
+      .get(`${process.env.REACT_APP_API_URL}/answer-comments/${answerId}`)
       .then((res) => {
         // 반환된 댓글 리스트를 Comment 컴포넌트의 state에 저장
         setAnCommentList(res.data.data);
-        // console.log(res.data);
+        console.log(anCommentList);
       })
       .catch((err) => {
         console.error(err);
       });
   }, [answerId]);
+
   const handleContentChange = (event) => {
     setContent(event.target.value);
   };
 
-  const handleCommentSubmit = () => {
+  const onClickCommentSubmit = () => {
     const newComment = {
-      answerCommentId: answerCommentId.current,
-      userId: 1,
+      userId: 2,
       answerId: answerId,
       body: content,
     };
     axios
-      .post(`https://66f1-59-17-229-47.jp.ngrok.io/answer-comments`, newComment)
+      .post(`${process.env.REACT_APP_API_URL}/answer-comments`, newComment)
       .then((res) => {
         console.log(res.data);
+        setAnCommentList((prevList) => [...prevList, res.data.data]);
       })
       .catch((err) => {
         console.error(err);
       });
-    answerCommentId.current++;
     // 입력된 댓글 내용 초기화 및 입력창 닫기
     setContent("");
     setShowInput(false);
@@ -321,7 +326,12 @@ const AnComment = ({ answerId }) => {
 
   return (
     <CommentContainer>
-      {anCommentList ? <AnCommentList anCommentList={anCommentList} /> : null}
+      {anCommentList ? (
+        <AnCommentList
+          anCommentList={anCommentList}
+          setAnCommentList={setAnCommentList}
+        />
+      ) : null}
       <button className="commentBtn" onClick={handleShowInput}>
         Add a comment
       </button>
@@ -333,7 +343,7 @@ const AnComment = ({ answerId }) => {
             value={content}
             onChange={handleContentChange}
           ></input>
-          <button className="postBtn" onClick={handleCommentSubmit}>
+          <button className="postBtn" onClick={onClickCommentSubmit}>
             POST
           </button>
         </div>

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { EditSaveBtn } from "../common/Buttons";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 // styled component
 const EditBtnsComp = styled.section`
@@ -21,9 +21,10 @@ const EditBtnsComp = styled.section`
 
 // 수정 페이지 하단 buttons component
 const EditBtns = () => {
+  const { id } = useParams();
   return (
     <EditBtnsComp>
-      <Link to={"/question/:id"} className="edit-btns">
+      <Link to={`/questions/${id}`} className="edit-btns">
         <EditSaveBtn />
       </Link>
       <Link to={"/question/:id"} className="edit-btns edit-cancle">
