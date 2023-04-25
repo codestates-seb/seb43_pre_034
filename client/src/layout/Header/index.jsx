@@ -4,8 +4,7 @@ import styled from "styled-components";
 
 // components
 import TitleLogo from "./TitleLogo";
-import ProductsNav from "./ProductsNav";
-import Products from "./Products";
+import LeftList from "./LeftList";
 import SignNav from "./SignNav";
 import Search from "./Search";
 import UserNav from "./UserNav";
@@ -49,7 +48,7 @@ const Header = () => {
         ) : (
           <>
             <TitleLogo />
-            <Products />
+            <LeftList />
             <Search />
             <SignNav />
           </>
