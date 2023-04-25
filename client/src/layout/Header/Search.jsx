@@ -132,6 +132,7 @@ const Search = () => {
           placeholder="Search..."
           value={search}
           onFocus={() => setIsSearchClick(true)}
+          onBlur={() => setIsSearchClick(false)}
           onChange={(e) => setSearch(e.target.value)}
         />
         <SearchSvg
