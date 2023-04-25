@@ -58,7 +58,7 @@ public class SecurityConfiguration {
                         .antMatchers(HttpMethod.GET, "/users/**").hasRole("ADMIN")
                         .antMatchers(HttpMethod.PATCH, "/users/**").hasAnyRole("USER", "ADMIN")
                         .antMatchers(HttpMethod.DELETE, "/users/{user-id}/**").hasRole("USER")
-                        .antMatchers(HttpMethod.POST, "/questions/ask/**").hasRole("USER")
+                        .antMatchers(HttpMethod.POST, "/questions/**").hasRole("USER")
                         .antMatchers(HttpMethod.GET, "/questions/{questions-id}/**", "/questions/{user-id}/**").permitAll()
                         .antMatchers(HttpMethod.GET, "/questions/**").permitAll()
                         .antMatchers(HttpMethod.PATCH, "/questions/{questions-id}/**").hasAnyRole("USER", "ADMIN")
@@ -81,7 +81,7 @@ public class SecurityConfiguration {
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList("*"));
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PATCH", "DELETE"));
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);

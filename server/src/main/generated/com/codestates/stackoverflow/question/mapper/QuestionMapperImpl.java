@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-04-24T09:35:34+0900",
+    date = "2023-04-25T14:49:49+0900",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 11.0.17 (Azul Systems, Inc.)"
 )
 @Component
@@ -31,6 +31,10 @@ public class QuestionMapperImpl implements QuestionMapper {
         question.setQuestionId( questionPostDto.getQuestionId() );
         question.setTitle( questionPostDto.getTitle() );
         question.setBody( questionPostDto.getBody() );
+        List<String> list = questionPostDto.getTags();
+        if ( list != null ) {
+            question.setTags( new ArrayList<String>( list ) );
+        }
 
         return question;
     }
@@ -47,6 +51,10 @@ public class QuestionMapperImpl implements QuestionMapper {
         question.setQuestionId( questionPatchDto.getQuestionId() );
         question.setTitle( questionPatchDto.getTitle() );
         question.setBody( questionPatchDto.getBody() );
+        List<String> list = questionPatchDto.getTags();
+        if ( list != null ) {
+            question.setTags( new ArrayList<String>( list ) );
+        }
 
         return question;
     }
@@ -71,6 +79,10 @@ public class QuestionMapperImpl implements QuestionMapper {
         questionResponseDto.body( question.getBody() );
         questionResponseDto.score( question.getScore() );
         questionResponseDto.checked( question.isChecked() );
+        List<String> list = question.getTags();
+        if ( list != null ) {
+            questionResponseDto.tags( new ArrayList<String>( list ) );
+        }
         questionResponseDto.createdAt( question.getCreatedAt() );
         questionResponseDto.modifiedAt( question.getModifiedAt() );
 

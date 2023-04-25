@@ -34,7 +34,6 @@ public class UserController {
     private final static String USER_DEFAULT_URL = "/users";
     private final UserService userService;
     private final UserMapper mapper;
-
     private final JwtTokenizer jwtTokenizer;
 
     @PostMapping
@@ -83,7 +82,7 @@ public class UserController {
      * JWT 방식 로그아웃(로그인 -> SecurityConfiguration에서 수행)
      */
     @PostMapping("/logout")
-    public ResponseEntity logout(HttpSession session, HttpServletRequest request) {
+    public ResponseEntity logout(HttpServletRequest request) {
         String authorizationHeader = request.getHeader("Authorization");
         String jws = authorizationHeader.substring(7); // "Bearer " 이후의 토큰 문자열 추출
 
@@ -93,7 +92,6 @@ public class UserController {
 
         jwtTokenizer.addToTokenBlacklist(jws); // 블랙리스트에 토큰 추가
 
-        session.invalidate();
         return ResponseEntity.ok().body("Successfully logged out.");
     }
 
