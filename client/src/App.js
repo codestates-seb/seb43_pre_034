@@ -33,7 +33,7 @@ function App() {
             <Route path="/questions/:id" element={<Detail />} />
             <Route path="/questions/:id/edit" element={<EditQuestion />} />
             <Route
-              path="/questions/:id/answeredit/:answerid"
+              path="/questions/:id/answer-edit/:answerid"
               element={<EditAnswer />}
             />
             <Route path={MY_PAGE_URL_PATH.USERS_PROFILE} element={<MyPage />} />

@@ -27,11 +27,17 @@ const EditTitleCon = styled.section`
 `;
 
 // Edit-title
-const EditTitle = () => {
+const EditTitle = ({ quData, setQuData }) => {
+  console.log(quData);
   return (
     <EditTitleCon>
       <h1 className="edit-title">Title</h1>
-      <input className="edit-title-input" type="text" />
+      <input
+        className="edit-title-input"
+        type="text"
+        value={quData.title}
+        onChange={(e) => setQuData({ ...quData, title: e.target.value })}
+      />
     </EditTitleCon>
   );
 };

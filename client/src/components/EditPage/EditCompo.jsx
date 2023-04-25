@@ -4,8 +4,9 @@ import EditBody from "./EditBody";
 import EditSummary from "./EditSummary";
 import Tags from "./Tags";
 import EditBtns from "./EditBtns";
-import { Link } from "react-router-dom";
-
+import { Link, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
 // edit 페이지 styled-component
 // main-edit compo
 const EditComponent = styled.div`
@@ -42,16 +43,59 @@ const EditHeaderCon = styled.header`
 // components
 // Question edit compo
 const QuEditCompo = () => {
+  const { id } = useParams();
+  const [quData, setQuData] = useState();
+  const [editBody, setEditBody] = useState(null);
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_API_URL}/questions/${id}`)
+      .then((res) => {
+        setQuData(res.data.data);
+        setEditBody(res.data.data.body);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [id]);
+  console.log(quData);
+
+  // 수정된 question patch
+  const onClickEditSave = () => {
+    e.preventDefault();
+    const editData = {
+      title: quData.title,
+      body: editBody.body,
+      userId: quData.userId,
+      questionId: quData.questionId,
+    };
+    console.log(editData);
+    axios
+      .patch(`${process.env.REACT_APP_API_URL}/questions/${id}`, editData)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <EditComponent>
-      <section className="edit-section">
-        <EditHeader />
-        <EditTitle />
-        <EditBody content={"Body"} />
-        <Tags />
-        <EditSummary />
-        <EditBtns />
-      </section>
+      {quData && (
+        <section className="edit-section">
+          <EditHeader />
+          <EditTitle quData={quData} setQuData={setQuData} />
+          <EditBody
+            content={"Body"}
+            editBody={editBody}
+            setEditBody={setEditBody}
+            quData={quData}
+          />
+          <Tags />
+          <EditSummary />
+          <EditBtns onClick={onClickEditSave} />
+        </section>
+      )}
     </EditComponent>
   );
 };
