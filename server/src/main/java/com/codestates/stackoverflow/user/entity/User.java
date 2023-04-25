@@ -48,11 +48,6 @@ public class User extends Auditable {
     @OneToMany(mappedBy = "user")
     private List<AnswerComment> answerCommentList = new ArrayList<>();
 
-    // User별 Question과 Answer의 Score 합산
-//    public void setScore() {
-//        this.score = score;
-//    }
-
     public User(String email) {
         this.email = email;
     }
@@ -71,5 +66,24 @@ public class User extends Auditable {
         Status(String status) {
             this.status = status;
         }
+    }
+
+    /**
+     * Score 합산 기능
+     */
+    public int getTotalScore() {
+        int totalScore = 0;
+        int questionScore = 0;
+        int answerScore = 0;
+        for (Question question : questions) {
+            questionScore += question.getScore();
+        }
+        for (Answer answer : answers) {
+            answerScore += answer.getScore();
+        }
+
+        totalScore = questionScore + answerScore;
+
+        return totalScore;
     }
 }
