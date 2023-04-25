@@ -2,6 +2,7 @@ package com.codestates.stackoverflow.user.controller;
 
 import com.codestates.stackoverflow.dto.MultiResponseDto;
 import com.codestates.stackoverflow.dto.SingleResponseDto;
+import com.codestates.stackoverflow.security.auth.jwt.JwtTokenizer;
 import com.codestates.stackoverflow.user.dto.UserDto;
 import com.codestates.stackoverflow.user.entity.User;
 import com.codestates.stackoverflow.user.mapper.UserMapper;
@@ -16,6 +17,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
@@ -33,6 +35,8 @@ public class UserController {
     private final UserService userService;
     private final UserMapper mapper;
 
+    private final JwtTokenizer jwtTokenizer;
+
     @PostMapping
     public ResponseEntity join(@Valid @RequestBody UserDto.Post requestBody) {
         User user = mapper.userPostToUser(requestBody);
@@ -48,29 +52,49 @@ public class UserController {
         return "login";
     }
 
-    @PostMapping("/login")
-    public String login(@RequestParam("email") String email,
-                        @RequestParam("password") String password,
-                        HttpSession session, RedirectAttributes redirectAttributes) {
-        if (authenticateUser(email, password)) {
-            session.setAttribute("email", email);
-            String prevUrl = (String) session.getAttribute("prevUrl");
-            return "redirect:" + (prevUrl != null ? prevUrl : "/");
-        } else {
-            redirectAttributes.addAttribute("error", "입력하신 이메일과 비밀번호를 확인해주세요."); // 에러 메세지
-            return "redirect:/login";
-        }
-    }
-
-    private boolean authenticateUser(String username, String password) {
-        // Todo 사용자 인증 로직을 구현
-        return true; // 사용자 인증 로직을 구현해야합니다.
-    }
-
+    /**
+     * 세션 방식 로그인 / 로그아웃
+     */
+//    @PostMapping("/login")
+//    public String login(@RequestParam("email") String email,
+//                        @RequestParam("password") String password,
+//                        HttpSession session, RedirectAttributes redirectAttributes) {
+//        if (authenticateUser(email, password)) {
+//            session.setAttribute("email", email);
+//            String prevUrl = (String) session.getAttribute("prevUrl");
+//            return "redirect:" + (prevUrl != null ? prevUrl : "/");
+//        } else {
+//            redirectAttributes.addAttribute("error", "입력하신 이메일과 비밀번호를 확인해주세요."); // 에러 메세지
+//            return "redirect:/login";
+//        }
+//    }
+//
+//    private boolean authenticateUser(String username, String password) {
+//        // Todo 사용자 인증 로직을 구현
+//        return true; // 사용자 인증 로직을 구현해야합니다.
+//    }
+//
+//    @PostMapping("/logout")
+//    public String logout(HttpSession session) {
+//        session.invalidate();
+//        return "redirect:/login";
+//    }
+    /**
+     * JWT 방식 로그아웃(로그인 -> SecurityConfiguration에서 수행)
+     */
     @PostMapping("/logout")
-    public String logout(HttpSession session) {
+    public ResponseEntity logout(HttpSession session, HttpServletRequest request) {
+        String authorizationHeader = request.getHeader("Authorization");
+        String jws = authorizationHeader.substring(7); // "Bearer " 이후의 토큰 문자열 추출
+
+        if (jwtTokenizer.isTokenInBlackList(jws)) {
+            return ResponseEntity.badRequest().body("Token has already been invalidated.");
+        }
+
+        jwtTokenizer.addToTokenBlacklist(jws); // 블랙리스트에 토큰 추가
+
         session.invalidate();
-        return "redirect:/login";
+        return ResponseEntity.ok().body("Successfully logged out.");
     }
 
     @GetMapping("/{user-id}")
