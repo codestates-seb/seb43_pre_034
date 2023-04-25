@@ -27,7 +27,7 @@ const ContentPart = () => {
     <Content>
       <CotentHead>
         <UpperPart />
-        <DownerPart />
+        <DownerPart data={data} />
       </CotentHead>
       <ContentBody>
         {data.map((data, index) => {

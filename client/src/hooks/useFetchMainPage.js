@@ -18,7 +18,6 @@ export default function useFetchMainPage(pageNumber) {
       },
     })
       .then((res) => {
-        console.log(res.data.data);
         setData((datas) => {
           return [...datas, ...res.data.data];
         });

@@ -7,7 +7,7 @@ import { QuBottomBtn } from "../components/QuestionDetail/QuestionBottomButton";
 import { QuComment } from "../components/QuestionDetail/Comment";
 import AddAnswer from "../components/QuestionDetail/AddAnswer";
 import AnswerCompo from "../components/QuestionDetail/AnswerCompo";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
@@ -150,6 +150,7 @@ const DetailBody = ({ quData }) => {
 };
 
 const Detail = () => {
+  const navigate = useNavigate();
   const handleOnclick = () => {
     navigate("/questions/ask");
   };
