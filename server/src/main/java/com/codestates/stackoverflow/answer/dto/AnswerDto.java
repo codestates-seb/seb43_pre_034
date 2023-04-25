@@ -10,6 +10,7 @@ public class AnswerDto {
     @Getter
     @Setter
     @AllArgsConstructor
+    @NoArgsConstructor
     public static class PostDto {
         private long userId;
         private long questionId;
@@ -21,6 +22,7 @@ public class AnswerDto {
     @Getter
     @AllArgsConstructor
     @Setter
+    @NoArgsConstructor
     public static class PatchDto {
 
         private long answerId;
