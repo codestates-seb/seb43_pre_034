@@ -5,9 +5,9 @@ import NavBar from "./layout/NavBar";
 // pages
 import Home from "./pages/Home";
 import AskQuestion from "./pages/AskQuesion";
-import Login from "./pages/Login";
+// import Login from "./pages/Login";
 import Detail from "./pages/Detail";
-import Signup from "./pages/Signup";
+// import Signup from "./pages/Signup";
 import { EditQuestion, EditAnswer } from "./pages/Edit";
 import MyPage from "./pages/MyPage";
 import MyPageEdit from "./pages/MyPageEdit";
@@ -33,7 +33,7 @@ function App() {
             <Route path="/questions/:id" element={<Detail />} />
             <Route path="/questions/:id/edit" element={<EditQuestion />} />
             <Route
-              path="/questions/:id/answeredit/:answerid"
+              path="/questions/:id/answer-edit/:answerid"
               element={<EditAnswer />}
             />
             <Route path={MY_PAGE_URL_PATH.USERS_PROFILE} element={<MyPage />} />
