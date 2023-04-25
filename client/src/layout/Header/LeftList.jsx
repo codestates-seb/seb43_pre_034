@@ -84,9 +84,9 @@ const LeftList = ({ isLogin }) => {
             Products
           </BtnNav>
           <BtnNav className="is_display">For Teams</BtnNav>
-          {isProducts ? <ProductsNav /> : null}
         </>
       )}
+      {isProducts ? <ProductsNav /> : null}
     </LeftListContainer>
   );
 };
