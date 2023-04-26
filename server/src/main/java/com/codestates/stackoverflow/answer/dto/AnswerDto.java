@@ -27,6 +27,8 @@ public class AnswerDto {
 
         private long answerId;
 
+        private long userId;
+
         @NotBlank(message = "Fill in the blank")
         private String body;
     }

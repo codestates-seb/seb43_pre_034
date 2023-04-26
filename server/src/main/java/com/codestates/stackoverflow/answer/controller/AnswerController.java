@@ -63,15 +63,14 @@ public class AnswerController {
                 new MultiResponseDto<>(responseList,answerPage), HttpStatus.OK);
     }
 
-    @PatchMapping("/{user-id}/{answer-id}")
-    public ResponseEntity patchAnswer(@PathVariable("user-id") @Positive long userId,
-                                      @PathVariable("answer-id") @Positive long answerId,
+    @PatchMapping("/{answer-id}")
+    public ResponseEntity patchAnswer(@PathVariable("answer-id") @Positive long answerId,
                                       @Valid @RequestBody AnswerDto.PatchDto requestBody) {
         if (answerId != requestBody.getAnswerId()) {
             throw new BusinessLogicException(ExceptionCode.INVALID_PATH);
         }
         Answer answer = mapper.patchToAnswer(requestBody);
-        Answer updatedAnswer = answerService.updateAnswer(answer, userId);
+        Answer updatedAnswer = answerService.updateAnswer(answer);
         AnswerDto.ResponseDto response = mapper.answerToResponse(updatedAnswer);
 
         return new ResponseEntity<>(

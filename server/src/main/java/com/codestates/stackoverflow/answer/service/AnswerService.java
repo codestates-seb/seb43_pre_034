@@ -46,13 +46,14 @@ public class AnswerService {
 
     }
     // 기본적인 답변글 수정 기능
-    public Answer updateAnswer(Answer answer , long userId) {
-        Answer findAnswer = findVerifiedAnswer(answer.getAnswerId());
+    public Answer updateAnswer(Answer answer) {
 
-        if (userId != findAnswer.getUser().getUserId()) {
+        Answer findAnswer = findVerifiedAnswer(answer.getAnswerId());
+        User findUser = userService.findVerifiedUser(findAnswer.getUser().getUserId());
+
+        if (findUser.getUserId() != answer.getUser().getUserId()) {
             throw new BusinessLogicException(ExceptionCode.NO_PERMISSION_EDITING_POST);
         }
-
         Optional.ofNullable(answer.getBody())
                 .ifPresent(findAnswer::setBody);
         return answerRepository.save(findAnswer);

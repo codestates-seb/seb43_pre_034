@@ -14,6 +14,7 @@ public interface AnswerCommentMapper {
     @Mapping(source = "answerId", target = "answer.answerId")
     AnswerComment postToComment(AnswerCommentDto.PostDto postDto);
 
+    @Mapping(source = "userId", target = "user.userId")
     AnswerComment patchToComment(AnswerCommentDto.PatchDto patchDto);
 
     @Mapping(source = "user.userId", target = "userId")

@@ -30,19 +30,15 @@ public class AnswerCommentController {
     public ResponseEntity postComment(@Valid @RequestBody AnswerCommentDto.PostDto requestBody) {
         AnswerComment answerComment = mapper.postToComment(requestBody);
 
-        long userId = requestBody.getUserId();
-        long answerId = requestBody.getAnswerId();
-
-        AnswerComment createdComment = answerCommentService.createAnswerComment(answerComment,userId,answerId);
+        AnswerComment createdComment = answerCommentService.createAnswerComment(answerComment);
         AnswerCommentDto.ResponseDto response = mapper.commentToResponse(createdComment);
 
         return new ResponseEntity<>(
                 new SingleResponseDto<>(response), HttpStatus.CREATED);
     }
 
-    @PatchMapping("/{user-id}/{answer-comment-id}")
-    public ResponseEntity patchComment(@PathVariable("user-id") @Positive long userId,
-                                       @PathVariable("answer-comment-id") @Positive long commentId,
+    @PatchMapping("/{answer-comment-id}")
+    public ResponseEntity patchComment(@PathVariable("answer-comment-id") @Positive long commentId,
                                        @Valid @RequestBody AnswerCommentDto.PatchDto requestBody) {
         if(commentId!= requestBody.getAnswerCommentId()){
             throw new BusinessLogicException(ExceptionCode.INVALID_PATH);
@@ -50,7 +46,7 @@ public class AnswerCommentController {
 
         AnswerComment answerComment = mapper.patchToComment(requestBody);
 
-        AnswerComment findAnswerComment = answerCommentService.updateAnswerComment(answerComment, userId, commentId);
+        AnswerComment findAnswerComment = answerCommentService.updateAnswerComment(answerComment);
 
         AnswerCommentDto.ResponseDto response = mapper.commentToResponse(findAnswerComment);
 

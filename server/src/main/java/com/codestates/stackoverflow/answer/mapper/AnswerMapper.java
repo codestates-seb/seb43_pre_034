@@ -35,7 +35,10 @@ public interface AnswerMapper {
             return null;
         } else {
             Answer answer = new Answer();
+            User user = new User();
+            user.setUserId(patchDto.getUserId());
 
+            answer.setUser(user);
             answer.setAnswerId(patchDto.getAnswerId());
             answer.setBody(patchDto.getBody());
             return answer;
