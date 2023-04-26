@@ -4,16 +4,37 @@ import { Link } from "react-router-dom";
 
 //main page questions component
 const Questions = forwardRef(({ data }, ref) => {
-  //body랑 score를 추가해야 한다.
-  console.log("outside", data);
-  const { score, body, title, name, questionId, createdAt, tags, checked } =
-    data;
+  //질문자 데이터 정보
+  const {
+    score,
+    body,
+    title,
+    name,
+    questionId,
+    createdAt,
+    tags,
+    checked,
+    answerCount,
+  } = data;
+  //각 시간 표현
+  const dateString = createdAt;
+  const date = new Date(dateString);
+  const timePassed = new Date().getTime() - date.getTime();
+  const minutesPassed = Math.floor(timePassed / (1000 * 60));
+  const hourssPassed = Math.floor(timePassed / (1000 * 60 * 60));
+  const daysPassed = Math.floor(timePassed / (1000 * 60 * 60 * 24));
+
+  //routing path 표시
   const PATH = `questions/${questionId}`;
   return (
     <Question>
       <Status>
-        <div>{score} votes</div>
-        <div>0 answers</div>
+        <div className="votes">{score} votes</div>
+        {checked ? (
+          <CheckedAnswer>{answerCount} answers</CheckedAnswer>
+        ) : (
+          <div className="answer">{answerCount} answers</div>
+        )}
         {/* <div>3 views</div> */}
       </Status>
       <Info>
@@ -21,8 +42,21 @@ const Questions = forwardRef(({ data }, ref) => {
           <QuestionSpecificLink to={PATH}>{title}</QuestionSpecificLink>
         </h3>
         <div>{body}</div>
+        {tags.length !== 0 ? (
+          <div className="tags">
+            {tags.map((el, idx) => {
+              <Tag key={idx}>{el}</Tag>;
+            })}
+          </div>
+        ) : null}
         <div ref={ref} className="user-id">
-          {name} asked 1 min ago
+          {name} asked{" "}
+          {minutesPassed > 59
+            ? hourssPassed > 59
+              ? `${daysPassed} days`
+              : `${hourssPassed} hours`
+            : `${minutesPassed} mins`}{" "}
+          ago
         </div>
       </Info>
     </Question>
@@ -52,12 +86,21 @@ const CommonStyle = css`
 
 const Status = styled.div`
   ${CommonStyle}
-  font-size:13px;
+  font-size: 13px;
   margin-right: 1rem;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
+  .votes {
+    font-weight: bold;
+  }
+  .answer {
+    border: 1px solid green;
+    padding: 2px;
+    border-radius: 5px;
+    color: green;
+  }
   @media ${(props) => props.theme.breakpoints.tabletMax} {
     flex-direction: row;
     justify-content: start;
@@ -88,10 +131,24 @@ const Info = styled.div`
     display: flex;
     justify-content: end;
   }
+  .tags {
+    border: 1px solid black;
+  }
 `;
 
 const QuestionSpecificLink = styled(Link)`
   text-decoration: none;
 `;
+const CheckedAnswer = styled.div`
+  border: 1px solid green;
+  padding: 2px;
+  border-radius: 5px;
+  color: white;
+  background-color: green;
+`;
 
+const Tag = styled.div`
+  color: hsl(205, 47%, 42%);
+  background-color: hsl(205, 46%, 92%);
+`;
 export default Questions;

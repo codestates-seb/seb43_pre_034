@@ -1,14 +1,17 @@
 import styled from "styled-components";
+
+//icons
 import { CgProfile } from "react-icons/cg";
 import { ButtonCompo } from "../../common/Buttons";
+
+//react hooks
 import { useState } from "react";
-import { useParams } from "react-router-dom";
 import axios from "axios";
+
 function EditRight() {
   //현재 저장된 값을 지정(서버에서 가져와야 함!)-토큰으로 해야할 수도!
-  let { id } = useParams;
+  const userId = localStorage.getItem("userId");
   const [inputValue, setInputValue] = useState("hoinleekk");
-
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
   };
@@ -17,8 +20,10 @@ function EditRight() {
     event.preventDefault();
     //서버에 PATCH로 보내기 useParam을 사용해서 id number를 가져와야 한다.(현재는 일단 고정된 형태!)
     axios
-      .patch(`${process.env.REACT_APP_API_URL}/users/${id}/info`, {
-        post: inputValue,
+      .patch(`${process.env.REACT_APP_API_URL}/users/${userId}`, {
+        userId: userId,
+        name: inputValue,
+        status: "MEMBER_SLEEP",
       })
       .then((res) => {
         console.log("Post submitted successfully");
