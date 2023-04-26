@@ -20,6 +20,7 @@ public class QuestionResponseDto {
     private int score;
     private boolean checked;
     private List<String> tags;
+    private int answerCount;
     private String createdAt;
     private String modifiedAt;
 }
