@@ -1,11 +1,11 @@
 //modules
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 //oauth
-import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
-import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
+// import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
+// import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 
 import axios from "axios";
 
@@ -60,23 +60,23 @@ const GoogleButton = styled(LoginBtn)`
 `;
 
 //구글 oauth
-const GoogleLoginButton = () => {
-  const clientId = process.env.REACT_APP_GOOGLE_ID;
-  return (
-    <GoogleButton>
-      <GoogleOAuthProvider clientId={clientId}>
-        <GoogleLogin
-          onSuccess={(res) => {
-            console.log(res);
-          }}
-          onFailure={(err) => {
-            console.log(err);
-          }}
-        />
-      </GoogleOAuthProvider>
-    </GoogleButton>
-  );
-};
+// const GoogleLoginButton = () => {
+//   const clientId = process.env.REACT_APP_GOOGLE_ID;
+//   return (
+//     <GoogleButton>
+//       <GoogleOAuthProvider clientId={clientId}>
+//         <GoogleLogin
+//           onSuccess={(res) => {
+//             console.log(res);
+//           }}
+//           onFailure={(err) => {
+//             console.log(err);
+//           }}
+//         />
+//       </GoogleOAuthProvider>
+//     </GoogleButton>
+//   );
+// };
 
 //깃헙 로그인
 const GithubButton = styled(LoginBtn)`
@@ -239,6 +239,7 @@ const Login = () => {
   const [passwordError, setPasswordError] = useState("");
   const [emailInputClass, setEmailInputClass] = useState("");
   const [passwordInputClass, setPasswordInputClass] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -265,13 +266,13 @@ const Login = () => {
 
     return axios
       .post(
-        `http://ec2-54-180-87-180.ap-northeast-2.compute.amazonaws.com:8080/users/login`,
+        `http://13.124.131.135:8080/users/login`,
         {
-          email: email,
+          username: email,
           password: password,
         },
         {
-          withCredentials: true,
+          // withCredentials: true,
           headers: {
             "Content-Type": "application/json;charset=utf-8",
           },
@@ -279,8 +280,13 @@ const Login = () => {
       )
       .then((response) => {
         if (response.status === 200) {
-          localStorage.setItem("accessToken", response.data.token);
-          navigate("/");
+          const headerData = response.headers["userid"];
+          // console.log(headerData);
+          localStorage.setItem("userId", headerData);
+          axios.defaults.headers.common[
+            "Authorization"
+          ] = `Bearer ${response.data.token}`;
+          // navigate("/");
         }
       })
       .catch((error) => {
@@ -288,28 +294,6 @@ const Login = () => {
         alert(error.message);
       });
   };
-
-  //서버와 통신 -- 예시 코드
-  //   axios.post('url', {
-  //     email: email,
-  //     password: password
-  //   }, {
-  //     withCredentials: true,
-  //     headers: {
-  //       'Content-Type': 'application/json;charset=utf-8',
-  //     }
-  //   })
-  //   .then((response) => {
-  //     if (response.status === 200) {
-  //       localStorage.setItem('accessToken', response.data.token);
-  //       navigate('/');
-  //     }
-  //   })
-  //   .catch((error) => {
-  //     console.error('에러', error);
-  //     alert(error.message);
-  //   });
-  // };
 
   return (
     <LoginSection>
@@ -322,19 +306,10 @@ const Login = () => {
         <AiFillGithub size="20" color="#fff" />
         <span>Log in with Github</span>
       </GithubButton>
-      <FacebookLogin
-        appId={Facebook_Id}
-        autoLoad={false}
-        fields="name,first_name,last_name,email"
-        callback={handleFacebook}
-        disableMobileRedirect={true}
-        render={(renderProps) => (
-          <FacebookButton>
-            <FaFacebookSquare size="20" color="#fff" />
-            <span>Log in with Facebook</span>
-          </FacebookButton>
-        )}
-      />
+      <FacebookButton>
+        <FaFacebookSquare size="20" color="#fff" />
+        <span>Log in with Facebook</span>
+      </FacebookButton>
       <LoginBox>
         <LoginForm onSubmit={handleSubmit}>
           <LoginTxt>
