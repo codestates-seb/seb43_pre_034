@@ -281,12 +281,11 @@ const Login = () => {
       .then((response) => {
         if (response.status === 200) {
           const headerData = response.headers["userid"];
-          // console.log(headerData);
           localStorage.setItem("userId", headerData);
           axios.defaults.headers.common[
             "Authorization"
-          ] = `Bearer ${response.data.token}`;
-          // navigate("/");
+          ] = `${response.headers.authorization}`;
+          navigate("/");
         }
       })
       .catch((error) => {
