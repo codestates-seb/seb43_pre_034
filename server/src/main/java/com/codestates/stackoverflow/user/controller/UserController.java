@@ -36,7 +36,7 @@ public class UserController {
     private final UserMapper mapper;
     private final JwtTokenizer jwtTokenizer;
 
-    @PostMapping
+    @PostMapping("/signup")
     public ResponseEntity join(@Valid @RequestBody UserDto.Post requestBody) {
         User user = mapper.userPostToUser(requestBody);
 
