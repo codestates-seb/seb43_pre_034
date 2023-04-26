@@ -13,6 +13,7 @@ import MyPage from "./pages/MyPage";
 import MyPageEdit from "./pages/MyPageEdit";
 //URL PATH
 import { MY_PAGE_URL_PATH } from "./constants/constant";
+import ScrollToTop from "./components/common/ScrollToTop";
 
 const Container = styled.div`
   display: flex;
@@ -25,6 +26,7 @@ const Container = styled.div`
 function App() {
   return (
     <Container>
+      <ScrollToTop />
       <Layout>
         <Routes>
           {/* NavBar 특정 페이지만 보이기 */}

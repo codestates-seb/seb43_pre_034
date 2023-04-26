@@ -7,6 +7,8 @@ const EditBtnsComp = styled.section`
   width: 100%;
   display: flex;
   flex-direction: row;
+  margin-top: 80px;
+  margin-bottom: 20px;
   .edit-btns {
     text-decoration: none;
   }
@@ -20,14 +22,14 @@ const EditBtnsComp = styled.section`
 `;
 
 // 수정 페이지 하단 buttons component
-const EditBtns = () => {
+const EditBtns = ({ onClickEditSave }) => {
   const { id } = useParams();
   return (
     <EditBtnsComp>
       <Link to={`/questions/${id}`} className="edit-btns">
-        <EditSaveBtn />
+        <EditSaveBtn onClick={onClickEditSave} />
       </Link>
-      <Link to={"/question/:id"} className="edit-btns edit-cancle">
+      <Link to={`/questions/${id}`} className="edit-btns edit-cancle">
         <p>Cancle</p>
       </Link>
     </EditBtnsComp>

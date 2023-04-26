@@ -220,7 +220,7 @@ const QuComment = ({ questionId, questionData }) => {
       questionId: questionId,
       body: content,
     };
-    console.log(newComment);
+
     axios
       .post(
         `${process.env.REACT_APP_API_URL}/questions/${questionId}/comments`,
@@ -232,7 +232,6 @@ const QuComment = ({ questionId, questionData }) => {
         },
       )
       .then((res) => {
-        // console.log(res.data);
         setQuComment(res.data);
       })
       .catch((err) => {
@@ -293,7 +292,6 @@ const AnComment = ({ answerId }) => {
       .then((res) => {
         // 반환된 댓글 리스트를 Comment 컴포넌트의 state에 저장
         setAnCommentList(res.data.data);
-        console.log(anCommentList);
       })
       .catch((err) => {
         console.error(err);
@@ -313,7 +311,6 @@ const AnComment = ({ answerId }) => {
     axios
       .post(`${process.env.REACT_APP_API_URL}/answer-comments`, newComment)
       .then((res) => {
-        console.log(res.data);
         setAnCommentList((prevList) => [...prevList, res.data.data]);
       })
       .catch((err) => {

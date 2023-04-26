@@ -1,6 +1,9 @@
 import styled from "styled-components";
 import { SideBarEdit } from "../components/common/Sidebar";
 import { AnEditCompo, QuEditCompo } from "../components/EditPage/EditCompo";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 // edit 페이지 styled-component
 const EditContainer = styled.div`
@@ -26,9 +29,24 @@ const EditContainer = styled.div`
 //pages
 // question-edit
 const EditQuestion = () => {
+  const { id } = useParams();
+  const [quDataForEdit, setQuDataForEdit] = useState(null);
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_API_URL}/questions/${id}`)
+      .then((res) => {
+        setQuDataForEdit(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [id]);
   return (
     <EditContainer>
-      <QuEditCompo />
+      <QuEditCompo
+        quDataForEdit={quDataForEdit && quDataForEdit}
+        setQuDataForEdit={setQuDataForEdit}
+      />
       <div className="sidebar">
         <SideBarEdit />
       </div>
@@ -38,9 +56,33 @@ const EditQuestion = () => {
 
 // answer-edit
 const EditAnswer = () => {
+  const { id, answerid } = useParams();
+  const [quTitle, setQuTitle] = useState(null);
+  const [anDataForEdit, setAnDataForEdit] = useState(null);
+  useEffect(() => {
+    // 멀티 리퀘스트 보내기
+    const quPromise = axios.get(
+      `${process.env.REACT_APP_API_URL}/questions/${id}`,
+    );
+    const anPromise = axios.get(
+      `${process.env.REACT_APP_API_URL}/answers/${answerid}`,
+    );
+    Promise.all([quPromise, anPromise])
+      .then((res) => {
+        setQuTitle(res[0].data.data.title);
+        setAnDataForEdit(res[1].data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [answerid]);
   return (
     <EditContainer>
-      <AnEditCompo />
+      <AnEditCompo
+        quTitle={quTitle && quTitle}
+        editAn={anDataForEdit && anDataForEdit}
+        setEditAn={setAnDataForEdit}
+      />
       <div className="sidebar">
         <SideBarEdit />
       </div>
