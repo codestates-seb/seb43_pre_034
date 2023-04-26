@@ -106,11 +106,13 @@ public class AnswerService {
 
     public void deleteAnswer(long answerId , long userId) {
         Answer findAnswer = findVerifiedAnswer(answerId);
-
+        Question findquestion = questionService.findVerifiedQuestion(findAnswer.getQuestion().getQuestionId());
         if (userId != findAnswer.getUser().getUserId()) {
             throw new BusinessLogicException(ExceptionCode.NO_PERMISSION_DELETING_POST);
         }
+
         answerRepository.delete(findAnswer);
+        findquestion.getAnswerList().remove(findAnswer);
     }
     //답변이 없는 경우가 있기 때문에 Optional  사용
     public Answer findVerifiedAnswer(long answerId) {

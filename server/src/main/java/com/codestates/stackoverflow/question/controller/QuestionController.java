@@ -58,6 +58,7 @@ public class QuestionController {
     public ResponseEntity getQuestions(@PageableDefault(page = 1, size = 15)Pageable pageable) {
         Page<Question> questionPage = questionService.getQuestions(pageable);
         List<Question> questionList = questionPage.getContent();
+
         return new ResponseEntity<>(
                 new MultiResponseDto<>(mapper.questionsToResponseDto(questionList), questionPage), HttpStatus.OK
         );

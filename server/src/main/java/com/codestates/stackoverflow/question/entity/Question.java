@@ -40,6 +40,8 @@ public class Question extends Auditable {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+    @Column
+    private int answerCount=0;
 
     public void setUser(User user) {
         this.user = user;
@@ -81,5 +83,9 @@ public class Question extends Auditable {
                     }
                 })
                 .sum();
+    }
+    @PostLoad
+    public void updateAnswerCount() {
+        this.answerCount = this.answerList.size();
     }
 }
