@@ -38,6 +38,8 @@ const UserNav = () => {
   const dispatch = useDispatch();
   const handleLogout = () => {
     dispatch(loginVerified());
+    localStorage.removeItem("userId");
+    axios.defaults.headers.common["Authorization"] = "";
   };
   return (
     <UserNavContainer>
