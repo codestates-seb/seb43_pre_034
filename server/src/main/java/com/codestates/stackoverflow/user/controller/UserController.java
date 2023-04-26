@@ -102,6 +102,14 @@ public class UserController {
                 new SingleResponseDto<>(mapper.userToUserResponse(user)), HttpStatus.OK);
     }
 
+    @GetMapping("/{user-id}/info")
+    public ResponseEntity getUserInfo(@PathVariable("user-id") @Positive long userId) {
+        User user = userService.findUser(userId);
+        UserDto.InfoResponse response = mapper.userToUserInfoResponse(user);
+        return new ResponseEntity<>(
+                new SingleResponseDto<>(response), HttpStatus.OK);
+    }
+
     @GetMapping
     public ResponseEntity getUsers(@Positive @RequestParam(value = "page",defaultValue = "1") int page,
                                    @Positive @RequestParam(value = "size",defaultValue = "15") int size) {

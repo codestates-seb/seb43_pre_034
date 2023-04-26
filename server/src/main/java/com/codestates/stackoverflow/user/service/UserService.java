@@ -4,7 +4,6 @@ import com.codestates.stackoverflow.exception.BusinessLogicException;
 import com.codestates.stackoverflow.exception.ExceptionCode;
 import com.codestates.stackoverflow.security.auth.utils.CustomAuthorityUtils;
 import com.codestates.stackoverflow.user.entity.User;
-import com.codestates.stackoverflow.user.helper.MemberRegistrationApplicationEvent;
 import com.codestates.stackoverflow.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
@@ -31,7 +30,6 @@ public class UserService {
     private final CustomAuthorityUtils authorityUtils;
 
 
-
     public User createUser(User user) {
         verifyExistEmail(user.getEmail());
 
@@ -51,7 +49,6 @@ public class UserService {
     public User findUser(long userId) {
         return findVerifiedUser(userId);
     }
-
 
     public Page<User> findUsers(int page, int size) {
         return userRepository.findAll(PageRequest.of(page, size,
@@ -79,6 +76,9 @@ public class UserService {
         Optional<User> otionalUser = userRepository.findById(userId);
         User findUser = otionalUser.orElseThrow(() ->
                 new BusinessLogicException(ExceptionCode.USER_NOT_FOUND));
+        findUser.updateTotalScore();
+        findUser.setQuestionCount(userRepository.countQuestionByUserId(userId).intValue());
+        findUser.setAnswerCount(userRepository.countAnswerByUserId(userId).intValue());
         return findUser;
     }
 
@@ -87,4 +87,5 @@ public class UserService {
         if (user.isPresent())
             throw new BusinessLogicException(ExceptionCode.USER_EXISTS);
     }
+
 }

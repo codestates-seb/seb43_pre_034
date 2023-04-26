@@ -5,6 +5,8 @@ import lombok.*;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import java.util.List;
+
 //
 //@Getter
 //@AllArgsConstructor
@@ -47,5 +49,21 @@ public class UserDto {
         private String email;
         private User.Status status;
         private int score;
+        private int questionCount;
+        private int answerCount;
     }
+    @Setter
+    @Getter
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class InfoResponse {
+        private long userId;
+        private String name;
+        private int score;
+        private int questionCount;
+        private int answerCount;
+        private String createdAt;
+    }
+
 }
