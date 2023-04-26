@@ -42,6 +42,7 @@ const EditHeaderCon = styled.header`
 // components
 // Question edit compo
 const QuEditCompo = ({ quDataForEdit, setQuDataForEdit }) => {
+  console.log(quDataForEdit);
   // 수정된 question patch
   const onClickEditSave = (e) => {
     e.preventDefault();
@@ -71,7 +72,10 @@ const QuEditCompo = ({ quDataForEdit, setQuDataForEdit }) => {
           />
           <Tags editQu={quDataForEdit} setEditQu={setQuDataForEdit} />
           {/* <EditSummary /> */}
-          <EditBtns onClickEditSave={onClickEditSave} />
+          <EditBtns
+            onClickEditSave={onClickEditSave}
+            quId={quDataForEdit.questionId}
+          />
         </section>
       )}
     </EditComponent>
@@ -89,6 +93,7 @@ const AnEditCompo = ({ quTitle, editAn, setEditAn }) => {
       )
       .then((res) => {
         console.log(res.data);
+        // window.location.href = `${res.data.questionId}`;
       })
       .catch((err) => {
         console.log(err);
@@ -114,7 +119,10 @@ const AnEditCompo = ({ quTitle, editAn, setEditAn }) => {
           />
           <div className="edit-bottom">
             {/* <EditSummary /> */}
-            <EditBtns onClickEditSave={onClickEditSave} />
+            <EditBtns
+              onClickEditSave={onClickEditSave}
+              quId={editAn.questionId}
+            />
           </div>
         </section>
       )}

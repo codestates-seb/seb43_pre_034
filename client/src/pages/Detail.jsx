@@ -125,16 +125,28 @@ const DetailBody = ({ quData, deleteQu, currentUserId }) => {
         <section className="question">
           <VotingContainer />
           <section className="question-body">
-            <p className="question-content">{quData.data.body}</p>
+            {/* quill editor로 입력된 문자열 html형식으로 변환 */}
+            <div
+              className="question-content"
+              dangerouslySetInnerHTML={{ __html: quData.data.body }}
+            />
             <div className="question-bottom">
-              <QuBottomBtnAuthor
-                questionId={quData && quData.data.questionId}
-              />
+              {/* currentUserId의 형태는 문자열=>비교를 위해 숫자로 변환 */}
+              {Number(currentUserId) === quData.data.userId ? (
+                <QuBottomBtnAuthor
+                  questionId={quData && quData.data.questionId}
+                  deleteQu={deleteQu}
+                />
+              ) : (
+                <QuBottomBtn questionId={quData && quData.data.questionId} />
+              )}
+
               <QuestionAuthor quData={quData && quData.data} />
             </div>
             <QuComment
               questionId={quData && quData.data.questionId}
               questionData={quData && quData.data}
+              currentUserId={currentUserId}
             />
           </section>
         </section>
@@ -161,28 +173,38 @@ const Detail = () => {
   const currentUserId = localStorage.getItem("userId");
   const { id } = useParams();
   const [quData, setQuData] = useState(null);
-
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_API_URL}/questions/${id}`)
       .then((res) => {
         setQuData(res.data);
+        console.log(quData.data);
       })
       .catch((err) => {
         console.log(err);
       });
   }, [id]);
+
+  // 질문글 삭제
+  const navTo = useNavigate();
   const deleteQu = (questionId) => {
     axios
       .delete(`${process.env.REACT_APP_API_URL}/questions/${questionId}`)
 
       .then((res) => {
         console.log(res);
+        navTo(`/`);
       })
       .catch((err) => {
         console.log(err);
       });
   };
+  console.log(
+    "currentUserId:",
+    currentUserId,
+    "quUserId:",
+    quData && quData.data.userId,
+  );
   return (
     <DetailPage>
       {quData && (

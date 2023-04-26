@@ -10,6 +10,7 @@ import QuillEditor from "../components/QuillEditor";
 import AskTip from "../components/AskQuestion/AskTip";
 import AskDeleteModal from "../components/AskQuestion/AskDeleteModal";
 import AskTags from "../components/AskQuestion/AskTags";
+import { useNavigate } from "react-router-dom";
 
 const AskContainer = styled.main`
   width: 100%;
@@ -184,7 +185,8 @@ const AskQuestion = () => {
     body: "",
     tags: [],
   });
-
+  const currentUserId = localStorage.getItem("userId");
+  const navigate = useNavigate();
   const onSubmitHandler = (e) => {
     e.preventDefault();
     console.log("askForm >> ", askForm);
@@ -194,11 +196,11 @@ const AskQuestion = () => {
         title: askForm.title,
         body: askForm.body,
         tags: askForm.tags,
-        userId: 3,
+        userId: currentUserId,
       })
       .then((res) => {
         console.log(res.data.questionId);
-        window.location.href = `${res.data.questionId}`;
+        navigate(`/questions/${res.data.questionId}`);
       })
       .catch((err) => {
         console.log(err);

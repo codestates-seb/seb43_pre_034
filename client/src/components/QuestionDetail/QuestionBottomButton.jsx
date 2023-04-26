@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import styled from "styled-components";
 
 // 게시글, 답변 아래 Share Edit Follow/Delete 기본 구조
@@ -16,6 +16,12 @@ const QuestionBottomBtn = styled.ul`
   .linkToEdit {
     text-decoration: none;
     color: #6a737c;
+    border: none;
+    background-color: inherit;
+    cursor: pointer;
+    text-align: center;
+    font-size: 15px;
+    /* padding-top: 3px; */
   }
 `;
 
@@ -37,16 +43,21 @@ const QuBottomBtn = ({ questionId }) => {
 
 // 답변 하단
 const AnBottomBtn = ({ anData }) => {
+  const nav = useNavigate();
   return (
     <QuestionBottomBtn>
       <li>Share</li>
       <li>
-        <Link
-          to={`/questions/${anData.questionId}/answer-edit/${anData.answerId}`}
+        <button
           className="linkToEdit"
+          onClick={() =>
+            nav(
+              `/questions/${anData.questionId}/answer-edit/${anData.answerId}`,
+            )
+          }
         >
           Edit
-        </Link>
+        </button>
       </li>
       <li>Follow</li>
     </QuestionBottomBtn>
@@ -55,28 +66,7 @@ const AnBottomBtn = ({ anData }) => {
 
 // 작성자가 보는 화면
 // 게시글 하단
-const QuBottomBtnAuthor = ({ questionId }) => {
-  console.log(questionId);
-  // useEffect(() => {
-  //   axios
-  //     .delete(`${process.env.REACT_APP_API_URL}/questions/${questionId}`)
-  //     .then((res) => {
-  //       console.log(res);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // });
-  const deleteQu = () => {
-    axios
-      .delete(`${process.env.REACT_APP_API_URL}/questions/${questionId}`)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+const QuBottomBtnAuthor = ({ questionId, deleteQu }) => {
   return (
     <QuestionBottomBtn>
       <li>Share</li>
@@ -84,24 +74,39 @@ const QuBottomBtnAuthor = ({ questionId }) => {
         Edit
       </Link>
       <li>
-        <button onClick={deleteQu}>Delete</button>
+        <button className="linkToEdit" onClick={() => deleteQu(questionId)}>
+          Delete
+        </button>
       </li>
     </QuestionBottomBtn>
   );
 };
 
 // 답변 하단
-const AnBottomBtnAuthor = ({ anData }) => {
+const AnBottomBtnAuthor = ({ anData, currentUser, deleteAnswer }) => {
   return (
     <QuestionBottomBtn>
       <li>Share</li>
       <Link
-        to={"/questions/${anData.questionId}/answer-edit/${anData.answerId}"}
+        to={`/questions/${anData.questionId}/answer-edit/${anData.answerId}`}
         className="linkToEdit"
       >
         Edit
       </Link>
-      <li>Delete</li>
+      <li>
+        <button
+          className="linkToEdit"
+          onClick={(e) =>
+            deleteAnswer({
+              answerId: anData.answerId,
+              userId: currentUser,
+              e: e,
+            })
+          }
+        >
+          Delete
+        </button>
+      </li>
     </QuestionBottomBtn>
   );
 };

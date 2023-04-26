@@ -90,7 +90,7 @@ const CommentListCon = styled.div`
 
 // component
 // Question comment list
-const QuCommentList = ({ quCommentList, setQuCommentList }) => {
+const QuCommentList = ({ quCommentList, setQuCommentList, currentUserId }) => {
   // 삭제요청
   const onDeleteComment = (questionId, questionCommentId) => {
     axios
@@ -108,7 +108,7 @@ const QuCommentList = ({ quCommentList, setQuCommentList }) => {
         console.log(err);
       });
   };
-
+  quCommentList.map((el) => console.log(el));
   return (
     <CommentListCon>
       <ul>
@@ -122,14 +122,19 @@ const QuCommentList = ({ quCommentList, setQuCommentList }) => {
                 </a>
                 <span>{comment.createdAt}</span>
               </p>
-              <button
-                className="deleteBtn"
-                onClick={() =>
-                  onDeleteComment(comment.questionId, comment.questionCommentId)
-                }
-              >
-                DELETE
-              </button>
+              {comment && comment.userId === currentUserId ? (
+                <button
+                  className="deleteBtn"
+                  onClick={() =>
+                    onDeleteComment(
+                      comment.questionId,
+                      comment.questionCommentId,
+                    )
+                  }
+                >
+                  DELETE
+                </button>
+              ) : null}
             </li>
           ))}
       </ul>
