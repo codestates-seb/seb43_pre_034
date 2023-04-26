@@ -43,9 +43,6 @@ public class AnswerVoteController {
 
         AnswerVote answerVote = answerVoteService.createAnswerVote(mapper.postToVote(requestBody));
 
-        Answer answer = answerRepository.findById(requestBody.getAnswerId())
-                .orElseThrow(() ->  new BusinessLogicException(ExceptionCode.ANSWER_NOT_FOUND));
-
         AnswerVoteDto.ResponseDto response = mapper.voteToResponse(answerVote);
 
         return new ResponseEntity<>(response, HttpStatus.CREATED);
