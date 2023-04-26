@@ -3,6 +3,7 @@ package com.codestates.stackoverflow.answercomment.service;
 import com.codestates.stackoverflow.answer.entity.Answer;
 import com.codestates.stackoverflow.answer.service.AnswerService;
 import com.codestates.stackoverflow.answercomment.entity.AnswerComment;
+import com.codestates.stackoverflow.answercomment.mapper.AnswerCommentMapper;
 import com.codestates.stackoverflow.answercomment.repository.AnswerCommentRepository;
 import com.codestates.stackoverflow.exception.BusinessLogicException;
 import com.codestates.stackoverflow.exception.ExceptionCode;
@@ -28,9 +29,11 @@ public class AnswerCommentService {
 
     private final UserService userService;
 
-    public AnswerComment createAnswerComment(AnswerComment answerComment, long userId ,long answerId) { // 댓글 작성
-        Answer findAnswer = answerService.findVerifiedAnswer(answerId);
-        User findUser = userService.findVerifiedUser(userId);
+    public AnswerComment createAnswerComment(AnswerComment answerComment) { // 댓글 작성
+
+
+        Answer findAnswer = answerService.findVerifiedAnswer(answerComment.getAnswer().getAnswerId());
+        User findUser = userService.findVerifiedUser(answerComment.getUser().getUserId());
 
         answerComment.setAnswer(findAnswer);
         answerComment.setUser(findUser);
@@ -39,12 +42,13 @@ public class AnswerCommentService {
 
         return answerCommentRepository.save(answerComment);
     }
-    public AnswerComment updateAnswerComment(AnswerComment answerComment, long userId, long answerCommentId) {
+    public AnswerComment updateAnswerComment(AnswerComment answerComment) {
 
 
-        AnswerComment findComment = findVerifiedComment(answerCommentId);
+        AnswerComment findComment = findVerifiedComment(answerComment.getAnswerCommentId());
 
-        if (userId != findComment.getUser().getUserId()) {
+
+        if (answerComment.getUser().getUserId() != findComment.getUser().getUserId()) {
             throw new BusinessLogicException(ExceptionCode.NO_PERMISSION_EDITING_POST);
         }
         Optional.ofNullable(answerComment.getBody())
@@ -62,8 +66,7 @@ public class AnswerCommentService {
         return answerCommentPage;
         }
 
-    public void deleteAnswerComment(long answerCommentId , long userId) {
-
+    public void deleteAnswerComment(long answerCommentId, long userId) {
 
         AnswerComment findAnswerComment = findVerifiedComment(answerCommentId);
 

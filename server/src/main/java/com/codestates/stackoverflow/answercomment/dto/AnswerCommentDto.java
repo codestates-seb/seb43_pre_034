@@ -21,6 +21,8 @@ public class AnswerCommentDto {
     @Getter
     public static class PatchDto {
         private long answerCommentId;
+
+        private long userId;
         @NotBlank(message = "댓글 내용을 작성해야 합니다.")
         private String body;
     }

@@ -23,39 +23,38 @@ public class AnswerVoteService {
 
 
 
-    public AnswerVote createAnswerVote(AnswerVote answerVote, long answerId) {
-        Answer answer = answerService.findVerifiedAnswer(answerId);
+    public AnswerVote createAnswerVote(AnswerVote answerVote) {
+        Answer findAnswer = answerService.findVerifiedAnswer(answerVote.getAnswer().getAnswerId());
 
-        if(answer.getAnswerVotes().stream()
-                        .anyMatch(av -> av.getUser().getUserId() ==answerVote.getUser().getUserId())) {
+        if(findAnswer.getAnswerVotes().stream()
+                        .anyMatch(av -> av.getUser().getUserId() == findAnswer.getUser().getUserId())) {
             throw new BusinessLogicException(ExceptionCode.ANSWER_VOTE_EXIST);
         }
 
-        answer.addAnswerVote(answerVote);
+        findAnswer.addAnswerVote(answerVote);
 
         return answerVoteRepository.save(answerVote);
     }
 
-    public void updateAnswerVote(long answerVoteId, long userId, AnswerVote.VoteType voteType) {
-        AnswerVote findAnswerVote = findVerifiedAnswerVote(answerVoteId);
+    public void updateAnswerVote(AnswerVote answerVote) {
+        AnswerVote findAnswerVote = findVerifiedAnswerVote(answerVote.getAnswerVoteId());
         long masterUserId = findAnswerVote.getUser().getUserId();
 
-        if (userId != masterUserId) {
+        if (answerVote.getUser().getUserId() != masterUserId) {
             throw new BusinessLogicException(ExceptionCode.NO_PERMISSION_EDITING_POST);
         }
             Answer answer = findAnswerVote.getAnswer();
 
-            if (findAnswerVote.getVoteType() == voteType) {        //기존 voteType 을 재클릭 시 vote 삭제
+            if (findAnswerVote.getVoteType() == answerVote.getVoteType()) {        //기존 voteType 을 재클릭 시 vote 삭제
                 answer.removeAnswerVote(findAnswerVote);
                 deleteAnswerVote(findAnswerVote.getAnswerVoteId());
             } else {                                               //다른 voteType 클릭 시 voteType 변경 후 저장(answer score 최신화)
-                findAnswerVote.setVoteType(voteType);
+                findAnswerVote.setVoteType(answerVote.getVoteType());
                 answer.updateScore();
                 answerVoteRepository.save(findAnswerVote);
             }
 
         }
-
 
     public void deleteAnswerVote(long answerVoteId) {
         answerVoteRepository.deleteById(answerVoteId);
