@@ -33,14 +33,15 @@ public class User extends Auditable {
 
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles = new ArrayList<>(); // <ROLE_USER
-
     private int score;
+    private int questionCount;
+    private int answerCount;
 
     @OneToMany(mappedBy = "user")
-    List<Question> questions = new ArrayList<>();
+    private List<Question> questions = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
-    List<Answer> answers = new ArrayList<>();
+    private List<Answer> answers = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
     private List<QuestionComment> questionCommentList = new ArrayList<>();
@@ -71,7 +72,7 @@ public class User extends Auditable {
     /**
      * Score 합산 기능
      */
-    public int getTotalScore() {
+    public void updateTotalScore() {
         int totalScore = 0;
         int questionScore = 0;
         int answerScore = 0;
@@ -84,6 +85,6 @@ public class User extends Auditable {
 
         totalScore = questionScore + answerScore;
 
-        return totalScore;
+        this.score = totalScore;
     }
 }

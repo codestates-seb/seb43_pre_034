@@ -12,5 +12,6 @@ public interface UserMapper {
     User userPostToUser(UserDto.Post requestBody);
     User userPatchToUser(UserDto.Patch requestBody);
     UserDto.Response userToUserResponse(User user);
+    UserDto.InfoResponse userToUserInfoResponse(User user);
     List<UserDto.Response> usersToUserResponses(List<User> users);
 }
