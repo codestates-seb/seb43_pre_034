@@ -1,7 +1,7 @@
 //modules
 import { useState } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 //oauth
 // import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
@@ -239,6 +239,7 @@ const Login = () => {
   const [passwordError, setPasswordError] = useState("");
   const [emailInputClass, setEmailInputClass] = useState("");
   const [passwordInputClass, setPasswordInputClass] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -265,13 +266,13 @@ const Login = () => {
 
     return axios
       .post(
-        `http://ec2-54-180-87-180.ap-northeast-2.compute.amazonaws.com:8080/users/login`,
+        `http://13.124.131.135:8080/users/login`,
         {
-          email: email,
+          username: email,
           password: password,
         },
         {
-          withCredentials: true,
+          // withCredentials: true,
           headers: {
             "Content-Type": "application/json;charset=utf-8",
           },
@@ -279,8 +280,13 @@ const Login = () => {
       )
       .then((response) => {
         if (response.status === 200) {
-          localStorage.setItem("accessToken", response.data.token);
-          navigate("/");
+          const headerData = response.headers["userid"];
+          // console.log(headerData);
+          localStorage.setItem("userId", headerData);
+          axios.defaults.headers.common[
+            "Authorization"
+          ] = `Bearer ${response.data.token}`;
+          // navigate("/");
         }
       })
       .catch((error) => {
