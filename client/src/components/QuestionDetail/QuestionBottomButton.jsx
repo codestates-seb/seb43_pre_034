@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
@@ -57,7 +56,18 @@ const AnBottomBtn = ({ anData }) => {
 // 작성자가 보는 화면
 // 게시글 하단
 const QuBottomBtnAuthor = ({ questionId }) => {
-  useEffect(() => {
+  console.log(questionId);
+  // useEffect(() => {
+  //   axios
+  //     .delete(`${process.env.REACT_APP_API_URL}/questions/${questionId}`)
+  //     .then((res) => {
+  //       console.log(res);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // });
+  const deleteQu = () => {
     axios
       .delete(`${process.env.REACT_APP_API_URL}/questions/${questionId}`)
       .then((res) => {
@@ -66,24 +76,29 @@ const QuBottomBtnAuthor = ({ questionId }) => {
       .catch((err) => {
         console.log(err);
       });
-  });
+  };
   return (
     <QuestionBottomBtn>
       <li>Share</li>
-      <Link to={"/question/:id/edit"} className="linkToEdit">
+      <Link to={`/questions/${questionId}/edit`} className="linkToEdit">
         Edit
       </Link>
-      <li>Delete</li>
+      <li>
+        <button onClick={deleteQu}>Delete</button>
+      </li>
     </QuestionBottomBtn>
   );
 };
 
 // 답변 하단
-const AnBottomBtnAuthor = () => {
+const AnBottomBtnAuthor = ({ anData }) => {
   return (
     <QuestionBottomBtn>
       <li>Share</li>
-      <Link to={"/question/:id/answeredit/answerid"} className="linkToEdit">
+      <Link
+        to={"/questions/${anData.questionId}/answer-edit/${anData.answerId}"}
+        className="linkToEdit"
+      >
         Edit
       </Link>
       <li>Delete</li>
