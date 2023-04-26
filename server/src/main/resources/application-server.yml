@@ -23,5 +23,5 @@ mail:
     admin: admin@gmail.com
 jwt:
   secret-key: seb43preproject034Aliveghkdlxld!
-  access-token-expiration: 30
-  refresh-token-expiration: 420
+  access-token-expiration: 1440
+  refresh-token-expiration: 2880
