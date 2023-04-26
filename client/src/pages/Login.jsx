@@ -21,6 +21,9 @@ import { HiOutlineExternalLink } from "react-icons/hi";
 //imgs
 import logo from "../assets/images/stack.png";
 
+//redux
+import { loginVerified } from "../redux/slice/loginState";
+import { useDispatch } from "react-redux";
 //전체 로그인 박스
 const LoginSection = styled.section`
   box-sizing: border-box;
@@ -240,7 +243,7 @@ const Login = () => {
   const [emailInputClass, setEmailInputClass] = useState("");
   const [passwordInputClass, setPasswordInputClass] = useState("");
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -266,13 +269,12 @@ const Login = () => {
 
     return axios
       .post(
-        `http://13.124.131.135:8080/users/login`,
+        `${process.env.REACT_APP_API_URL}/users/login`,
         {
           username: email,
           password: password,
         },
         {
-          // withCredentials: true,
           headers: {
             "Content-Type": "application/json;charset=utf-8",
           },
@@ -285,7 +287,11 @@ const Login = () => {
           axios.defaults.headers.common[
             "Authorization"
           ] = `${response.headers.authorization}`;
+          dispatch(loginVerified());
           navigate("/");
+        } else if (response.status === 401) {
+          setEmailError("The email or password is incorrect.");
+          setEmailInputClass("ErrorInput");
         }
       })
       .catch((error) => {

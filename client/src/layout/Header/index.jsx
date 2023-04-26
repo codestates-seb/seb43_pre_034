@@ -1,5 +1,5 @@
 // eslint-disable-line no-unused-vars
-import { useState } from "react";
+// import { useState } from "react";
 import styled from "styled-components";
 
 // components
@@ -8,6 +8,9 @@ import LeftList from "./LeftList";
 import SignNav from "./SignNav";
 import Search from "./Search";
 import UserNav from "./UserNav";
+
+//redux
+import { useSelector } from "react-redux";
 
 const HeaderContainer = styled.header`
   display: flex;
@@ -38,16 +41,16 @@ const StyledHeader = styled.div`
 `;
 
 const Header = () => {
-  const [isLogin, setIsLogin] = useState(true);
-
+  // const [isLogin, setIsLogin] = useState(true);
+  const loginVerified = useSelector((state) => state.value);
   return (
     <HeaderContainer>
       <StyledHeader>
         <>
           <TitleLogo />
-          <LeftList isLogin={isLogin} />
+          <LeftList isLogin={loginVerified} />
           <Search />
-          {isLogin ? <UserNav /> : <SignNav />}
+          {loginVerified ? <UserNav /> : <SignNav />}
         </>
       </StyledHeader>
     </HeaderContainer>
