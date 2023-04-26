@@ -1,10 +1,9 @@
 import styled from "styled-components";
 import EditTitle from "./EditTitle";
 import { QuEditBody, AnEditBody } from "./EditBody";
-import EditSummary from "./EditSummary";
 import Tags from "./Tags";
 import EditBtns from "./EditBtns";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 // edit 페이지 styled-component
 // main-edit compo
@@ -43,6 +42,7 @@ const EditHeaderCon = styled.header`
 // Question edit compo
 const QuEditCompo = ({ quDataForEdit, setQuDataForEdit }) => {
   console.log(quDataForEdit);
+  const navigate = useNavigate();
   // 수정된 question patch
   const onClickEditSave = (e) => {
     e.preventDefault();
@@ -53,6 +53,7 @@ const QuEditCompo = ({ quDataForEdit, setQuDataForEdit }) => {
       )
       .then((res) => {
         console.log(res.data);
+        navigate(`/questions/${quDataForEdit.questionId}`);
       })
       .catch((err) => {
         console.log(err);
@@ -71,7 +72,6 @@ const QuEditCompo = ({ quDataForEdit, setQuDataForEdit }) => {
             setEditQu={setQuDataForEdit}
           />
           <Tags editQu={quDataForEdit} setEditQu={setQuDataForEdit} />
-          {/* <EditSummary /> */}
           <EditBtns
             onClickEditSave={onClickEditSave}
             quId={quDataForEdit.questionId}
@@ -84,6 +84,8 @@ const QuEditCompo = ({ quDataForEdit, setQuDataForEdit }) => {
 
 // Answer edit compo
 const AnEditCompo = ({ quTitle, editAn, setEditAn }) => {
+  const navigate = useNavigate();
+  console.log(editAn);
   const onClickEditSave = (e) => {
     e.preventDefault();
     axios
@@ -93,7 +95,7 @@ const AnEditCompo = ({ quTitle, editAn, setEditAn }) => {
       )
       .then((res) => {
         console.log(res.data);
-        // window.location.href = `${res.data.questionId}`;
+        navigate(`/questions/${editAn.questionId}`);
       })
       .catch((err) => {
         console.log(err);
@@ -118,7 +120,6 @@ const AnEditCompo = ({ quTitle, editAn, setEditAn }) => {
             setEditAn={setEditAn}
           />
           <div className="edit-bottom">
-            {/* <EditSummary /> */}
             <EditBtns
               onClickEditSave={onClickEditSave}
               quId={editAn.questionId}
