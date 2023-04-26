@@ -3,7 +3,10 @@ import { AskQuestionBtn } from "../components/common/Buttons";
 import { VotingContainer } from "../components/QuestionDetail/VotingCompo";
 import { SideBar } from "../components/common/Sidebar";
 import { QuestionAuthor } from "../components/QuestionDetail/AuthorInfo";
-import { QuBottomBtn } from "../components/QuestionDetail/QuestionBottomButton";
+import {
+  QuBottomBtn,
+  QuBottomBtnAuthor,
+} from "../components/QuestionDetail/QuestionBottomButton";
 import { QuComment } from "../components/QuestionDetail/Comment";
 import AddAnswer from "../components/QuestionDetail/AddAnswer";
 import { useParams, useNavigate } from "react-router-dom";
@@ -115,7 +118,7 @@ const DetailBodyCon = styled.div`
 
 // components
 // 상세페이지 - 질문글
-const DetailBody = ({ quData }) => {
+const DetailBody = ({ quData, deleteQu, currentUserId }) => {
   return (
     <DetailBodyCon>
       <div className="question-answer-page">
@@ -124,7 +127,9 @@ const DetailBody = ({ quData }) => {
           <section className="question-body">
             <p className="question-content">{quData.data.body}</p>
             <div className="question-bottom">
-              <QuBottomBtn questionId={quData && quData.data.questionId} />
+              <QuBottomBtnAuthor
+                questionId={quData && quData.data.questionId}
+              />
               <QuestionAuthor quData={quData && quData.data} />
             </div>
             <QuComment
@@ -135,8 +140,10 @@ const DetailBody = ({ quData }) => {
         </section>
         {/* answer는 컴포넌트 이동해서 get요청하기 */}
         <AddAnswer
+          currentUserId={currentUserId}
           questionId={quData && quData.data.questionId}
           quData={quData && quData.data}
+          currentUser={currentUserId && currentUserId}
         />
       </div>
       <section className="sidebar">
@@ -151,6 +158,7 @@ const Detail = () => {
   const handleOnclick = () => {
     navigate("/questions/ask");
   };
+  const currentUserId = localStorage.getItem("userId");
   const { id } = useParams();
   const [quData, setQuData] = useState(null);
 
@@ -164,7 +172,17 @@ const Detail = () => {
         console.log(err);
       });
   }, [id]);
+  const deleteQu = (questionId) => {
+    axios
+      .delete(`${process.env.REACT_APP_API_URL}/questions/${questionId}`)
 
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <DetailPage>
       {quData && (
@@ -186,7 +204,11 @@ const Detail = () => {
               </p>
             </section>
           </DetailHeader>
-          <DetailBody quData={quData} />
+          <DetailBody
+            quData={quData}
+            deleteQu={deleteQu}
+            currentUserId={currentUserId}
+          />
         </>
       )}
     </DetailPage>

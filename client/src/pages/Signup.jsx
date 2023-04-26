@@ -1,7 +1,7 @@
 //modules
 import { useState } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 //component
@@ -351,6 +351,7 @@ const Signup = () => {
   const [passwordError, setPasswordError] = useState("");
   const [emailInputClass, setEmailInputClass] = useState("");
   const [passwordInputClass, setPasswordInputClass] = useState("");
+  const navigate = useNavigate();
   // 중복 닉네임 체크한다면 사용
   // const [displayNameInputClass, setDisplayNameInputClass] = useState("");
   const [isChecked, setIsChecked] = useState(false);
@@ -381,6 +382,7 @@ const Signup = () => {
       setPasswordInputClass("ErrorInput");
     } else {
       setPasswordError("");
+      setPasswordInputClass("");
     }
 
     if (!isCaptChecked) {
@@ -399,13 +401,11 @@ const Signup = () => {
       name: displayName,
     };
 
-    const url =
-      "http://ec2-54-180-87-180.ap-northeast-2.compute.amazonaws.com:8080/users/signup";
+    const url = "http://13.124.131.135:8080/users/signup";
 
     return axios
       .post(url, userInfo)
       .then((res) => {
-        localStorage.setItem("userInfo", JSON.stringify(res.data));
         alert("회원가입이 완료되었습니다.");
         // login 페이지로 이동
         navigate("/users/login");

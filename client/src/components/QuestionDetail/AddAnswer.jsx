@@ -4,7 +4,7 @@ import { PostAnswerBtn } from "../common/Buttons";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { VotingChecked } from "./VotingCompo";
-import { AnBottomBtn } from "./QuestionBottomButton";
+import { AnBottomBtn, AnBottomBtnAuthor } from "./QuestionBottomButton";
 import { AnswerAuthor } from "./AuthorInfo";
 import { AnComment } from "./Comment";
 
@@ -75,7 +75,7 @@ const AnswerListCon = styled.div`
 `;
 // component
 // answer list
-const AnswerList = ({ anList }) => {
+const AnswerList = ({ anList, currentUser }) => {
   return (
     <AnswerListCon>
       {anList.map((answer) => (
@@ -84,7 +84,11 @@ const AnswerList = ({ anList }) => {
           <div className="answer-body">
             <p className="answer-content">{answer.body}</p>
             <div className="answer-bottom">
-              <AnBottomBtn anData={answer && answer} />
+              {currentUser === anList.userId ? (
+                <AnBottomBtnAuthor anData={answer && answer} />
+              ) : (
+                <AnBottomBtn anData={answer && answer} />
+              )}
               <AnswerAuthor anData={answer && answer} />
             </div>
             <AnComment answerId={answer.answerId} />
@@ -94,7 +98,7 @@ const AnswerList = ({ anList }) => {
     </AnswerListCon>
   );
 };
-const AnswerCompo = ({ anList }) => {
+const AnswerCompo = ({ anList, currentUser }) => {
   return (
     <AnswerCon>
       {anList && (
@@ -104,7 +108,7 @@ const AnswerCompo = ({ anList }) => {
             {anList.length === 1 ? "Answer" : "Answers"}
           </h2>
           <ul className="answer-container">
-            <AnswerList anList={anList} />
+            <AnswerList anList={anList} currentUser={currentUser} />
           </ul>
         </>
       )}
@@ -112,9 +116,9 @@ const AnswerCompo = ({ anList }) => {
   );
 };
 
-const AddAnswer = ({ questionId, quData }) => {
+const AddAnswer = ({ questionId, quData, currentUser }) => {
   const [anForm, setAnForm] = useState({
-    userId: 1,
+    userId: "",
     questionId: questionId,
     body: "",
   });
@@ -133,10 +137,10 @@ const AddAnswer = ({ questionId, quData }) => {
   }, [anList]);
   const onCreateAnswer = (e) => {
     e.preventDefault();
-
+    console.log(axios.defaults.headers.common);
     axios
       .post(`${process.env.REACT_APP_API_URL}/answers`, {
-        userId: 1,
+        userId: currentUser,
         questionId: questionId,
         body: anForm.body,
       })
@@ -147,7 +151,7 @@ const AddAnswer = ({ questionId, quData }) => {
         console.log(err);
       });
     setAnForm({
-      userId: 1,
+      userId: "",
       questionId: questionId,
       body: "",
     });
@@ -155,7 +159,7 @@ const AddAnswer = ({ questionId, quData }) => {
 
   return (
     <AddAnswerCon onSubmit={onCreateAnswer}>
-      {anList && <AnswerCompo anList={anList} />}
+      {anList && <AnswerCompo anList={anList} currentUser={currentUser} />}
       <h2>Your Answer</h2>
       <QuillEditor
         editorWidth={"100%"}

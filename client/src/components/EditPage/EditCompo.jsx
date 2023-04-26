@@ -22,8 +22,8 @@ const EditComponent = styled.div`
       color: #0063bf;
     }
   }
-  .edit-summaryBox {
-    margin-top: 60px;
+  .edit-bottom {
+    margin-top: 80px;
   }
 `;
 
@@ -84,7 +84,7 @@ const AnEditCompo = ({ quTitle, editAn, setEditAn }) => {
     e.preventDefault();
     axios
       .patch(
-        `${process.env.REACT_APP_API_URL}/answers/${editAn.userId}/${editAn.answerId}`,
+        `${process.env.REACT_APP_API_URL}/answers/${editAn.answerId}`,
         editAn,
       )
       .then((res) => {
@@ -112,10 +112,10 @@ const AnEditCompo = ({ quTitle, editAn, setEditAn }) => {
             editAn={editAn}
             setEditAn={setEditAn}
           />
-          {/* <div className="edit-summaryBox">
-            <EditSummary />
-          </div> */}
-          <EditBtns onClickEditSave={onClickEditSave} />
+          <div className="edit-bottom">
+            {/* <EditSummary /> */}
+            <EditBtns onClickEditSave={onClickEditSave} />
+          </div>
         </section>
       )}
     </EditComponent>
