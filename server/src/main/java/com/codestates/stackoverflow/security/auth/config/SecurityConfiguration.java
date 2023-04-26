@@ -53,6 +53,7 @@ public class SecurityConfiguration {
                 .apply(new CustomFilterConfigurer())
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
+                        .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .antMatchers(HttpMethod.POST, "/users/login/**", "/users/signup/**").permitAll() // 로그인 및 회원 가입 모두 접근 가능
                         .antMatchers(HttpMethod.GET, "/users/{user-id}/**").hasRole("USER") // 회원 조회 유저 접근 가능
                         .antMatchers(HttpMethod.GET, "/users/**").hasRole("ADMIN")
@@ -82,6 +83,10 @@ public class SecurityConfiguration {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList("*"));
         configuration.setAllowedMethods(Arrays.asList("*"));
+        configuration.setAllowedHeaders(Arrays.asList("*"));
+        configuration.setExposedHeaders(Arrays.asList("*"));
+        configuration.addAllowedHeader("*");
+        configuration.setAllowCredentials(Boolean.valueOf(true));
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
