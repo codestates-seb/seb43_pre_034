@@ -1,10 +1,17 @@
 import styled, { css } from "styled-components";
+
+//컴포넌트들
 import UpperPart from "./UpperPart";
 import DownerPart from "./DonwerPart";
 import Questions from "./Question";
 import Bottom from "./Bottom";
+
+//React Hook
 import useFetchMainPage from "../../hooks/useFetchMainPage";
 import { useState, useRef, useCallback } from "react";
+
+//loading
+import LoadingSpinner from "../common/Loading";
 
 const ContentPart = () => {
   const [pageNumber, setPageNumber] = useState(1);
@@ -25,23 +32,32 @@ const ContentPart = () => {
   );
 
   return (
-    <Content>
-      <CotentHead>
-        <UpperPart />
-        <DownerPart dataAmount={dataAmount} />
-      </CotentHead>
-      <ContentBody>
-        {datas.map((el, index) => {
-          if (datas.length === index + 1) {
-            return <Questions ref={lastDataElementRef} key={index} data={el} />;
-          } else {
-            return <Questions key={index} data={el} />;
-          }
-        })}
-        {loading && "...isLoading"}
-        <Bottom />
-      </ContentBody>
-    </Content>
+    <>
+      {loading ? (
+        <SpinnerWrap>
+          <LoadingSpinner />
+        </SpinnerWrap>
+      ) : (
+        <Content>
+          <CotentHead>
+            <UpperPart />
+            <DownerPart dataAmount={dataAmount} />
+          </CotentHead>
+          <ContentBody>
+            {datas.map((el, index) => {
+              if (datas.length === index + 1) {
+                return (
+                  <Questions ref={lastDataElementRef} key={index} data={el} />
+                );
+              } else {
+                return <Questions key={index} data={el} />;
+              }
+            })}
+            <Bottom />
+          </ContentBody>
+        </Content>
+      )}
+    </>
   );
 };
 
@@ -62,5 +78,11 @@ const CotentHead = styled.div`
 `;
 const ContentBody = styled.div`
   ${CommonStyle}/* height: 100vh; */
+`;
+const SpinnerWrap = styled.div`
+  flex: 0 1 802px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 export default ContentPart;
