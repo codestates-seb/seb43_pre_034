@@ -4,6 +4,9 @@ import person from "../../assets/images/person.png";
 import { useDispatch } from "react-redux";
 import { loginVerified } from "../../redux/slice/loginState";
 
+//aixos
+import axios from "axios";
+
 const UserNavContainer = styled.div`
   display: flex;
   padding-left: 1rem;
