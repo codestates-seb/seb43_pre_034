@@ -2,12 +2,13 @@ import styled, { css } from "styled-components";
 import UpperPart from "./UpperPart";
 import DownerPart from "./DonwerPart";
 import Questions from "./Question";
+import Bottom from "./Bottom";
 import useFetchMainPage from "../../hooks/useFetchMainPage";
 import { useState, useRef, useCallback } from "react";
 
 const ContentPart = () => {
   const [pageNumber, setPageNumber] = useState(1);
-  const { datas, loading, hasMore } = useFetchMainPage(pageNumber);
+  const { datas, loading, hasMore, dataAmount } = useFetchMainPage(pageNumber);
   const observer = useRef();
   const lastDataElementRef = useCallback(
     (node) => {
@@ -27,7 +28,7 @@ const ContentPart = () => {
     <Content>
       <CotentHead>
         <UpperPart />
-        <DownerPart data={datas} />
+        <DownerPart dataAmount={dataAmount} />
       </CotentHead>
       <ContentBody>
         {datas.map((el, index) => {
@@ -38,6 +39,7 @@ const ContentPart = () => {
           }
         })}
         {loading && "...isLoading"}
+        <Bottom />
       </ContentBody>
     </Content>
   );
@@ -61,5 +63,4 @@ const CotentHead = styled.div`
 const ContentBody = styled.div`
   ${CommonStyle}/* height: 100vh; */
 `;
-
 export default ContentPart;
