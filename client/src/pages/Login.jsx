@@ -290,13 +290,14 @@ const Login = () => {
           dispatch(loginVerified());
           navigate("/");
         } else if (response.status === 401) {
-          setEmailError("The email or password is incorrect.");
-          setEmailInputClass("ErrorInput");
         }
       })
       .catch((error) => {
-        console.error("에러", error);
-        alert(error.message);
+        if (response.status === 401) {
+          setEmailError("The email or password is incorrect.");
+          setEmailInputClass("ErrorInput");
+        }
+        alert(error);
       });
   };
 
