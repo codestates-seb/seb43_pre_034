@@ -1,5 +1,8 @@
 import styled from "styled-components";
 import person from "../../assets/images/person.png";
+//redux
+import { useDispatch } from "react-redux";
+import { loginVerified } from "../../redux/slice/loginState";
 
 const UserNavContainer = styled.div`
   display: flex;
@@ -32,10 +35,16 @@ const UserNavContainer = styled.div`
 `;
 
 const UserNav = () => {
+  const dispatch = useDispatch();
+  const handleLogout = () => {
+    dispatch(loginVerified());
+  };
   return (
     <UserNavContainer>
       <img src={person} alt="person" />
-      <button className="logout_btn">logout</button>
+      <button className="logout_btn" onClick={handleLogout}>
+        logout
+      </button>
     </UserNavContainer>
   );
 };

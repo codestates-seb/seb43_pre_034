@@ -5,24 +5,22 @@ import { Link } from "react-router-dom";
 //main page questions component
 const Questions = forwardRef(({ data }, ref) => {
   //body랑 score를 추가해야 한다.
-  const { score, body, title, name, questionId } = data;
+  console.log("outside", data);
+  const { score, body, title, name, questionId, createdAt, tags, checked } =
+    data;
   const PATH = `questions/${questionId}`;
   return (
     <Question>
       <Status>
-        <div>0 votes</div>
+        <div>{score} votes</div>
         <div>0 answers</div>
-        <div>3 views</div>
+        {/* <div>3 views</div> */}
       </Status>
       <Info>
         <h3 className="title">
           <QuestionSpecificLink to={PATH}>{title}</QuestionSpecificLink>
         </h3>
-        <div>
-          I try to update/inherit from QWinTaskbarButton so that I can control
-          the color shown by the component on task app icon progress as that is
-          not exposed currently (at least in QT 5.15) I cannot figure ...
-        </div>
+        <div>{body}</div>
         <div ref={ref} className="user-id">
           {name} asked 1 min ago
         </div>

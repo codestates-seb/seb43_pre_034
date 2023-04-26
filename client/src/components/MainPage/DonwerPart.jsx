@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
-const DownerPart = ({ data }) => {
+const DownerPart = ({ dataAmount }) => {
   return (
     <ContentNavBtn>
-      <p className="total-questions dis_none">{data.length} questions</p>
+      <p className="total-questions dis_none">{dataAmount} questions</p>
       <div className="btn-wrap">
         <div className="nav-btn">
           <button className="nav-btns">
