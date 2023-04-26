@@ -6,7 +6,7 @@ export default function useFetchMainPage(pageNumber) {
   const [error, setError] = useState(false);
   const [datas, setData] = useState([]);
   const [hasMore, setHasMore] = useState(false);
-
+  const [dataAmount, setDataAmount] = useState(0);
   useEffect(() => {
     setLoading(true);
     setError(false);
@@ -22,6 +22,7 @@ export default function useFetchMainPage(pageNumber) {
           //중복된 array 제거 객체이기 때문에 newSet을 써도 소용X
           return [...new Set([...datas, ...res.data.data])];
         });
+        setDataAmount(res.data.pageInfo.totalElements);
         setHasMore(res.data.data.length > 0);
         setLoading(false);
       })
@@ -30,5 +31,5 @@ export default function useFetchMainPage(pageNumber) {
         setError(true);
       });
   }, [pageNumber]);
-  return { datas, loading, error, hasMore };
+  return { datas, loading, error, hasMore, dataAmount };
 }
