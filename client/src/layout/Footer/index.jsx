@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import logo from "../../assets/images/stack.png";
 
 const FooterContainer = styled.footer`
+  overflow-x: hidden;
   width: 100vw;
   height: max-content;
   color: hsl(210, 8%, 60%);
@@ -55,10 +56,10 @@ const FooterContents = styled.ul`
   .products {
     width: 170px;
     @media ${({ theme }) => theme.breakpoints.tabletMax} {
-      width: 80%;
+      width: 70%;
     }
     @media ${({ theme }) => theme.breakpoints.mobileMax} {
-      width: 100%;
+      width: 85%;
       display: flex;
       flex-wrap: wrap;
     }
@@ -100,11 +101,13 @@ const FooterContents = styled.ul`
       position: relative;
       left: -80px;
       top: 20px;
-      width: 600px;
+      width: 500px;
+      margin-right: 0px;
     }
     @media ${({ theme }) => theme.breakpoints.mobileMax} {
       left: 0px;
       top: 0;
+      width: 90%;
     }
 
     ul {
@@ -149,6 +152,14 @@ const FooterList = styled.li`
   @media ${({ theme }) => theme.breakpoints.mobileMax} {
     left: 45px;
     top: 0;
+  }
+  &:last-of-type {
+    @media ${({ theme }) => theme.breakpoints.tabletMax} {
+      width: 500px;
+    }
+    @media ${({ theme }) => theme.breakpoints.mobileMax} {
+      width: 80%;
+    }
   }
   ul {
     display: flex;
@@ -255,7 +266,7 @@ const Footer = () => {
             </div>
           </ul>
         </FooterList>
-        <FooterList>
+        <FooterList className="socialbox">
           <ul className="social">
             <li>
               <ul className="smallTxt">
@@ -280,5 +291,3 @@ const Footer = () => {
 };
 
 export default Footer;
-
-// @media ${({ theme }) => theme.breakpoints.mobileMax} {}
