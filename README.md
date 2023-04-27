@@ -16,9 +16,9 @@
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 |[@yunhoknight](https://github.com/yunhoknight)|[@CordJG](https://github.com/CordJG)|[@YuJeSeon](https://github.com/YuJeSeon)|[@rickyshu](https://github.com/rickyshu)|[@kijiwon](https://github.com/kijiwon)|[@chochojj](https://github.com/chochojj)|[@sineTlsl](https://github.com/sineTlsl)|
 |<div style="display: flex; align-items: flex-start;"><img src="https://avatars.githubusercontent.com/u/98323914?v=4" alt="icon" width="80" height="80" /></div>|<div style="display: flex; align-items: flex-start;"><img src="https://avatars.githubusercontent.com/u/119933990?v=4" alt="icon" width="80" height="80" /></div>|<div style="display: flex; align-items: flex-start;"><img src="https://avatars.githubusercontent.com/u/120304866?v=4" alt="icon" width="80" height="80" /></div>|<div style="display: flex; align-items: flex-start;"><img src="https://avatars.githubusercontent.com/u/104845427?v=4" alt="icon" width="80" height="80" /></div>|<div style="display: flex; align-items: flex-start;"><img src="https://avatars.githubusercontent.com/u/119961147?v=4" alt="icon" width="80" height="80" /></div>|<div style="display: flex; align-items: flex-start;"><img src="https://avatars.githubusercontent.com/u/104323906?v=4" alt="icon" width="80" height="80" /></div>|<div style="display: flex; align-items: flex-start;"><img src="https://avatars.githubusercontent.com/u/97720335?v=4" alt="icon" width="80" height="80" /></div>|
-|- User<br>- Security<br>- JWT<br>- AWS deployment|- Answer<br>- Answer Comment<br>- Answer Vote<br>- CRUD<br>- AWS deployment|- Question<br>- Question Comment<br>- Question Vote<br>- CRUD<br>|||- login/signup page <br> - user CR<br>- JWT <br>- footer component||
-## 기술 스택  
-  
+|- User<br>- Security<br>- JWT<br>- AWS deployment|- Answer<br>- Answer Comment<br>- Answer Vote<br>- CRUD<br>- AWS deployment|- Question<br>- Question Comment<br>- Question Vote<br>- CRUD<br>|||- login/signup page <br> - user CR<br>- JWT <br>- footer component|- Ask question page <br> - Question Create feature <br> - Header component <br> - Nav component |
+
+## 기술 스택    
 ### Frontend  
 
 |                             react                             |                             axios                              |                            redux-toolkit                             |                             styled-component                              |                            eslint                            |                        prettier                        |
