@@ -22,14 +22,14 @@ const EditBtnsComp = styled.section`
 `;
 
 // 수정 페이지 하단 buttons component
-const EditBtns = ({ onClickEditSave }) => {
-  const { id } = useParams();
+const EditBtns = ({ onClickEditSave, quId }) => {
+  console.log(quId);
   return (
     <EditBtnsComp>
-      <Link to={`/questions/${id}`} className="edit-btns">
+      <Link to={`/questions/${quId}`} className="edit-btns">
         <EditSaveBtn onClick={onClickEditSave} />
       </Link>
-      <Link to={`/questions/${id}`} className="edit-btns edit-cancle">
+      <Link to={`/questions/${quId}`} className="edit-btns edit-cancle">
         <p>Cancle</p>
       </Link>
     </EditBtnsComp>

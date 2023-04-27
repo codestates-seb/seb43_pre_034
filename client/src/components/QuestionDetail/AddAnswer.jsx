@@ -3,7 +3,7 @@ import QuillEditor from "../QuillEditor";
 import { PostAnswerBtn } from "../common/Buttons";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { VotingChecked } from "./VotingCompo";
+import { AnswerChecked, AnswerCheckedAuthor } from "./VotingCompo";
 import { AnBottomBtn, AnBottomBtnAuthor } from "./QuestionBottomButton";
 import { AnswerAuthor } from "./AuthorInfo";
 import { AnComment } from "./Comment";
@@ -75,30 +75,59 @@ const AnswerListCon = styled.div`
 `;
 // component
 // answer list
-const AnswerList = ({ anList, currentUser }) => {
+const AnswerList = ({ anList, currentUser, deleteAnswer, quUserId }) => {
+  // 체크된 답변을 관리하는 state
+  // const [isCheckedList, setIsCheckedList] = useState([]);
+
+  // const handleCheck = (answerId) => {
+  //   const newIsCheckedList = isCheckedList.map((isChecked, index) => index === answerId);
+  //   setIsCheckedList(newIsCheckedList);
+  //   const [answer] = anList.filter((a) => a.answerId === answerId);
+  //   const isChecked = newIsCheckedList[answerId];
+  //   axios
+  //     .patch(`${process.env.REACT_APP_API_URL}/answers/${currentUser}/${answer.answerId}/check`, { isChecked })
+  //     .then((res) => console.log(res.data))
+  //     .catch((err) => console.log(err));
+  // };
   return (
     <AnswerListCon>
-      {anList.map((answer) => (
-        <li key={answer.answerId} className="answerItem">
-          <VotingChecked />
-          <div className="answer-body">
-            <p className="answer-content">{answer.body}</p>
-            <div className="answer-bottom">
-              {currentUser === anList.userId ? (
-                <AnBottomBtnAuthor anData={answer && answer} />
-              ) : (
-                <AnBottomBtn anData={answer && answer} />
-              )}
-              <AnswerAuthor anData={answer && answer} />
+      {anList &&
+        anList.map((answer) => (
+          <li key={answer && answer.answerId} className="answerItem">
+            {answer && quUserId === Number(currentUser) ? (
+              <AnswerCheckedAuthor
+                answerId={answer && answer.userId}
+                currentUser={currentUser}
+              />
+            ) : (
+              <AnswerChecked />
+            )}
+
+            <div className="answer-body">
+              <div
+                className="answer-content"
+                dangerouslySetInnerHTML={answer && { __html: answer.body }}
+              />
+              <div className="answer-bottom">
+                {answer && Number(currentUser) === answer.userId ? (
+                  <AnBottomBtnAuthor
+                    anData={answer && answer}
+                    currentUser={currentUser}
+                    deleteAnswer={deleteAnswer}
+                  />
+                ) : (
+                  <AnBottomBtn anData={answer && answer} />
+                )}
+                <AnswerAuthor anData={answer && answer} />
+              </div>
+              <AnComment answerId={answer && answer.answerId} />
             </div>
-            <AnComment answerId={answer.answerId} />
-          </div>
-        </li>
-      ))}
+          </li>
+        ))}
     </AnswerListCon>
   );
 };
-const AnswerCompo = ({ anList, currentUser }) => {
+const AnswerCompo = ({ anList, currentUser, deleteAnswer, quUserId }) => {
   return (
     <AnswerCon>
       {anList && (
@@ -108,7 +137,12 @@ const AnswerCompo = ({ anList, currentUser }) => {
             {anList.length === 1 ? "Answer" : "Answers"}
           </h2>
           <ul className="answer-container">
-            <AnswerList anList={anList} currentUser={currentUser} />
+            <AnswerList
+              anList={anList}
+              currentUser={currentUser}
+              deleteAnswer={deleteAnswer}
+              quUserId={quUserId}
+            />
           </ul>
         </>
       )}
@@ -116,7 +150,7 @@ const AnswerCompo = ({ anList, currentUser }) => {
   );
 };
 
-const AddAnswer = ({ questionId, quData, currentUser }) => {
+const AddAnswer = ({ questionId, currentUser, quData }) => {
   const [anForm, setAnForm] = useState({
     userId: "",
     questionId: questionId,
@@ -124,17 +158,20 @@ const AddAnswer = ({ questionId, quData, currentUser }) => {
   });
 
   const [anList, setAnList] = useState([]);
-
+  // get
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_API_URL}/answers/questions/${questionId}`)
       .then((res) => {
-        setAnList(res.data.data);
+        // 데이터 역순으로 정렬
+        setAnList(res.data.data.reverse());
       })
       .catch((err) => {
         console.log(err);
       });
   }, [anList]);
+
+  // post
   const onCreateAnswer = (e) => {
     e.preventDefault();
     console.log(axios.defaults.headers.common);
@@ -146,6 +183,9 @@ const AddAnswer = ({ questionId, quData, currentUser }) => {
       })
       .then((res) => {
         console.log(res);
+        setAnList((prevList) => [...prevList, res.data.data]);
+        console.log(anList);
+        window.scrollTo(0, 0);
       })
       .catch((err) => {
         console.log(err);
@@ -157,9 +197,35 @@ const AddAnswer = ({ questionId, quData, currentUser }) => {
     });
   };
 
+  // delete
+  const deleteAnswer = ({ answerId, userId, e }) => {
+    e.preventDefault();
+    axios
+      .delete(`${process.env.REACT_APP_API_URL}/answers/${userId}/${answerId}`)
+      .then((res) => {
+        console.log(res.data);
+        setAnList(
+          anList.filter(
+            (answer) =>
+              answer.answerId !== answerId && answer.userId !== userId,
+          ),
+        );
+        window.scrollTo(0, 0);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <AddAnswerCon onSubmit={onCreateAnswer}>
-      {anList && <AnswerCompo anList={anList} currentUser={currentUser} />}
+      {anList && (
+        <AnswerCompo
+          anList={anList}
+          currentUser={currentUser}
+          deleteAnswer={deleteAnswer}
+          quUserId={quData.userId}
+        />
+      )}
       <h2>Your Answer</h2>
       <QuillEditor
         editorWidth={"100%"}

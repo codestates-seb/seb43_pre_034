@@ -4,6 +4,7 @@ import { BsBookmark } from "react-icons/bs";
 import { BiHistory } from "react-icons/bi";
 import { ImCheckmark } from "react-icons/im";
 import { useState } from "react";
+import axios from "axios";
 
 // styled-component
 const VotingCompo = styled.div`
@@ -48,12 +49,25 @@ const VotingContainer = () => {
   );
 };
 
+// 답변
 // 작성자 채택 전/후 container
-const VotingChecked = () => {
+const AnswerCheckedAuthor = ({ answerId, currentUser }) => {
   const [isChecked, setIsChecked] = useState(false);
-  const changeChecked = () => {
-    setIsChecked(!isChecked);
-    console.log(isChecked);
+  const handleCheck = (answerId, currentUser) => {
+    axios
+      .patch(
+        `${process.env.REACT_APP_API_URL}/answers/${currentUser}/${answerId}/check`,
+        {
+          data: !isChecked,
+        },
+      )
+      .then((res) => {
+        console.log(res.data);
+        setIsChecked(!isChecked);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   return (
     <VotingCompo>
@@ -62,7 +76,7 @@ const VotingChecked = () => {
       <GoTriangleDown className="vote" />
       <BsBookmark className="icons" />
       <ImCheckmark
-        onClick={changeChecked}
+        onClick={() => handleCheck(answerId, currentUser)}
         className={isChecked ? "checked" : "icon-check"}
       />
       <BiHistory className="icons" />
@@ -70,4 +84,16 @@ const VotingChecked = () => {
   );
 };
 
-export { VotingContainer, VotingChecked };
+const AnswerChecked = () => {
+  return (
+    <VotingCompo>
+      <GoTriangleUp className="vote" />
+      <p>0</p>
+      <GoTriangleDown className="vote" />
+      <BsBookmark className="icons" />
+      <ImCheckmark className="checked" />
+      <BiHistory className="icons" />
+    </VotingCompo>
+  );
+};
+export { VotingContainer, AnswerCheckedAuthor, AnswerChecked };
