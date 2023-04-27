@@ -23,8 +23,6 @@ const EditBtnsComp = styled.section`
 
 // 수정 페이지 하단 buttons component
 const EditBtns = ({ onClickEditSave, quId }) => {
-  console.log(quId);
-
   return (
     <EditBtnsComp>
       <EditSaveBtn

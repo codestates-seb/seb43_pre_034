@@ -4,8 +4,7 @@ import { useNavigate } from "react-router";
 import { MY_PAGE_URL_PATH } from "../../constants/constant";
 
 //redux
-import { useDispatch } from "react-redux";
-import { loginVerified } from "../../redux/slice/loginState";
+import { persistor } from "../../index";
 
 //aixos
 import axios from "axios";
@@ -47,10 +46,10 @@ const UserNavContainer = styled.div`
 
 const UserNav = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  const handlerLogout = () => {
-    dispatch(loginVerified());
+  const handlerLogout = async () => {
+    await persistor.purge();
     localStorage.removeItem("userId");
     axios.defaults.headers.common["Authorization"] = "";
     navigate("/");

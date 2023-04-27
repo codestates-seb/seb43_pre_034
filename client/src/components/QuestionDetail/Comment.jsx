@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import axios from "axios";
-
 // styled component
 const CommentContainer = styled.div`
   width: 100%;
@@ -97,7 +96,7 @@ const QuCommentList = ({ quCommentList, setQuCommentList, currentUserId }) => {
       .delete(
         `${process.env.REACT_APP_API_URL}/questions/${questionId}/comments/${questionCommentId}`,
       )
-      .then((res) => {
+      .then(() => {
         setQuCommentList(
           quCommentList.filter(
             (comment) => comment.questionCommentId !== questionCommentId,
@@ -108,7 +107,6 @@ const QuCommentList = ({ quCommentList, setQuCommentList, currentUserId }) => {
         console.log(err);
       });
   };
-  quCommentList.map((el) => console.log(el));
   return (
     <CommentListCon>
       <ul>
@@ -122,7 +120,7 @@ const QuCommentList = ({ quCommentList, setQuCommentList, currentUserId }) => {
                 </a>
                 <span>{comment.createdAt}</span>
               </p>
-              {comment && comment.userId === currentUserId ? (
+              {comment && comment.userId === Number(currentUserId) ? (
                 <button
                   className="deleteBtn"
                   onClick={() =>
@@ -191,7 +189,7 @@ const AnCommentList = ({ anCommentList, setAnCommentList }) => {
 };
 
 // Question comment component
-const QuComment = ({ questionId, questionData }) => {
+const QuComment = ({ questionId, currentUserId }) => {
   // input창 열기/닫기
   const [showInput, setShowInput] = useState(false);
   const handleShowInput = () => {
@@ -221,7 +219,7 @@ const QuComment = ({ questionId, questionData }) => {
   const handleCommentSubmit = () => {
     const newComment = {
       questionCommentId: questionCommentId.current,
-      userId: questionData.userId,
+      userId: currentUserId,
       questionId: questionId,
       body: content,
     };
@@ -256,6 +254,7 @@ const QuComment = ({ questionId, questionData }) => {
         <QuCommentList
           quCommentList={quComment}
           setQuCommentList={setQuComment}
+          currentUserId={currentUserId}
         />
       ) : null}
       <button className="commentBtn" onClick={handleShowInput}>

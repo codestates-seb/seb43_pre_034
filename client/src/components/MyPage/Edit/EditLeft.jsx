@@ -1,4 +1,3 @@
-import React from "react";
 import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
 import { MY_PAGE_URL_PATH } from "../../../constants/constant";

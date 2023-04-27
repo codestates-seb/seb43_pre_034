@@ -41,7 +41,6 @@ const EditHeaderCon = styled.header`
 // components
 // Question edit compo
 const QuEditCompo = ({ quDataForEdit, setQuDataForEdit }) => {
-  console.log(quDataForEdit);
   const navigate = useNavigate();
   // 수정된 question patch
   const onClickEditSave = (e) => {
@@ -85,7 +84,6 @@ const QuEditCompo = ({ quDataForEdit, setQuDataForEdit }) => {
 // Answer edit compo
 const AnEditCompo = ({ quTitle, editAn, setEditAn }) => {
   const navigate = useNavigate();
-  console.log(editAn);
   const onClickEditSave = (e) => {
     e.preventDefault();
     axios

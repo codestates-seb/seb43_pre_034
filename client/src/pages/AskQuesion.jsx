@@ -92,11 +92,11 @@ const TitleInputBox = styled.div`
   .ask_title {
     font-size: 15px;
     font-weight: bold;
-    color #0C0D0E;
+    color: #0c0d0e;
   }
   p {
     font-size: 13px;
-    color: #3B4045;
+    color: #3b4045;
     margin: 7px 0px 10px 0;
     white-space: normal;
   }
@@ -152,11 +152,11 @@ const EditorBox = styled.div`
   .ask_title {
     font-size: 15px;
     font-weight: bold;
-    color #0C0D0E;
+    color: #0c0d0e;
   }
   p {
     font-size: 13px;
-    color: #3B4045;
+    color: #3b4045;
     margin: 7px 0px 10px 0;
     white-space: normal;
   }
@@ -189,7 +189,6 @@ const AskQuestion = () => {
   const navigate = useNavigate();
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    console.log("askForm >> ", askForm);
 
     axios
       .post(`${process.env.REACT_APP_API_URL}/questions`, {
@@ -199,7 +198,6 @@ const AskQuestion = () => {
         userId: currentUserId,
       })
       .then((res) => {
-        console.log(res.data.questionId);
         navigate(`/questions/${res.data.questionId}`);
       })
       .catch((err) => {

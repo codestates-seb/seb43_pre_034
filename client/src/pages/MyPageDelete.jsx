@@ -18,7 +18,7 @@ function MyPageDelete() {
   const handleDelete = () => {
     axios
       .delete(`${process.env.REACT_APP_API_URL}/users/${userId}`)
-      .then((res) => {
+      .then(() => {
         alert("delete the user");
         dispatch(loginVerified());
         localStorage.removeItem("userId");

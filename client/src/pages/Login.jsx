@@ -129,13 +129,6 @@ const FacebookButton = styled(LoginBtn)`
   }
 `;
 
-const Facebook_Id = process.env.REACT_APP_FACEBOOK;
-
-const handleFacebook = (response) => {
-  // response 객체에는 페이스북 로그인 후의 정보가 들어있음
-  console.log(response);
-};
-
 //이메일 로그인 박스
 const LoginBox = styled.div`
   width: 288px;

@@ -90,7 +90,8 @@ const DetailBodyCon = styled.div`
     width: 100%;
     margin: 16px 0px;
     .question-content {
-      font-size: 18px;
+      font-size: 15px;
+      color: #232629;
       font-weight: 400;
       min-height: 80px;
       padding-left: 10px;
@@ -147,7 +148,6 @@ const DetailBody = ({ quData, deleteQu, currentUserId }) => {
             </div>
             <QuComment
               questionId={quData && quData.data.questionId}
-              questionData={quData && quData.data}
               currentUserId={currentUserId}
             />
           </section>
@@ -180,7 +180,6 @@ const Detail = () => {
       .get(`${process.env.REACT_APP_API_URL}/questions/${id}`)
       .then((res) => {
         setQuData(res.data);
-        console.log(quData.data);
       })
       .catch((err) => {
         console.log(err);
@@ -193,20 +192,13 @@ const Detail = () => {
     axios
       .delete(`${process.env.REACT_APP_API_URL}/questions/${questionId}`)
 
-      .then((res) => {
-        console.log(res);
+      .then(() => {
         navTo(`/`);
       })
       .catch((err) => {
         console.log(err);
       });
   };
-  console.log(
-    "currentUserId:",
-    currentUserId,
-    "quUserId:",
-    quData && quData.data.userId,
-  );
   return (
     <DetailPage>
       {quData && (
