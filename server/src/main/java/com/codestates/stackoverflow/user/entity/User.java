@@ -6,7 +6,6 @@ import com.codestates.stackoverflow.audit.Auditable;
 import com.codestates.stackoverflow.question.entity.Question;
 import com.codestates.stackoverflow.questionComment.entity.QuestionComment;
 import lombok.*;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;

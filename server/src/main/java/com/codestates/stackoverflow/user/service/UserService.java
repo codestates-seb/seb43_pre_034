@@ -6,7 +6,6 @@ import com.codestates.stackoverflow.security.auth.utils.CustomAuthorityUtils;
 import com.codestates.stackoverflow.user.entity.User;
 import com.codestates.stackoverflow.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -25,7 +24,6 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final ApplicationEventPublisher publisher;
     private final PasswordEncoder passwordEncoder;
     private final CustomAuthorityUtils authorityUtils;
 
@@ -40,9 +38,6 @@ public class UserService {
         user.setRoles(roles);
 
         User savedUser = userRepository.save(user);
-
-        // 회원가입 후 메일 전송 기능
-        // publisher.publishEvent(new MemberRegistrationApplicationEvent(savedUser));
         return savedUser;
     }
 
