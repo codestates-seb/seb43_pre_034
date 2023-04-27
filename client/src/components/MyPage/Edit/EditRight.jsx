@@ -8,10 +8,10 @@ import { ButtonCompo } from "../../common/Buttons";
 import { useState } from "react";
 import axios from "axios";
 
-function EditRight() {
-  //현재 저장된 값을 지정(서버에서 가져와야 함!)-토큰으로 해야할 수도!
+function EditRight({ name }) {
+  //useParams를 사용해도 될 수도 더블 체크 해야 한다.
   const userId = localStorage.getItem("userId");
-  const [inputValue, setInputValue] = useState("hoinleekk");
+  const [inputValue, setInputValue] = useState(name);
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
   };

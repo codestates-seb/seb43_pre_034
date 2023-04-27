@@ -11,6 +11,7 @@ import Signup from "./pages/Signup";
 import { EditQuestion, EditAnswer } from "./pages/Edit";
 import MyPage from "./pages/MyPage";
 import MyPageEdit from "./pages/MyPageEdit";
+import MyPageDelete from "./pages/MyPageDelete";
 //URL PATH
 import { MY_PAGE_URL_PATH } from "./constants/constant";
 import ScrollToTop from "./components/common/ScrollToTop";
@@ -42,6 +43,10 @@ function App() {
             <Route
               path={MY_PAGE_URL_PATH.USERS_PROFILE_EDIT}
               element={<MyPageEdit />}
+            />
+            <Route
+              path={MY_PAGE_URL_PATH.USERS_PROFILE_DELETE}
+              element={<MyPageDelete />}
             />
           </Route>
           {/* NavBar 특정 페이지 숨기기 */}

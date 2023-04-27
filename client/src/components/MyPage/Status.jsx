@@ -3,19 +3,27 @@ import InfoLeft from "./Info/InfoLeft";
 import InfoRight from "./Info/InfoRight";
 import EditLeft from "./Edit/EditLeft";
 import EditRight from "./Edit/EditRight";
+import useFetchPorfile from "../../hooks/useFetchPorfile";
+
 function Status({ selectedNav }) {
   const statsCategories = ["reputation", "reached", "answers", "questions"];
+  const { name, score, questionCount, answerCount } = useFetchPorfile();
   return (
     <Container>
       <LeftSide>
         {selectedNav === "Profile" ? (
-          <InfoLeft statsCategories={statsCategories} />
+          <InfoLeft
+            statsCategories={statsCategories}
+            score={score}
+            questionCount={questionCount}
+            answerCount={answerCount}
+          />
         ) : (
           <EditLeft />
         )}
       </LeftSide>
       <RightSide>
-        {selectedNav === "Profile" ? <InfoRight /> : <EditRight />}
+        {selectedNav === "Profile" ? <InfoRight /> : <EditRight name={name} />}
       </RightSide>
     </Container>
   );
