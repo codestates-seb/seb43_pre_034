@@ -1,5 +1,8 @@
 import styled from "styled-components";
 import person from "../../assets/images/person.png";
+import { useNavigate } from "react-router";
+import { MY_PAGE_URL_PATH } from "../../constants/constant";
+
 //redux
 import { useDispatch } from "react-redux";
 import { loginVerified } from "../../redux/slice/loginState";
@@ -15,10 +18,15 @@ const UserNavContainer = styled.div`
   height: 100%;
   gap: 0.5rem;
 
-  img {
-    width: 30px;
-    height: 30px;
-    border-radius: 3px;
+  .profile_btn {
+    border: none;
+    background: #fff;
+    cursor: pointer;
+    img {
+      width: 30px;
+      height: 30px;
+      border-radius: 3px;
+    }
   }
 
   .logout_btn {
@@ -38,16 +46,26 @@ const UserNavContainer = styled.div`
 `;
 
 const UserNav = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const handleLogout = () => {
+
+  const handlerLogout = () => {
     dispatch(loginVerified());
     localStorage.removeItem("userId");
     axios.defaults.headers.common["Authorization"] = "";
+    navigate("/");
   };
+
+  const handlerProfile = () => {
+    navigate(`${MY_PAGE_URL_PATH.USERS_PROFILE}`);
+  };
+
   return (
     <UserNavContainer>
-      <img src={person} alt="person" />
-      <button className="logout_btn" onClick={handleLogout}>
+      <button className="profile_btn" onClick={handlerProfile}>
+        <img src={person} alt="person" />
+      </button>
+      <button className="logout_btn" onClick={handlerLogout}>
         logout
       </button>
     </UserNavContainer>
