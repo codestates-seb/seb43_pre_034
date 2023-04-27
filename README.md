@@ -9,14 +9,12 @@
 - `프로젝트명` : Stackoverflow Clone Project
 - `프로젝트 기간` : 2023.04.14 - 2023.04.27
 - `배포 링크` : [StackOverFlow](http://pre-test-0424.s3-website.ap-northeast-2.amazonaws.com/)
-- `사용자 요구사항 정의` : [사용자 요구사항 정의서](https://codestates.notion.site/88086ac14dd54df5a9f2545fc2fbdd2d?v=702f3768e6284811ad66ad5fa8c88d84)
-- `API 명세서` : [API 명세서](https://documenter.getpostman.com/view/25524075/2s93Y5Neaa#aae57365-c145-4af8-933b-52da170e765b)
 
 개발자들의 최대 커뮤니티, 스택 오버 플로우의 기본 기능을 그대로 옮겨온 클론 페이지를 만들어보았습니다 
 
 <br>
 
-## 🐼 **팀원 소개** 
+## 🐼 Team Member
 |정윤호<br>✨(BE 팀장)</br>|이재관<br>(BE)</br>|유제선<br>(BE)</br>|이호인<br>✨(FE 팀장)</br>|기지원<br>(FE)</br>|조지현<br>(FE)</br>|  임시은<br>(FE)</br>|
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 |[@yunhoknight](https://github.com/yunhoknight)|[@CordJG](https://github.com/CordJG)|[@YuJeSeon](https://github.com/YuJeSeon)|[@rickyshu](https://github.com/rickyshu)|[@kijiwon](https://github.com/kijiwon)|[@chochojj](https://github.com/chochojj)|[@sineTlsl](https://github.com/sineTlsl)|
@@ -52,6 +50,9 @@
 <br>
 
 ## 📃 Docs 
+- `사용자 요구사항 정의서` : [사용자 요구사항 정의서](https://codestates.notion.site/88086ac14dd54df5a9f2545fc2fbdd2d?v=702f3768e6284811ad66ad5fa8c88d84)
+- `API 명세서` : [API 명세서](https://documenter.getpostman.com/view/25524075/2s93Y5Neaa#aae57365-c145-4af8-933b-52da170e765b)
+
 ### ERD(Entity Relationship Diagram)
 <div align="center">
   <img src="https://file.notion.so/f/s/6db67584-b0ad-494a-97a6-68979ca40a15/Untitled.png?id=a055b587-ceb3-49fb-82ca-a83ccc430927&table=block&spaceId=c70189cf-85d7-46e5-ba28-fb13cc093bfa&expirationTimestamp=1682655105415&signature=EgyemOkfBT6zE0o1UsLchFATRfYKk4qKimlKle2zfF8&downloadName=Untitled.png" width="60%" />
