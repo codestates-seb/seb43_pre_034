@@ -23,7 +23,7 @@ const Questions = forwardRef(({ data }, ref) => {
   const minutesPassed = Math.floor(timePassed / (1000 * 60));
   const hourssPassed = Math.floor(timePassed / (1000 * 60 * 60));
   const daysPassed = Math.floor(timePassed / (1000 * 60 * 60 * 24));
-
+  // console.log(dateString);
   //routing path 표시
   const PATH = `questions/${questionId}`;
   return (
@@ -41,21 +41,21 @@ const Questions = forwardRef(({ data }, ref) => {
         <h3 className="title">
           <QuestionSpecificLink to={PATH}>{title}</QuestionSpecificLink>
         </h3>
-        <div>{body}</div>
+        <div className="info-body">{body.replace(/(<([^>]+)>)/gi, "")}</div>
         {tags.length !== 0 ? (
           <div className="tags">
             {tags.map((el, idx) => {
-              <Tag key={idx}>{el}</Tag>;
+              return <Tag key={idx}>{el}</Tag>;
             })}
           </div>
         ) : null}
         <div ref={ref} className="user-id">
           {name} asked{" "}
-          {minutesPassed > 59
-            ? hourssPassed > 59
-              ? `${daysPassed} days`
-              : `${hourssPassed} hours`
-            : `${minutesPassed} mins`}{" "}
+          {minutesPassed < 60
+            ? `${minutesPassed} mins`
+            : hourssPassed < 24
+            ? `${hourssPassed} hours`
+            : `${daysPassed} days`}{" "}
           ago
         </div>
       </Info>
@@ -70,30 +70,31 @@ const Question = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
-  border-top: 1px solid black;
-  border-left: 1px solid black;
-  border-bottom: 1px solid black;
-  border-right: none;
-
+  border: 1px solid hsl(210, 8%, 85%);
+  border-left-width: 0;
+  border-right-width: 0;
+  border-bottom-width: 0;
   @media ${(props) => props.theme.breakpoints.tabletMax} {
     flex-direction: column;
   }
 `;
 const CommonStyle = css`
   padding: 0.5rem;
-  line-height: 1.5rem;
+  line-height: 1.2rem;
 `;
 
 const Status = styled.div`
   ${CommonStyle}
   font-size: 13px;
+  margin-top: 0.8rem;
   margin-right: 1rem;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: start;
   align-items: center;
   .votes {
     font-weight: bold;
+    margin-bottom: 0.8rem;
   }
   .answer {
     border: 1px solid green;
@@ -124,15 +125,26 @@ const Status = styled.div`
 const Info = styled.div`
   flex: 0 1 580px;
   ${CommonStyle}
-  font-size:13px;
+  padding: 1.2rem 0;
   position: relative;
-  align-items: center;
+  .title {
+    font-size: 1.2rem;
+  }
+  .info-body {
+    font-size: 0.9rem;
+    margin: 1rem 0;
+  }
   .user-id {
+    font-size: 13px;
     display: flex;
     justify-content: end;
   }
   .tags {
-    border: 1px solid black;
+    width: 100%;
+    display: flex;
+  }
+  @media ${(props) => props.theme.breakpoints.tabletMax} {
+    flex: 0 1 100%;
   }
 `;
 
@@ -148,7 +160,15 @@ const CheckedAnswer = styled.div`
 `;
 
 const Tag = styled.div`
+  font-size: 12px;
+  border-radius: 3px;
+  border-style: solid;
+  padding: 0.4rem 0.5rem;
+  margin-right: 1rem;
+  height: 100%;
   color: hsl(205, 47%, 42%);
   background-color: hsl(205, 46%, 92%);
+  text-align: center;
+  border-color: transparent;
 `;
 export default Questions;
