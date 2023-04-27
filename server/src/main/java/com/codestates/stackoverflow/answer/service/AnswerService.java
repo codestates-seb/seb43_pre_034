@@ -1,14 +1,12 @@
 package com.codestates.stackoverflow.answer.service;
 
 import com.codestates.stackoverflow.answer.entity.Answer;
-import com.codestates.stackoverflow.question.repository.QuestionRepository;
 import com.codestates.stackoverflow.user.entity.User;
 import com.codestates.stackoverflow.answer.repository.AnswerRepository;
 import com.codestates.stackoverflow.exception.BusinessLogicException;
 import com.codestates.stackoverflow.exception.ExceptionCode;
 import com.codestates.stackoverflow.question.entity.Question;
 import com.codestates.stackoverflow.question.service.QuestionService;
-import com.codestates.stackoverflow.user.repository.UserRepository;
 import com.codestates.stackoverflow.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -29,8 +27,6 @@ public class AnswerService {
     private final UserService userService;
     private final QuestionService questionService;
 
-    private final UserRepository userRepository;
-    private final QuestionRepository questionRepository;
 
 
     public Answer createAnswer(Answer answer) {
