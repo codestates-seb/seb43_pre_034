@@ -45,7 +45,17 @@
 <br>
 
 ## 🗂️ Pages
+| Login Page | Signup Page |
+| :---: | :---: |
+| <img src="https://user-images.githubusercontent.com/97720335/234882458-93ce752c-4750-4603-911c-48dfa3cd6d0f.gif" width="100%" /> | <img src="https://user-images.githubusercontent.com/97720335/234882458-93ce752c-4750-4603-911c-48dfa3cd6d0f.gif" width="100%" /> |
 
+| Main Page | Ask Question Page |
+| :---: | :---: |
+| <img src="https://user-images.githubusercontent.com/97720335/234882458-93ce752c-4750-4603-911c-48dfa3cd6d0f.gif" width="100%" /> | <img src="https://user-images.githubusercontent.com/97720335/234882458-93ce752c-4750-4603-911c-48dfa3cd6d0f.gif" width="100%" /> |
+
+| Question Detail Page | My Page |
+| :---: | :---: |
+| <img src="https://user-images.githubusercontent.com/97720335/234882458-93ce752c-4750-4603-911c-48dfa3cd6d0f.gif" width="100%" /> | <img src="https://user-images.githubusercontent.com/97720335/234882458-93ce752c-4750-4603-911c-48dfa3cd6d0f.gif" width="100%" /> |
 
 <br>
 
@@ -77,10 +87,10 @@
 
 ### Git 저장소 이용법 
 로컬에서 작업 후 개인 branch Push
-1. `git checkout 브랜치 `
+1. `git checkout 브랜치`
 2. `git add 파일/디렉토리 경로`
 3. `git commit -m "message"`
-4. `git push origin 브랜치" `
+4. `git push origin 브랜치"`
 
 ### Commit Message Convention
 
