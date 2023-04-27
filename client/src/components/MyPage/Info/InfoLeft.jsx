@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
-function InfoLeft({ statsCategories }) {
+//loading 추가
+function InfoLeft({ statsCategories, score, questionCount, answerCount }) {
   return (
     <StatsSection>
       <div className="stats-sec">Stats</div>
@@ -8,7 +9,15 @@ function InfoLeft({ statsCategories }) {
         {statsCategories.map((el, index) => {
           return (
             <Category key={index}>
-              <div className="stats-info">1</div>
+              <div className="stats-info">
+                {el === "answers"
+                  ? answerCount
+                  : el === "questions"
+                  ? questionCount
+                  : el === "reputation"
+                  ? score
+                  : 0}
+              </div>
               {el}
             </Category>
           );

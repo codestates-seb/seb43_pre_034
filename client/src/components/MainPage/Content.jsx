@@ -64,6 +64,11 @@ const ContentPart = () => {
 const Content = styled.div`
   flex: 0 1 802px;
   box-sizing: border-box;
+  border: 1px solid hsl(210, 8%, 85%);
+  border-left-width: 1px;
+  border-top-width: 0;
+  border-right-width: 0;
+  border-bottom-width: 0;
   /* overflow: hidden; */
 `;
 

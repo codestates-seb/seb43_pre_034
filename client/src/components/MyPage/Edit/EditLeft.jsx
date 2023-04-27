@@ -1,12 +1,18 @@
 import React from "react";
 import styled, { css } from "styled-components";
+import { Link } from "react-router-dom";
+import { MY_PAGE_URL_PATH } from "../../../constants/constant";
 
 function EditLeft() {
   return (
     <PersonalInfo>
       <div className="title">PERSONAL INFORMATION</div>
-      <Edit className="edit-profile">Edit profile</Edit>
-      <Delete className="delete-profile">Delete profile</Delete>
+      <LinkStyle to={MY_PAGE_URL_PATH.USERS_PROFILE_EDIT}>
+        <Edit className="edit-profile">Edit profile</Edit>
+      </LinkStyle>
+      <LinkStyle to={MY_PAGE_URL_PATH.USERS_PROFILE_DELETE}>
+        <Delete className="delete-profile">Delete profile</Delete>
+      </LinkStyle>
     </PersonalInfo>
   );
 }
@@ -39,5 +45,8 @@ const Edit = styled.div`
 const Delete = styled.div`
   ${CommonStyle}
 `;
-
+const LinkStyle = styled(Link)`
+  text-decoration: none;
+  color: black;
+`;
 export default EditLeft;

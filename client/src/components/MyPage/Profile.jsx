@@ -5,19 +5,28 @@ import { AiOutlineClockCircle } from "react-icons/ai";
 import { SlCalender } from "react-icons/sl";
 import { BsFillPencilFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
-import { MY_PAGE_URL_PATH } from "../../../constants/constant";
+import { MY_PAGE_URL_PATH } from "../../constants/constant";
+import useFetchPorfile from "../../hooks/useFetchPorfile";
+
 function Profile() {
+  const { name, createdAt, error, loading } = useFetchPorfile();
+  const dateString = createdAt;
+  const date = new Date(dateString);
+  const timePassed = new Date().getTime() - date.getTime();
+  const daysPassed = Math.floor(timePassed / (1000 * 60 * 60 * 24));
+  const yearsPassed = Math.floor(daysPassed / 365);
+  const monthsPassed = Math.floor((daysPassed % 365) / 30);
   return (
     <UserProfile>
       <div className="img">
         <ProfilePic className="profile-icon" />
       </div>
       <div className="info">
-        <div className="username">hoinleekk</div>
+        <div className="username">{name}</div>
         <ul className="user-log">
           <li className="info-log">
             <SignUpdate />
-            Member for 2 years, 3 months
+            Member for {yearsPassed} years, {monthsPassed} months
           </li>
           <li className="info-log">
             <LoginLog />

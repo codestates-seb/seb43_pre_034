@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Profile from "../components/MyPage/Info/Profile";
+import Profile from "../components/MyPage/Profile";
 import Nav from "../components/MyPage/Nav";
 import Status from "../components/MyPage/Status";
 const MyPage = () => {
