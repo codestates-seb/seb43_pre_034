@@ -12,7 +12,7 @@
 |:---:|:---|:---|:---|
 |이미지|<div style="display: flex; align-items: flex-start;"><img src="https://avatars.githubusercontent.com/u/98323914?v=4" alt="icon" width="100" height="100" /></div>|<div style="display: flex; align-items: flex-start;"><img src="https://avatars.githubusercontent.com/u/119933990?v=4" alt="icon" width="100" height="100" /></div>|<div style="display: flex; align-items: flex-start;"><img src="https://avatars.githubusercontent.com/u/120304866?v=4" alt="icon" width="100" height="100" /></div>|
 |Github Id|yunhoknight|CordJG|YuJeSeon|
-|역할|- User<br>- Security<br>- JWT<br>- AWS deployment|- Answer<br>- Answer Comment<br>- Answer Vote<br>- CRUD<br>- AWS deployment||
+|역할|- User<br>- Security<br>- JWT<br>- AWS deployment|- Answer<br>- Answer Comment<br>- Answer Vote<br>- CRUD<br>- AWS deployment|- Question<br>- Question Comment<br>- Question Vote<br>- CRUD<br>|
 
 ## ⚒️기술스택
 ### Back-End
