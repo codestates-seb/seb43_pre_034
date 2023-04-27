@@ -12,7 +12,7 @@ import AddAnswer from "../components/QuestionDetail/AddAnswer";
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
-
+import Tags from "../components/QuestionDetail/Tags";
 // styled-components
 // 상세페이지-전체 구성
 const DetailPage = styled.div`
@@ -119,6 +119,7 @@ const DetailBodyCon = styled.div`
 // components
 // 상세페이지 - 질문글
 const DetailBody = ({ quData, deleteQu, currentUserId }) => {
+  const tags = quData.data.tags;
   return (
     <DetailBodyCon>
       <div className="question-answer-page">
@@ -130,6 +131,7 @@ const DetailBody = ({ quData, deleteQu, currentUserId }) => {
               className="question-content"
               dangerouslySetInnerHTML={{ __html: quData.data.body }}
             />
+            <Tags tags={tags && tags} />
             <div className="question-bottom">
               {/* currentUserId의 형태는 문자열=>비교를 위해 숫자로 변환 */}
               {Number(currentUserId) === quData.data.userId ? (
