@@ -3,7 +3,6 @@ package com.codestates.stackoverflow.answercomment.service;
 import com.codestates.stackoverflow.answer.entity.Answer;
 import com.codestates.stackoverflow.answer.service.AnswerService;
 import com.codestates.stackoverflow.answercomment.entity.AnswerComment;
-import com.codestates.stackoverflow.answercomment.mapper.AnswerCommentMapper;
 import com.codestates.stackoverflow.answercomment.repository.AnswerCommentRepository;
 import com.codestates.stackoverflow.exception.BusinessLogicException;
 import com.codestates.stackoverflow.exception.ExceptionCode;

@@ -1,7 +1,7 @@
 package com.codestates.stackoverflow.answerVote.controller;
 
-import com.codestates.stackoverflow.answer.entity.Answer;
-import com.codestates.stackoverflow.answer.repository.AnswerRepository;
+
+
 import com.codestates.stackoverflow.answerVote.dto.AnswerVoteDto;
 import com.codestates.stackoverflow.answerVote.mapper.AnswerVoteMapper;
 
@@ -35,7 +35,6 @@ public class AnswerVoteController {
 
     private final AnswerVoteRepository answerVoteRepository;
 
-    private final AnswerRepository answerRepository;
 
 
     @PostMapping()
