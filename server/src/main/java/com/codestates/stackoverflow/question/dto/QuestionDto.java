@@ -17,7 +17,6 @@ public class QuestionDto {
         @NotBlank(message = "질문 내용을 작성해야 합니다.")
         private String body;
         private long userId;
-        private long questionId;
         @Size(max=10, message = "태그는 최대 10개까지 가능합니다.")
         private List<String> tags;
     }

@@ -54,6 +54,7 @@ public class UserController {
     /**
      * 세션 방식 로그인 / 로그아웃
      */
+
 //    @PostMapping("/login")
 //    public String login(@RequestParam("email") String email,
 //                        @RequestParam("password") String password,
@@ -66,11 +67,6 @@ public class UserController {
 //            redirectAttributes.addAttribute("error", "입력하신 이메일과 비밀번호를 확인해주세요."); // 에러 메세지
 //            return "redirect:/login";
 //        }
-//    }
-//
-//    private boolean authenticateUser(String username, String password) {
-//        // Todo 사용자 인증 로직을 구현
-//        return true; // 사용자 인증 로직을 구현해야합니다.
 //    }
 //
 //    @PostMapping("/logout")
