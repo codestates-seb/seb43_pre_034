@@ -4,7 +4,6 @@ import lombok.*;
 
 import javax.validation.constraints.NotBlank;
 
-
 public class QuestionCommentDto {
     @NoArgsConstructor
     @Setter

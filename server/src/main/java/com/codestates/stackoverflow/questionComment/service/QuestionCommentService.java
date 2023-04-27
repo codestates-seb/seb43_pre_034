@@ -21,6 +21,7 @@ import java.util.Optional;
 public class QuestionCommentService {
     private final QuestionRepository questionRepository;
     private final QuestionCommentRepository questionCommentRepository;
+
     public List<QuestionComment> createQuestionComment(QuestionComment comment, long questionId) { // 댓글 작성
         Question foundQuestion = findQuestionById(questionId); //questionId를 통해 findQuestionById 메소드로 Question 객체를 찾습니다.
         User user = comment.getUser(); // 작성자인 User 객체를 가져옵니다.
@@ -31,6 +32,7 @@ public class QuestionCommentService {
         questionCommentRepository.save(comment);
         return questionCommentRepository.findByQuestionId(foundQuestion.getQuestionId());
     }
+
     public List<QuestionComment> editQuestionComment(QuestionComment comment, long questionId, long commentId) {
         Question findQuestion = findQuestionById(questionId); // 댓글 수정
 
@@ -44,10 +46,12 @@ public class QuestionCommentService {
 
         return questionCommentRepository.findByQuestionId(findQuestion.getQuestionId());
     }
+
     public List<QuestionComment> getQuestionComments(long questionId) { //댓글 조회
         Question question = findQuestionById(questionId);
         return questionCommentRepository.findByQuestionId(question.getQuestionId());
     }
+
     public List<QuestionComment> deleteQuestionComment(long questionId, long commentId) { // 댓글 삭제
         Question findQuestion = findQuestionById(questionId);
         QuestionComment verifiedComment = findVerifiedComment(commentId);
@@ -60,12 +64,14 @@ public class QuestionCommentService {
         questionCommentRepository.deleteAllByIdInBatch(Collections.singleton(verifiedComment.getQuestionCommentId()));
         return questionCommentRepository.findByQuestionId(findQuestion.getQuestionId());
     }
+
     public Question findQuestionById(long questionId) {
         Optional<Question> optionalQuestion = questionRepository.findById(questionId);
         Question question = optionalQuestion.orElseThrow(()
                 -> new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND));
         return question;
     }
+
     public QuestionComment findVerifiedComment(long questionCommentId) {
         Optional<QuestionComment> optionalQuestionComment = questionCommentRepository.findById(questionCommentId);
         QuestionComment findComment =

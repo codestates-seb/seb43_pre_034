@@ -6,7 +6,6 @@ import com.codestates.stackoverflow.exception.BusinessLogicException;
 import com.codestates.stackoverflow.exception.ExceptionCode;
 import com.codestates.stackoverflow.user.entity.User;
 import com.codestates.stackoverflow.user.repository.UserRepository;
-import com.codestates.stackoverflow.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
