@@ -1,0 +1,27 @@
+spring:
+  datasource:
+    url: jdbc:mysql://database-1.cajngrhhpjpz.ap-northeast-2.rds.amazonaws.com:13306/stackoverflow?serverTimezone=UTC&useSSL=false&characterEncoding=UTF-8
+    username: admin
+    password: djffkdlqm34!
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+
+config:
+  domain: http://pre-test-0424.s3-website.ap-northeast-2.amazonaws.com
+
+logging:
+  level:
+    org.hibernate.sql: debug
+    org.hibernate.type: trace
+mail:
+  address:
+    admin: admin@gmail.com
+jwt:
+  secret-key: seb43preproject034Aliveghkdlxld!
+  access-token-expiration: 30
+  refresh-token-expiration: 420
