@@ -19,14 +19,14 @@
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 |[@yunhoknight](https://github.com/yunhoknight)|[@CordJG](https://github.com/CordJG)|[@YuJeSeon](https://github.com/YuJeSeon)|[@rickyshu](https://github.com/rickyshu)|[@kijiwon](https://github.com/kijiwon)|[@chochojj](https://github.com/chochojj)|[@sineTlsl](https://github.com/sineTlsl)|
 |<div style="display: flex; align-items: flex-start;"><img src="https://avatars.githubusercontent.com/u/98323914?v=4" alt="icon" width="80" height="80" /></div>|<div style="display: flex; align-items: flex-start;"><img src="https://avatars.githubusercontent.com/u/119933990?v=4" alt="icon" width="80" height="80" /></div>|<div style="display: flex; align-items: flex-start;"><img src="https://avatars.githubusercontent.com/u/120304866?v=4" alt="icon" width="80" height="80" /></div>|<div style="display: flex; align-items: flex-start;"><img src="https://avatars.githubusercontent.com/u/104845427?v=4" alt="icon" width="80" height="80" /></div>|<div style="display: flex; align-items: flex-start;"><img src="https://avatars.githubusercontent.com/u/119961147?v=4" alt="icon" width="80" height="80" /></div>|<div style="display: flex; align-items: flex-start;"><img src="https://avatars.githubusercontent.com/u/104323906?v=4" alt="icon" width="80" height="80" /></div>|<div style="display: flex; align-items: flex-start;"><img src="https://avatars.githubusercontent.com/u/97720335?v=4" alt="icon" width="80" height="80" /></div>|
-|- User<br>- Security<br>- JWT<br>- AWS deployment|- Answer<br>- Answer Comment<br>- Answer Vote<br>- CRUD<br>- AWS deployment|- Question<br>- Question Comment<br>- Question Vote<br>- CRUD<br>||-Detail page <br> -Common component <br>-sidebar /buttons <br>-Questio Edit page <br>-Answer Edit Page|- login/signup page <br> - user CR<br>- JWT <br>- footer component|- Ask question page <br> - Question Create feature <br> - Header component <br> - Nav component |
+|- User<br>- Security<br>- JWT<br>- AWS deployment|- Answer<br>- Answer Comment<br>- Answer Vote<br>- CRUD<br>- AWS deployment|- Question<br>- Question Comment<br>- Question Vote<br>- CRUD<br>| - Main page <br> - My page <br> - Question Read, User Update features  | - Detail page <br> -Common component <br>-sidebar /buttons <br>-Questio Edit page <br>-Answer Edit Page|- Login / Signup page <br> - user CR<br>- JWT <br>- Footer component |- Ask question page <br> - Question Create feature <br> - Header component <br> - Nav component |
 
 <br>
 
 ## 🛠️ Tech Stack    
 ### Front-end  
 
-| JavaScript | react | axios | redux-toolkit | styled-component | eslint | prettier | React-Quill
+| javascript | react | axios | redux-toolkit | styled-component | eslint | prettier | react-quill
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :--: |
 | <div style="display: flex; align-items: flex-start;"><img src="https://user-images.githubusercontent.com/97720335/234841480-1642f6d7-c1fe-41f1-9298-8e2f646930d4.svg" width="65" height="65" /></div> | <div style="display: flex; align-items: flex-start;"><img src="https://techstack-generator.vercel.app/react-icon.svg" alt="icon" width="65" height="65" /></div> | <div style="display: flex; align-items: flex-start;"><img src="https://axios-http.com/assets/logo.svg" alt="icon" width="65" height="65" /></div> | <div style="display: flex; align-items: flex-start;"><img src="https://repository-images.githubusercontent.com/347723622/92065800-865a-11eb-9626-dff3cb7fef55" alt="icon" width="65" height="65" /></div> | <img alt="styled-components logo" src="https://www.styled-components.com/atom.png" width="65" height="65" ></div> | <img alt="eslint logo" src="https://techstack-generator.vercel.app/eslint-icon.svg" height="50" width="50"></div> | <div style="display: flex; align-items: flex-start;"><img alt="prettier logo" src="https://techstack-generator.vercel.app/prettier-icon.svg" width="65" height="65" ></div> | <div style="display: flex; align-items: flex-start;"><img src="https://user-images.githubusercontent.com/97720335/234840864-390cd0c3-151e-4143-8748-2fb03e26efe4.png" width="65" height="65" /></div> |
 
@@ -45,17 +45,17 @@
 <br>
 
 ## 🗂️ Pages
-| Login Page | Signup Page |
+| Signup Page | Login Page |
 | :---: | :---: |
-| <img src="https://user-images.githubusercontent.com/97720335/234882458-93ce752c-4750-4603-911c-48dfa3cd6d0f.gif" width="100%" /> | <img src="https://user-images.githubusercontent.com/97720335/234882458-93ce752c-4750-4603-911c-48dfa3cd6d0f.gif" width="100%" /> |
+| <img src="https://user-images.githubusercontent.com/97720335/234893918-8de307d6-9abb-4e61-98a0-a308b650c06a.gif" width="100%" /> | <img src="https://user-images.githubusercontent.com/97720335/234894458-1001e699-ce1f-4d2f-a025-e8b11ee05b45.gif" width="100%" /> |
 
 | Main Page | Ask Question Page |
 | :---: | :---: |
-| <img src="https://user-images.githubusercontent.com/97720335/234882458-93ce752c-4750-4603-911c-48dfa3cd6d0f.gif" width="100%" /> | <img src="https://user-images.githubusercontent.com/97720335/234882458-93ce752c-4750-4603-911c-48dfa3cd6d0f.gif" width="100%" /> |
+| <img src="https://user-images.githubusercontent.com/97720335/234891722-f4cabe2a-1128-41d8-b82d-0a631913103d.gif" width="100%" /> | <img src="https://user-images.githubusercontent.com/97720335/234882458-93ce752c-4750-4603-911c-48dfa3cd6d0f.gif" width="100%" /> |
 
 | Question Detail Page | My Page |
 | :---: | :---: |
-| <img src="https://user-images.githubusercontent.com/97720335/234882458-93ce752c-4750-4603-911c-48dfa3cd6d0f.gif" width="100%" /> | <img src="https://user-images.githubusercontent.com/97720335/234882458-93ce752c-4750-4603-911c-48dfa3cd6d0f.gif" width="100%" /> |
+| <img src="https://user-images.githubusercontent.com/97720335/234895276-d213dee6-2a22-4beb-ad98-5f2117b0ee4a.gif" width="100%" /> | <img src="https://user-images.githubusercontent.com/97720335/234896296-7ee20f39-6d15-4216-832e-74637e6eccb2.gif" width="100%" /> |
 
 <br>
 
