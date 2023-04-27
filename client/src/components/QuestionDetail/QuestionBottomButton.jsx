@@ -1,5 +1,4 @@
-import axios from "axios";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 // 게시글, 답변 아래 Share Edit Follow/Delete 기본 구조
@@ -27,37 +26,23 @@ const QuestionBottomBtn = styled.ul`
 
 // 일반 회원이 보는 화면
 // 게시글 하단
-const QuBottomBtn = ({ questionId }) => {
+const QuBottomBtn = () => {
   return (
     <QuestionBottomBtn>
       <li>Share</li>
-      <li>
-        {/* <Link to={`/questions/${questionId}/edit`} className="linkToEdit"> */}
-        Edit
-        {/* </Link> */}
-      </li>
+      <li>Edit</li>
       <li>Follow</li>
     </QuestionBottomBtn>
   );
 };
 
 // 답변 하단
-const AnBottomBtn = ({ anData }) => {
-  const nav = useNavigate();
+const AnBottomBtn = () => {
   return (
     <QuestionBottomBtn>
       <li>Share</li>
       <li>
-        <button
-          className="linkToEdit"
-          // onClick={() =>
-          //   nav(
-          //     `/questions/${anData.questionId}/answer-edit/${anData.answerId}`,
-          //   )
-          // }
-        >
-          Edit
-        </button>
+        <button className="linkToEdit">Edit</button>
       </li>
       <li>Follow</li>
     </QuestionBottomBtn>

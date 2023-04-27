@@ -89,11 +89,12 @@ const AnswerList = ({ anList, currentUser, deleteAnswer, quUserId }) => {
   //     .then((res) => console.log(res.data))
   //     .catch((err) => console.log(err));
   // };
+  //answer && answer.answerId
   return (
     <AnswerListCon>
       {anList &&
-        anList.map((answer) => (
-          <li key={answer && answer.answerId} className="answerItem">
+        anList.map((answer, idx) => (
+          <li key={idx} className="answerItem">
             {answer && quUserId === Number(currentUser) ? (
               <AnswerCheckedAuthor
                 answerId={answer && answer.userId}
@@ -182,9 +183,7 @@ const AddAnswer = ({ questionId, currentUser, quData }) => {
         body: anForm.body,
       })
       .then((res) => {
-        console.log(res);
         setAnList((prevList) => [...prevList, res.data.data]);
-        console.log(anList);
         window.scrollTo(0, 0);
       })
       .catch((err) => {
@@ -202,8 +201,7 @@ const AddAnswer = ({ questionId, currentUser, quData }) => {
     e.preventDefault();
     axios
       .delete(`${process.env.REACT_APP_API_URL}/answers/${userId}/${answerId}`)
-      .then((res) => {
-        console.log(res.data);
+      .then(() => {
         setAnList(
           anList.filter(
             (answer) =>

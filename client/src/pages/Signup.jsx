@@ -386,7 +386,6 @@ const Signup = () => {
     }
 
     if (!isCaptChecked) {
-      const captchaInput = document.querySelector('input[type="checkbox"]');
       setCaptError("CAPTCHA response required.");
       return;
     }
@@ -405,15 +404,20 @@ const Signup = () => {
 
     return axios
       .post(url, userInfo)
-      .then((res) => {
+      .then(() => {
         alert("회원가입이 완료되었습니다.");
         // login 페이지로 이동
         navigate("/users/login");
         // console.log(res.data);
       })
       .catch((err) => {
-        alert(err.message);
-        console.log(err);
+        const error = err.message;
+        if (err.response.status === 500) {
+          setEmailError("이미 사용되고 있는 닉네임입니다");
+        } else {
+          setEmailError(error);
+          setEmailInputClass("ErrorInput");
+        }
       });
   };
 

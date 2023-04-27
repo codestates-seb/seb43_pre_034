@@ -1,17 +1,21 @@
 import styled from "styled-components";
 
 //icons
-import { CgProfile } from "react-icons/cg";
+// import { CgProfile } from "react-icons/cg";
 import { ButtonCompo } from "../../common/Buttons";
-
+import { useNavigate } from "react-router-dom";
 //react hooks
 import { useState } from "react";
 import axios from "axios";
+
+import { MY_PAGE_URL_PATH } from "../../../constants/constant";
+import person from "../../../assets/images/person.png";
 
 function EditRight({ name }) {
   //useParams를 사용해도 될 수도 더블 체크 해야 한다.
   const userId = localStorage.getItem("userId");
   const [inputValue, setInputValue] = useState(name);
+  const navigate = useNavigate();
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
   };
@@ -25,8 +29,9 @@ function EditRight({ name }) {
         name: inputValue,
         status: "MEMBER_SLEEP",
       })
-      .then((res) => {
+      .then(() => {
         console.log("Post submitted successfully");
+        navigate(MY_PAGE_URL_PATH.USERS_PROFILE);
         setInputValue("");
       })
       .catch((error) => {
@@ -42,7 +47,7 @@ function EditRight({ name }) {
         <form onSubmit={handleSubmit}>
           <div className="wrapper">
             <div className="profile-img">
-              <UserImg />
+              <img src={person} alt="person" />
             </div>
             <div className="feature">Display name</div>
             <input
@@ -75,6 +80,10 @@ const EditSection = styled.section`
   }
   .profile-img {
     margin-top: 2rem;
+    img {
+      width: 7rem;
+      margin: 1rem;
+    }
   }
   .wrapper {
     margin-top: 1.8rem;
@@ -92,8 +101,8 @@ const EditSection = styled.section`
   }
 `;
 
-const UserImg = styled(CgProfile)`
-  font-size: 7rem;
-`;
+// const UserImg = styled(CgProfile)`
+//   font-size: 7rem;
+// `;
 
 export default EditRight;

@@ -42,7 +42,7 @@ const StyledHeader = styled.div`
 
 const Header = () => {
   // const [isLogin, setIsLogin] = useState(true);
-  const loginVerified = useSelector((state) => state.value);
+  const loginVerified = useSelector((state) => state.loginInfo.value);
   return (
     <HeaderContainer>
       <StyledHeader>

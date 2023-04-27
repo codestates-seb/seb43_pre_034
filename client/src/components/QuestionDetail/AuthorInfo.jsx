@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import person from "../../assets/images/person.png";
 
 // 작성자 정보 기본 구조
 const AuthorInfo = styled.div`
@@ -50,8 +51,7 @@ const QuestionAuthor = ({ quData }) => {
             asked <span>{quData.createdAt}</span>
           </p>
           <section className="user-section">
-            {/* <img src="/" alt="user-profile" /> */}
-            <div className="img" />
+            <img src={person} alt="person" className="img" />
             <div className="user-info">
               <p className="profile-name">{quData.name}</p>
               <p>113</p>
@@ -74,8 +74,7 @@ const AnswerAuthor = ({ anData }) => {
         Answered <span>{anData.createdAt}</span>
       </p>
       <section className="user-section">
-        {/* <img src="/" alt="user-profile" /> */}
-        <div className="img" />
+        <img src={person} alt="person" className="img" />
         <div className="user-info">
           <p className="profile-name">{anData.name}</p>
           <p>113</p>

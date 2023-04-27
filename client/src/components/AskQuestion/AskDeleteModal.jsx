@@ -44,7 +44,7 @@ const CancalBtn = styled.button`
   }
 `;
 
-const ModalView = styled.div.attrs((props) => ({
+const ModalView = styled.div.attrs(() => ({
   role: "dialog",
 }))`
   display: flex;

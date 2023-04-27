@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { CgProfile } from "react-icons/cg";
+// import { CgProfile } from "react-icons/cg";
 import { FaBirthdayCake } from "react-icons/fa";
 import { AiOutlineClockCircle } from "react-icons/ai";
 import { SlCalender } from "react-icons/sl";
@@ -8,8 +8,10 @@ import { Link } from "react-router-dom";
 import { MY_PAGE_URL_PATH } from "../../constants/constant";
 import useFetchPorfile from "../../hooks/useFetchPorfile";
 
+import person from "../../assets/images/person.png";
+
 function Profile() {
-  const { name, createdAt, error, loading } = useFetchPorfile();
+  const { name, createdAt } = useFetchPorfile();
   const dateString = createdAt;
   const date = new Date(dateString);
   const timePassed = new Date().getTime() - date.getTime();
@@ -19,7 +21,7 @@ function Profile() {
   return (
     <UserProfile>
       <div className="img">
-        <ProfilePic className="profile-icon" />
+        <img src={person} alt="person" />
       </div>
       <div className="info">
         <div className="username">{name}</div>
@@ -59,6 +61,22 @@ const UserProfile = styled.section`
     display: flex;
     justify-content: center;
     align-items: center;
+    img {
+      width: 7rem;
+      margin: 1rem;
+      border-radius: 50%;
+      @media ${(props) => props.theme.breakpoints.tabletMax} {
+        font-size: 5rem;
+        margin: 0;
+      }
+      @media ${(props) => props.theme.breakpoints.mobileMax} {
+        font-size: 3rem;
+      }
+    }
+    /* width: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center; */
   }
   .info {
     flex: 0 1 75%;
@@ -82,17 +100,17 @@ const UserProfile = styled.section`
   }
 `;
 
-const ProfilePic = styled(CgProfile)`
-  font-size: 7rem;
-  margin: 1rem;
-  @media ${(props) => props.theme.breakpoints.tabletMax} {
-    font-size: 5rem;
-    margin: 0;
-  }
-  @media ${(props) => props.theme.breakpoints.mobileMax} {
-    font-size: 3rem;
-  }
-`;
+// const ProfilePic = styled(CgProfile)`
+//   font-size: 7rem;
+//   margin: 1rem;
+//   @media ${(props) => props.theme.breakpoints.tabletMax} {
+//     font-size: 5rem;
+//     margin: 0;
+//   }
+//   @media ${(props) => props.theme.breakpoints.mobileMax} {
+//     font-size: 3rem;
+//   }
+// `;
 
 const CommonStyleIcons = css`
   font-size: 1rem;

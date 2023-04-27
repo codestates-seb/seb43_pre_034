@@ -128,10 +128,10 @@ const Info = styled.div`
   padding: 1.2rem 0;
   position: relative;
   .title {
-    font-size: 1.2rem;
+    font-size: 17px;
   }
   .info-body {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     margin: 1rem 0;
   }
   .user-id {
@@ -150,6 +150,11 @@ const Info = styled.div`
 
 const QuestionSpecificLink = styled(Link)`
   text-decoration: none;
+  color: #0074cc;
+  &:visited {
+    text-decoration: none;
+    color: #0074cc;
+  }
 `;
 const CheckedAnswer = styled.div`
   border: 1px solid green;

@@ -14,8 +14,8 @@ const LoadingSpinner = () => {
     border: 7px solid #f3f3f3;
     border-top: 7px solid #054475;
     border-radius: 50%;
-    width: 110px;
-    height: 110px;
+    width: 80px;
+    height: 80px;
     animation: ${spinAnimation} 2s linear infinite;
   `;
 
