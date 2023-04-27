@@ -32,9 +32,9 @@ const QuBottomBtn = ({ questionId }) => {
     <QuestionBottomBtn>
       <li>Share</li>
       <li>
-        <Link to={`/questions/${questionId}/edit`} className="linkToEdit">
-          Edit
-        </Link>
+        {/* <Link to={`/questions/${questionId}/edit`} className="linkToEdit"> */}
+        Edit
+        {/* </Link> */}
       </li>
       <li>Follow</li>
     </QuestionBottomBtn>
@@ -50,11 +50,11 @@ const AnBottomBtn = ({ anData }) => {
       <li>
         <button
           className="linkToEdit"
-          onClick={() =>
-            nav(
-              `/questions/${anData.questionId}/answer-edit/${anData.answerId}`,
-            )
-          }
+          // onClick={() =>
+          //   nav(
+          //     `/questions/${anData.questionId}/answer-edit/${anData.answerId}`,
+          //   )
+          // }
         >
           Edit
         </button>
