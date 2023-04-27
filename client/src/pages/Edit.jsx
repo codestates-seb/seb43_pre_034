@@ -29,6 +29,7 @@ const EditContainer = styled.div`
 //pages
 // question-edit
 const EditQuestion = () => {
+  const currentUserId = localStorage.getItem("userId");
   const { id } = useParams();
   const [quDataForEdit, setQuDataForEdit] = useState(null);
   useEffect(() => {
@@ -46,6 +47,7 @@ const EditQuestion = () => {
       <QuEditCompo
         quDataForEdit={quDataForEdit && quDataForEdit}
         setQuDataForEdit={setQuDataForEdit}
+        currentUserId={currentUserId}
       />
       <div className="sidebar">
         <SideBarEdit />
