@@ -23,6 +23,7 @@ function MyPageDelete() {
         dispatch(loginVerified());
         localStorage.removeItem("userId");
         axios.defaults.headers.common["Authorization"] = "";
+        navigate("/");
       })
       .catch((error) => {
         console.log(error);
