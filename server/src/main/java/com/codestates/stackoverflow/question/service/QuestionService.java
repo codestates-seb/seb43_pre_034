@@ -16,6 +16,7 @@ import org.springframework.data.domain.Sort;
 import javax.transaction.Transactional;
 import java.util.Optional;
 
+
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -60,7 +61,7 @@ public class QuestionService {
 
     public Page<Question> getQuestions(Pageable pageable) { //질문글 전체 조회
         Pageable pageRequest = PageRequest.of(pageable.getPageNumber() - 1,
-                pageable.getPageSize(), pageable.getSort(Sort.by("createdAt").descending()));
+                pageable.getPageSize(), Sort.by("createdAt").descending());
         return questionRepository.findAll(pageRequest);
     }
 
