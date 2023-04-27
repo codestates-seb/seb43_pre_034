@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Sort;
 
 import javax.transaction.Transactional;
 import java.util.Optional;
@@ -59,7 +60,7 @@ public class QuestionService {
 
     public Page<Question> getQuestions(Pageable pageable) { //질문글 전체 조회
         Pageable pageRequest = PageRequest.of(pageable.getPageNumber() - 1,
-                pageable.getPageSize(), pageable.getSort());
+                pageable.getPageSize(), pageable.getSort(Sort.by("createdAt").descending()));
         return questionRepository.findAll(pageRequest);
     }
 
