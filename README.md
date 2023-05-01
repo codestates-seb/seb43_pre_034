@@ -60,7 +60,7 @@
 <br>
 
 ## 📃 Docs 
-- `사용자 요구사항 정의서` : [사용자 요구사항 정의서](https://codestates.notion.site/88086ac14dd54df5a9f2545fc2fbdd2d?v=702f3768e6284811ad66ad5fa8c88d84)
+- `사용자 요구사항 정의서` : [사용자 요구사항 정의서](https://www.notion.so/codestates/750d23fb7c36484c84e76c821dbacde6?v=c15f24d859154a8b8c5cba526c95a2e3&pvs=4)
 - `API 명세서` : [API 명세서](https://documenter.getpostman.com/view/25524075/2s93Y5Neaa#aae57365-c145-4af8-933b-52da170e765b)
 
 ### ERD(Entity Relationship Diagram)
